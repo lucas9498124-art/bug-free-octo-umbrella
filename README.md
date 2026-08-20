@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>⚔ Crônicas do Abismo Infinito</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at top,#18264d,#050816 60%);
+    color:white;
+    min-height:100vh;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+.tela{
+    display:none;
+    min-height:100vh;
+    padding:25px;
+    justify-content:center;
+    align-items:center;
+}
+
+.ativa{
+    display:flex;
+}
+
+.card{
+    width:95%;
+    max-width:900px;
+    background:rgba(10,15,30,.94);
+    border:1px solid #334155;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:
+        0 0 30px rgba(37,99,235,.25);
+}
+
+h1,h2,h3{
+    text-align:center;
+}
+
+h1{
+    color:#60a5fa;
+    text-shadow:0 0 20px #2563eb;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    border:0;
+    border-radius:10px;
+    color:white;
+    background:linear-gradient(90deg,#2563eb,#7c3aed);
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.2);
+}
+
+button:disabled{
+    background:#374151;
+    cursor:not-allowed;
+    transform:none;
+}
+
+input,
+select{
+    width:100%;
+    padding:13px;
+    margin:7px 0 12px;
+    border:1px solid #334155;
+    border-radius:10px;
+    background:#0f172a;
+    color:white;
+}
+
+.historia{
+    line-height:1.8;
+    color:#cbd5e1;
+    white-space:pre-line;
+}
+
+.barra{
+    width:100%;
+    height:22px;
+    background:#1e293b;
+    border-radius:20px;
+    overflow:hidden;
+    margin:7px 0 15px;
+}
+
+.hp{
+    height:100%;
+    background:linear-gradient(90deg,#dc2626,#ef4444);
+    transition:.4s;
+}
+
+.mana{
+    height:100%;
+    background:linear-gradient(90deg,#2563eb,#06b6d4);
+    transition:.4s;
+}
+
+.xp{
+    height:100%;
+    background:linear-gradient(90deg,#eab308,#f59e0b);
+    transition:.4s;
+}
+
+.status{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin:20px 0;
+}
+
+.status div{
+    background:#111827;
+    border:1px solid #334155;
+    padding:12px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.combate{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.personagem,
+.inimigo{
+    background:#0f172a;
+    border:1px solid #334155;
+    border-radius:15px;
+    padding:20px;
+}
+
+.inimigo{
+    box-shadow:0 0 25px rgba(220,38,38,.15);
+}
+
+.log{
+    background:#020617;
+    border:1px solid #1e293b;
+    height:180px;
+    overflow-y:auto;
+    padding:15px;
+    margin-top:20px;
+    border-radius:10px;
+    font-size:14px;
+}
+
+.log p{
+    margin:5px 0;
+}
+
+.destaque{
+    color:#facc15;
+}
+
+.perigo{
+    color:#ef4444;
+}
+
+.sucesso{
+    color:#4ade80;
+}
+
+.mapa{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.mundo{
+    padding:20px;
+    background:#111827;
+    border:1px solid #334155;
+    border-radius:12px;
+    text-align:center;
+}
+
+.mundo.desbloqueado{
+    cursor:pointer;
+}
+
+.mundo.bloqueado{
+    opacity:.35;
+}
+
+.loja{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.item{
+    padding:15px;
+    background:#111827;
+    border:1px solid #334155;
+    border-radius:12px;
+}
+
+@media(max-width:700px){
+
+    .combate{
+        grid-template-columns:1fr;
+    }
+
+    .status{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .mapa,
+    .loja{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HISTÓRIA -->
+
+<div class="tela ativa" id="historia">
+
+<div class="card">
+
+<h1>⚔ CRÔNICAS DO ABISMO INFINITO ⚔</h1>
+
+<div class="historia">
+
+Há muito tempo, antes dos homens conhecerem o medo,
+sete mundos existiam separados pela vontade dos antigos deuses.
+
+Eldoria era a terra dos homens.
+
+Vulkar era o reino do fogo.
+
+Niflheim era o domínio do gelo eterno.
+
+Tempestia era o mundo das tempestades.
+
+O Reino das Sombras pertencia aos mortos.
+
+O Universo Astral escondia os segredos das estrelas.
+
+E além de todos eles existia algo que jamais deveria ser alcançado.
+
+O Vazio Infinito.
+
+Durante milhares de anos os mundos permaneceram separados.
+
+Até que uma antiga profecia foi quebrada.
+
+Uma criatura desconhecida encontrou uma passagem
+para o Vazio.
+
+Seu nome era Nihilus.
+
+Ele não queria conquistar os mundos.
+
+Queria apagar todos eles.
+
+Para impedir Nihilus, antigos guerreiros foram enviados.
+
+Fenrir.
+Ignaroth.
+Skolgrim.
+Nocturnus.
+Astrael.
+
+Mas cada um deles acabou corrompido pelo poder do Abismo.
+
+Então surgiram dois guerreiros humanos:
+
+Julio.
+
+E Gustavo.
+
+Eles conseguiram chegar onde nenhum outro herói havia chegado.
+
+Mas desapareceram.
+
+A última mensagem deixada por Gustavo dizia:
+
+"Se alguém encontrar esta mensagem...
+
+não tente vencer o Abismo.
+
+Sobreviva a ele."
+
+Agora uma nova ameaça surgiu.
+
+Um guerreiro que dominou os sete mundos.
+
+Seu nome é...
+
+LUCAS.
+
+Dizem que ele não pode ser derrotado.
+
+Dizem que seu poder ultrapassa os próprios deuses.
+
+Mas existe uma última esperança.
+
+Você.
+
+Sua jornada começa agora.
+
+E lembre-se:
+
+neste mundo, inimigos não vão esperar você ficar forte.
+
+Você terá que sobreviver.
+
+</div>
+
+<button onclick="abrirCadastro()">
+⚔ COMEÇAR JORNADA
+</button>
+
+</div>
+</div>
+
+
+<!-- CADASTRO -->
+
+<div class="tela" id="cadastro">
+
+<div class="card">
+
+<h2>📜 Registro do Herói</h2>
+
+<input id="nome" placeholder="Nome do guerreiro">
+
+<input id="nascimento" type="date">
+
+<input id="endereco" placeholder="Endereço">
+
+<input id="email" type="email" placeholder="E-mail">
+
+<input id="senha" type="password" placeholder="Senha">
+
+<button onclick="salvarCadastro()">
+Criar personagem
+</button>
+
+</div>
+</div>
+
+
+<!-- RAÇA -->
+
+<div class="tela" id="raca">
+
+<div class="card">
+
+<h2>🧬 Escolha sua Raça</h2>
+
+<select id="racaEscolhida">
+
+<option>Humano</option>
+<option>Elfo</option>
+<option>Anão</option>
+<option>Vampiro</option>
+<option>Draconiano</option>
+<option>Demônio</option>
+<option>Celestial</option>
+
+</select>
+
+<button onclick="salvarRaca()">
+Continuar
+</button>
+
+</div>
+</div>
+
+
+<!-- CLASSE -->
+
+<div class="tela" id="classe">
+
+<div class="card">
+
+<h2>⚔ Escolha sua Classe</h2>
+
+<select id="classeEscolhida">
+
+<option>Guerreiro</option>
+<option>Mago</option>
+<option>Arqueiro</option>
+<option>Assassino</option>
+<option>Paladino</option>
+<option>Necromante</option>
+<option>Cavaleiro Dracônico</option>
+<option>Imperador das Sombras</option>
+
+</select>
+
+<button onclick="entrarJogo()">
+Entrar no Mundo
+</button>
+
+</div>
+</div>
+
+
+<!-- JOGO -->
+
+<div class="tela" id="jogo">
+
+<div class="card">
+
+<h1 id="nomeJogador"></h1>
+
+<p id="informacoes"></p>
+
+<div class="status">
+
+<div>
+❤️ HP
+<strong id="hpTexto"></strong>
+</div>
+
+<div>
+🔵 Mana
+<strong id="manaTexto"></strong>
+</div>
+
+<div>
+⭐ Nível
+<strong id="nivelTexto"></strong>
+</div>
+
+<div>
+💰 Ouro
+<strong id="ouroTexto"></strong>
+</div>
+
+<div>
+⚔ Ataque
+<strong id="ataqueTexto"></strong>
+</div>
+
+<div>
+🛡 Defesa
+<strong id="defesaTexto"></strong>
+</div>
+
+</div>
+
+<p>❤️ Vida</p>
+<div class="barra">
+<div class="hp" id="barraHP"></div>
+</div>
+
+<p>🔵 Mana</p>
+<div class="barra">
+<div class="mana" id="barraMana"></div>
+</div>
+
+<p>⭐ Experiência</p>
+<div class="barra">
+<div class="xp" id="barraXP"></div>
+</div>
+
+<h2>🌍 Mundo</h2>
+
+<div id="mundoAtual"></div>
+
+<button onclick="abrirMapa()">
+🗺 Explorar Mundo
+</button>
+
+<button onclick="abrirLoja()">
+🛒 Loja
+</button>
+
+<button onclick="iniciarCombate()">
+⚔ Procurar inimigo
+</button>
+
+<button onclick="salvarJogo()">
+💾 Salvar jogo
+</button>
+
+<div class="log" id="log"></div>
+
+</div>
+</div>
+
+
+<!-- COMBATE -->
+
+<div class="tela" id="combate">
+
+<div class="card">
+
+<h1>⚔ COMBATE</h1>
+
+<div class="combate">
+
+<div class="personagem">
+
+<h2>🧙 <span id="nomeCombate"></span></h2>
+
+<p>HP</p>
+
+<div class="barra">
+<div class="hp" id="hpCombate"></div>
+</div>
+
+<p id="hpCombateTexto"></p>
+
+</div>
+
+
+<div class="inimigo">
+
+<h2 id="nomeInimigo"></h2>
+
+<p>HP</p>
+
+<div class="barra">
+<div class="hp" id="hpInimigo"></div>
+</div>
+
+<p id="hpInimigoTexto"></p>
+
+</div>
+
+</div>
+
+<h3 id="turnoTexto"></h3>
+
+<button onclick="atacar()">
+⚔ Ataque
+</button>
+
+<button onclick="habilidade()">
+✨ Habilidade
+</button>
+
+<button onclick="usarPocao()">
+🧪 Poção
+</button>
+
+<button onclick="fugir()">
+🏃 Fugir
+</button>
+
+<div class="log" id="logCombate"></div>
+
+</div>
+</div>
+
+
+<!-- MAPA -->
+
+<div class="tela" id="mapaTela">
+
+<div class="card">
+
+<h1>🗺 MAPA DOS SETE MUNDOS</h1>
+
+<div class="mapa" id="mapa"></div>
+
+<button onclick="voltarJogo()">
+Voltar
+</button>
+
+</div>
+</div>
+
+
+<!-- LOJA -->
+
+<div class="tela" id="lojaTela">
+
+<div class="card">
+
+<h1>🛒 LOJA DO REINO</h1>
+
+<h3>💰 Ouro: <span id="ouroLoja"></span></h3>
+
+<div class="loja">
+
+<div class="item">
+
+<h3>🧪 Poção</h3>
+
+<p>Recupera 40% do HP.</p>
+
+<button onclick="comprarPocao()">
+Comprar — 50 ouro
+</button>
+
+</div>
+
+<div class="item">
+
+<h3>⚔ Espada Sombria</h3>
+
+<p>+15 Ataque</p>
+
+<button onclick="comprarEspada()">
+Comprar — 300 ouro
+</button>
+
+</div>
+
+<div class="item">
+
+<h3>🛡 Armadura Ancestral</h3>
+
+<p>+15 Defesa</p>
+
+<button onclick="comprarArmadura()">
+Comprar — 300 ouro
+</button>
+
+</div>
+
+<div class="item">
+
+<h3>💎 Cristal do Abismo</h3>
+
+<p>+30 Ataque</p>
+
+<button onclick="comprarCristal()">
+Comprar — 1000 ouro
+</button>
+
+</div>
+
+</div>
+
+<button onclick="voltarJogo()">
+Voltar
+</button>
+
+</div>
+</div>
+
+
+<script>
+
+/* =========================
+   CONFIGURAÇÃO
+========================= */
+
+const mundos = [
+
+{
+nome:"Eldoria",
+nivel:1,
+boss:"Fenrir",
+cor:"#60a5fa"
+},
+
+{
+nome:"Vulkar",
+nivel:10,
+boss:"Ignaroth",
+cor:"#ef4444"
+},
+
+{
+nome:"Niflheim",
+nivel:20,
+boss:"Skolgrim",
+cor:"#38bdf8"
+},
+
+{
+nome:"Tempestia",
+nivel:30,
+boss:"Nocturnus",
+cor:"#a78bfa"
+},
+
+{
+nome:"Reino das Sombras",
+nivel:45,
+boss:"Astrael",
+cor:"#9333ea"
+},
+
+{
+nome:"Universo Astral",
+nivel:65,
+boss:"Nihilus",
+cor:"#e879f9"
+},
+
+{
+nome:"Vazio Infinito",
+nivel:85,
+boss:"Lucas",
+cor:"#facc15"
+}
+
+];
+
+
+/* =========================
+   JOGADOR
+========================= */
+
+let jogador = {
+
+nome:"",
+nivel:1,
+xp:0,
+xpProximo:100,
+
+hp:100,
+hpMax:100,
+
+mana:50,
+manaMax:50,
+
+ataque:15,
+defesa:5,
+
+ouro:100,
+
+pocoes:2,
+
+mundo:0,
+
+bossesDerrotados:[],
+
+equipamento:[],
+
+vitorias:0
+
+};
+
+
+/* =========================
+   FUNÇÕES DE TELA
+========================= */
+
+function trocar(id){
+
+document
+.querySelectorAll(".tela")
+.forEach(t=>t.classList.remove("ativa"));
+
+document
+.getElementById(id)
+.classList.add("ativa");
+
+}
+
+
+/* =========================
+   HISTÓRIA
+========================= */
+
+function abrirCadastro(){
+
+trocar("cadastro");
+
+}
+
+
+/* =========================
+   CADASTRO
+========================= */
+
+function salvarCadastro(){
+
+let nome =
+document.getElementById("nome").value.trim();
+
+let email =
+document.getElementById("email").value.trim();
+
+let senha =
+document.getElementById("senha").value;
+
+if(!nome || !email || !senha){
+
+alert("Preencha nome, email e senha.");
+
+return;
+
+}
+
+jogador.nome = nome;
+
+jogador.email = email;
+
+jogador.raca = "";
+
+jogador.classe = "";
+
+salvarJogo();
+
+trocar("raca");
+
+}
+
+
+/* =========================
+   RAÇA
+========================= */
+
+function salvarRaca(){
+
+jogador.raca =
+document.getElementById("racaEscolhida").value;
+
+aplicarBonusRaca();
+
+trocar("classe");
+
+}
+
+
+/* =========================
+   BONUS RAÇA
+========================= */
+
+function aplicarBonusRaca(){
+
+switch(jogador.raca){
+
+case "Humano":
+jogador.ataque += 3;
+jogador.defesa += 3;
+break;
+
+case "Elfo":
+jogador.manaMax += 30;
+jogador.mana = jogador.manaMax;
+break;
+
+case "Anão":
+jogador.defesa += 8;
+break;
+
+case "Vampiro":
+jogador.ataque += 7;
+jogador.hpMax -= 10;
+break;
+
+case "Draconiano":
+jogador.ataque += 10;
+break;
+
+case "Demônio":
+jogador.ataque += 12;
+jogador.defesa -= 2;
+break;
+
+case "Celestial":
+jogador.defesa += 10;
+jogador.manaMax += 20;
+jogador.mana = jogador.manaMax;
+break;
+
+}
+
+jogador.hp = jogador.hpMax;
+
+}
+
+
+/* =========================
+   CLASSE
+========================= */
+
+function entrarJogo(){
+
+jogador.classe =
+document.getElementById("classeEscolhida").value;
+
+aplicarBonusClasse();
+
+salvarJogo();
+
+atualizarTela();
+
+trocar("jogo");
+
+log(
+"🌟 Sua aventura começou."
+);
+
+}
+
+
+/* =========================
+   BONUS CLASSE
+========================= */
+
+function aplicarBonusClasse(){
+
+switch(jogador.classe){
+
+case "Guerreiro":
+jogador.hpMax += 50;
+jogador.ataque += 8;
+break;
+
+case "Mago":
+jogador.manaMax += 70;
+jogador.ataque += 5;
+break;
+
+case "Arqueiro":
+jogador.ataque += 12;
+break;
+
+case "Assassino":
+jogador.ataque += 18;
+jogador.defesa -= 2;
+break;
+
+case "Paladino":
+jogador.hpMax += 70;
+jogador.defesa += 12;
+break;
+
+case "Necromante":
+jogador.manaMax += 50;
+jogador.ataque += 10;
+break;
+
+case "Cavaleiro Dracônico":
+jogador.hpMax += 100;
+jogador.ataque += 15;
+jogador.defesa += 10;
+break;
+
+case "Imperador das Sombras":
+jogador.ataque += 25;
+jogador.manaMax += 30;
+break;
+
+}
+
+jogador.hp = jogador.hpMax;
+jogador.mana = jogador.manaMax;
+
+}
+
+
+/* =========================
+   ATUALIZAR TELA
+========================= */
+
+function atualizarTela(){
+
+document.getElementById("nomeJogador").innerText =
+"⚔ " + jogador.nome;
+
+document.getElementById("informacoes").innerHTML =
+"Raça: <b>"+jogador.raca+
+"</b> | Classe: <b>"+jogador.classe+
+"</b>";
+
+document.getElementById("hpTexto").innerText =
+Math.max(0,jogador.hp)+" / "+jogador.hpMax;
+
+document.getElementById("manaTexto").innerText =
+Math.max(0,jogador.mana)+" / "+jogador.manaMax;
+
+document.getElementById("nivelTexto").innerText =
+jogador.nivel;
+
+document.getElementById("ouroTexto").innerText =
+jogador.ouro;
+
+document.getElementById("ataqueTexto").innerText =
+jogador.ataque;
+
+document.getElementById("defesaTexto").innerText =
+jogador.defesa;
+
+document.getElementById("barraHP").style.width =
+(jogador.hp/jogador.hpMax*100)+"%";
+
+document.getElementById("barraMana").style.width =
+(jogador.mana/jogador.manaMax*100)+"%";
+
+document.getElementById("barraXP").style.width =
+(jogador.xp/jogador.xpProximo*100)+"%";
+
+document.getElementById("mundoAtual").innerHTML =
+"🌍 "+mundos[jogador.mundo].nome;
+
+}
+
+
+/* =========================
+   LOG
+========================= */
+
+function log(texto){
+
+let area =
+document.getElementById("log");
+
+let p =
+document.createElement("p");
+
+p.innerHTML = texto;
+
+area.appendChild(p);
+
+area.scrollTop = area.scrollHeight;
+
+}
+
+
+/* =========================
+   COMBATE
+========================= */
+
+let inimigo = null;
+
+let emCombate = false;
+
+
+/* GERAR INIMIGO */
+
+function gerarInimigo(){
+
+let mundo =
+mundos[jogador.mundo];
+
+let nivelInimigo =
+Math.max(
+1,
+jogador.nivel +
+Math.floor(Math.random()*5)-2
+);
+
+let dificuldade =
+1 + jogador.mundo*0.55;
+
+let hp =
+Math.floor(
+70 *
+nivelInimigo *
+dificuldade
+);
+
+let ataque =
+Math.floor(
+10 *
+nivelInimigo *
+dificuldade
+);
+
+let defesa =
+Math.floor(
+4 *
+nivelInimigo *
+dificuldade
+);
+
+let nomes = [
+
+"Lobo Sombrio",
+"Guardião Perdido",
+"Demônio Abissal",
+"Caçador das Trevas",
+"Espectro",
+"Colosso",
+"Assassino do Vazio"
+
+];
+
+return {
+
+nome:
+nomes[
+Math.floor(Math.random()*nomes.length)
+],
+
+nivel:nivelInimigo,
+
+hp:hp,
+
+hpMax:hp,
+
+ataque:ataque,
+
+defesa:defesa
+
+};
+
+}
+
+
+/* =========================
+   INICIAR COMBATE
+========================= */
+
+function iniciarCombate(){
+
+inimigo = gerarInimigo();
+
+emCombate = true;
+
+document.getElementById("nomeInimigo").innerText =
+"👹 "+inimigo.nome+
+" Lv."+inimigo.nivel;
+
+document.getElementById("nomeCombate").innerText =
+jogador.nome;
+
+document.getElementById("logCombate").innerHTML="";
+
+logCombate(
+"⚠️ Um inimigo apareceu."
+);
+
+atualizarCombate();
+
+trocar("combate");
+
+}
+
+
+/* =========================
+   LOG COMBATE
+========================= */
+
+function logCombate(texto){
+
+let area =
+document.getElementById("logCombate");
+
+let p =
+document.createElement("p");
+
+p.innerHTML=texto;
+
+area.appendChild(p);
+
+area.scrollTop=area.scrollHeight;
+
+}
+
+
+/* =========================
+   ATUALIZAR COMBATE
+========================= */
+
+function atualizarCombate(){
+
+if(!inimigo)return;
+
+document.getElementById("hpCombate").style.width =
+Math.max(0,jogador.hp)/
+jogador.hpMax*100+"%";
+
+document.getElementById("hpInimigo").style.width =
+Math.max(0,inimigo.hp)/
+inimigo.hpMax*100+"%";
+
+document.getElementById("hpCombateTexto").innerText =
+Math.max(0,jogador.hp)+" / "+jogador.hpMax;
+
+document.getElementById("hpInimigoTexto").innerText =
+Math.max(0,inimigo.hp)+" / "+inimigo.hpMax;
+
+document.getElementById("turnoTexto").innerText =
+"⚔ Escolha sua ação";
+
+}
+
+
+/* =========================
+   ATAQUE
+========================= */
+
+function atacar(){
+
+if(!emCombate)return;
+
+let critico =
+Math.random()<0.12;
+
+let dano =
+Math.max(
+1,
+jogador.ataque -
+Math.floor(inimigo.defesa/2)
+);
+
+if(critico){
+
+dano*=2;
+
+logCombate(
+"💥 <span class='destaque'>ATAQUE CRÍTICO!</span> Você causou "+dano+" de dano!"
+);
+
+}else{
+
+logCombate(
+"⚔ Você causou "+dano+" de dano."
+);
+
+}
+
+inimigo.hp -= dano;
+
+if(inimigo.hp<=0){
+
+vencerCombate();
+
+return;
+
+}
+
+turnoInimigo();
+
+atualizarCombate();
+
+}
+
+
+/* =========================
+   HABILIDADE
+========================= */
+
+function habilidade(){
+
+if(!emCombate)return;
+
+let custo=15;
+
+if(jogador.mana<custo){
+
+logCombate(
+"🔵 Mana insuficiente."
+);
+
+return;
+
+}
+
+jogador.mana-=custo;
+
+let dano =
+Math.floor(
+jogador.ataque*1.8
+);
+
+inimigo.hp-=dano;
+
+logCombate(
+"✨ Você lançou uma habilidade e causou <b>"+dano+"</b> de dano!"
+);
+
+if(inimigo.hp<=0){
+
+vencerCombate();
+
+return;
+
+}
+
+turnoInimigo();
+
+atualizarCombate();
+
+}
+
+
+/* =========================
+   POÇÃO
+========================= */
+
+function usarPocao(){
+
+if(!emCombate)return;
+
+if(jogador.pocoes<=0){
+
+logCombate(
+"🧪 Você não possui poções."
+);
+
+return;
+
+}
+
+jogador.pocoes--;
+
+let cura =
+Math.floor(
+jogador.hpMax*.4
+);
+
+jogador.hp =
+Math.min(
+jogador.hpMax,
+jogador.hp+cura
+);
+
+logCombate(
+"🧪 Você recuperou "+cura+" HP."
+);
+
+turnoInimigo();
+
+atualizarCombate();
+
+}
+
+
+/* =========================
+   INIMIGO
+========================= */
+
+function turnoInimigo(){
+
+let dano =
+Math.max(
+1,
+inimigo.ataque-jogador.defesa
+);
+
+jogador.hp-=dano;
+
+logCombate(
+"👹 "+inimigo.nome+
+" causou "+dano+" de dano."
+);
+
+if(jogador.hp<=0){
+
+derrota();
+
+}
+
+}
+
+
+/* =========================
+   VITÓRIA
+========================= */
+
+function vencerCombate(){
+
+emCombate=false;
+
+let xp =
+inimigo.nivel*35;
+
+let ouro =
+inimigo.nivel*20;
+
+jogador.xp+=xp;
+
+jogador.ouro+=ouro;
+
+jogador.vitorias++;
+
+logCombate(
+"🏆 <span class='sucesso'>INIMIGO DERROTADO!</span>"
+);
+
+logCombate(
+"⭐ +"+xp+" XP"
+);
+
+logCombate(
+"💰 +"+ouro+" ouro"
+);
+
+verificarNivel();
+
+salvarJogo();
+
+setTimeout(()=>{
+
+atualizarTela();
+
+trocar("jogo");
+
+},1500);
+
+}
+
+
+/* =========================
+   LEVEL UP
+========================= */
+
+function verificarNivel(){
+
+while(
+jogador.xp>=jogador.xpProximo
+){
+
+jogador.xp-=jogador.xpProximo;
+
+jogador.nivel++;
+
+jogador.xpProximo =
+Math.floor(
+jogador.xpProximo*1.45
+);
+
+jogador.hpMax+=25;
+
+jogador.manaMax+=10;
+
+jogador.ataque+=8;
+
+jogador.defesa+=4;
+
+jogador.hp=jogador.hpMax;
+
+jogador.mana=jogador.manaMax;
+
+log(
+"🌟 <span class='destaque'>LEVEL UP!</span> Agora você é nível "+jogador.nivel
+);
+
+verificarMundo();
+
+}
+
+}
+
+
+/* =========================
+   MUNDO
+========================= */
+
+function verificarMundo(){
+
+let proximo =
+jogador.mundo+1;
+
+if(
+proximo<mundos.length &&
+jogador.nivel>=mundos[proximo].nivel
+){
+
+jogador.mundo=proximo;
+
+log(
+"🌍 <span class='destaque'>NOVO MUNDO DESBLOQUEADO:</span> "+
+mundos[jogador.mundo].nome
+);
+
+}
+
+}
+
+
+/* =========================
+   FUGIR
+========================= */
+
+function fugir(){
+
+if(!emCombate)return;
+
+let chance =
+Math.random();
+
+if(chance<.55){
+
+logCombate(
+"🏃 Você conseguiu fugir."
+);
+
+emCombate=false;
+
+setTimeout(()=>{
+
+trocar("jogo");
+
+atualizarTela();
+
+},800);
+
+}else{
+
+logCombate(
+"❌ Você não conseguiu escapar!"
+);
+
+turnoInimigo();
+
+atualizarCombate();
+
+}
+
+}
+
+
+/* =========================
+   DERROTA
+========================= */
+
+function derrota(){
+
+emCombate=false;
+
+logCombate(
+"💀 <span class='perigo'>VOCÊ FOI DERROTADO.</span>"
+);
+
+jogador.ouro =
+Math.floor(jogador.ouro*.7);
+
+jogador.xp =
+Math.floor(jogador.xp*.8);
+
+setTimeout(()=>{
+
+jogador.hp =
+Math.floor(jogador.hpMax*.5);
+
+jogador.mana =
+jogador.manaMax;
+
+salvarJogo();
+
+atualizarTela();
+
+trocar("jogo");
+
+},1500);
+
+}
+
+
+/* =========================
+   MAPA
+========================= */
+
+function abrirMapa(){
+
+let area =
+document.getElementById("mapa");
+
+area.innerHTML="";
+
+mundos.forEach((m,i)=>{
+
+let div =
+document.createElement("div");
+
+div.className="mundo";
+
+if(jogador.nivel>=m.nivel){
+
+div.classList.add("desbloqueado");
+
+div.innerHTML=
+"🌍 <b>"+m.nome+"</b><br>"+
+"Requisito: Lv."+m.nivel+
+"<br>👹 "+m.boss;
+
+div.onclick=()=>{
+
+jogador.mundo=i;
+
+atualizarTela();
+
+voltarJogo();
+
+};
+
+}else{
+
+div.classList.add("bloqueado");
+
+div.innerHTML=
+"🔒 "+m.nome+
+"<br>Lv."+m.nivel;
+
+}
+
+area.appendChild(div);
+
+});
+
+trocar("mapaTela");
+
+}
+
+
+/* =========================
+   LOJA
+========================= */
+
+function abrirLoja(){
+
+document.getElementById("ouroLoja").innerText=
+jogador.ouro;
+
+trocar("lojaTela");
+
+}
+
+
+function comprarPocao(){
+
+if(jogador.ouro<50){
+
+alert("Ouro insuficiente.");
+
+return;
+
+}
+
+jogador.ouro-=50;
+
+jogador.pocoes++;
+
+atualizarTela();
+
+abrirLoja();
+
+}
+
+
+function comprarEspada(){
+
+if(jogador.ouro<300){
+
+alert("Ouro insuficiente.");
+
+return;
+
+}
+
+jogador.ouro-=300;
+
+jogador.ataque+=15;
+
+jogador.equipamento.push("Espada Sombria");
+
+atualizarTela();
+
+alert("⚔ Espada equipada!");
+
+abrirLoja();
+
+}
+
+
+function comprarArmadura(){
+
+if(jogador.ouro<300){
+
+alert("Ouro insuficiente.");
+
+return;
+
+}
+
+jogador.ouro-=300;
+
+jogador.defesa+=15;
+
+jogador.equipamento.push("Armadura Ancestral");
+
+atualizarTela();
+
+alert("🛡 Armadura equipada!");
+
+abrirLoja();
+
+}
+
+
+function comprarCristal(){
+
+if(jogador.ouro<1000){
+
+alert("Ouro insuficiente.");
+
+return;
+
+}
+
+jogador.ouro-=1000;
+
+jogador.ataque+=30;
+
+jogador.equipamento.push("Cristal do Abismo");
+
+atualizarTela();
+
+alert("💎 Cristal equipado!");
+
+abrirLoja();
+
+}
+
+
+/* =========================
+   VOLTAR
+========================= */
+
+function voltarJogo(){
+
+atualizarTela();
+
+trocar("jogo");
+
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+function salvarJogo(){
+
+localStorage.setItem(
+"cronicasAbismo",
+JSON.stringify(jogador)
+);
+
+}
+
+
+/* =========================
+   CARREGAR SAVE
+========================= */
+
+function carregarJogo(){
+
+let save =
+localStorage.getItem(
+"cronicasAbismo"
+);
+
+if(save){
+
+try{
+
+let dados =
+JSON.parse(save);
+
+jogador =
+Object.assign(
+jogador,
+dados
+);
+
+}catch(e){
+
+console.log(
+"Save inválido."
+);
+
+}
+
+}
+
+}
+
+
+/* =========================
+   AUTO SAVE
+========================= */
+
+setInterval(()=>{
+
+if(jogador.nome){
+
+salvarJogo();
+
+}
+
+},10000);
+
+
+/* =========================
+   INICIALIZAÇÃO
+========================= */
+
+carregarJogo();
+
+if(jogador.nome){
+
+atualizarTela();
+
+}
+
+</script>
+
+</body>
+</html>
