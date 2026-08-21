@@ -251,10 +251,6 @@ select{
 <h1>⚔ CRÔNICAS DO ABISMO INFINITO ⚔</h1>
 
 <div class="historia">
-
-⚔ CRÔNICAS DO ABISMO INFINITO ⚔
-
- <h1>⚔ CRÔNICAS DO ABISMO INFINITO ⚔</h1>
     <h2>📖 O DESPERTAR DO ABISMO</h2>
 <p><b>Prólogo — Antes do Primeiro Herói</b></p>
 Antes de existirem reis, cidades ou guerras, existiam sete mundos. Cada mundo possuía uma força diferente: vida, fogo, gelo, tempestade, morte, estrelas e, além de todos eles, o vazio. Os antigos deuses criaram uma barreira para separar esses mundos. Eles sabiam que havia algo do outro lado que não deveria despertar. Esse lugar recebeu um único nome: <b>O Vazio Infinito.</b> Durante milhares de anos, ninguém conseguiu atravessar a barreira. Até que um guerreiro encontrou uma antiga porta escondida nas ruínas de Eldoria. Seu nome era <b>Nihilus</b>. Ele abriu a porta. Naquele instante, os sete mundos começaram a morrer.
@@ -276,9 +272,6 @@ Quando todos os mundos forem atravessados, sete fragmentos serão reunidos. O po
 Você poderá escolher: <b>⚔ Caminho da Destruição</b>, derrotar Lucas e libertar o poder do Vazio; <b>🛡 Caminho do Sacrifício</b>, assumir o lugar de Lucas e tornar-se o novo guardião; <b>✨ Caminho da Esperança</b>, reunir os fragmentos dos antigos guardiões e tentar selar o Vazio novamente; ou <b>🌑 Caminho do Abismo</b>, aceitar o poder do Vazio e mudar completamente o destino dos sete mundos. Cada escolha levará a um final diferente.
 <p><b>Epílogo — O Segundo Ciclo</b></p>
 Quando tudo parece terminar, uma pequena luz aparece no céu. Uma voz desconhecida diz: <i>"O primeiro ciclo terminou."</i> Silêncio. <i>"Agora começa o segundo."</i> A tela escurece. <b>FIM... OU APENAS O COMEÇO.</b>
-    <button onclick="abrirCadastro()">⚔ COMEÇAR JORNADA</button>
-</div>
-
 <button onclick="abrirCadastro()">
 ⚔ COMEÇAR JORNADA
 </button>
