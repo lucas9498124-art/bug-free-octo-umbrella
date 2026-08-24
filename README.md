@@ -1,810 +1,809 @@
-
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚔ Crônicas do Abismo Infinito</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Crônicas do Abismo Infinito — ULTRA</title>
 <style>
-
-*{
-    box-sizing:border-box;
+*{box-sizing:border-box}
+:root{
+ --bg:#030712;--panel:#0b1220;--panel2:#111827;--line:#263449;
+ --text:#e5e7eb;--muted:#94a3b8;--blue:#38bdf8;--purple:#a78bfa;
+ --red:#f87171;--green:#4ade80;--gold:#facc15;--cyan:#22d3ee;
 }
-
-body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:
-        radial-gradient(circle at top,#18264d,#050816 60%);
-    color:white;
-    min-height:100vh;
-}
-
-button,
-input,
-select{
-    font:inherit;
-}
-
-.tela{
-    display:none;
-    min-height:100vh;
-    padding:25px;
-    justify-content:center;
-    align-items:center;
-}
-
-.ativa{
-    display:flex;
-}
-
-.card{
-    width:95%;
-    max-width:900px;
-    background:rgba(10,15,30,.94);
-    border:1px solid #334155;
-    border-radius:20px;
-    padding:30px;
-    box-shadow:
-        0 0 30px rgba(37,99,235,.25);
-}
-
-h1,h2,h3{
-    text-align:center;
-}
-
-h1{
-    color:#60a5fa;
-    text-shadow:0 0 20px #2563eb;
-}
-
-button{
-    width:100%;
-    padding:14px;
-    margin-top:10px;
-    border:0;
-    border-radius:10px;
-    color:white;
-    background:linear-gradient(90deg,#2563eb,#7c3aed);
-    cursor:pointer;
-    transition:.2s;
-}
-
-button:hover{
-    transform:translateY(-2px);
-    filter:brightness(1.2);
-}
-
-button:disabled{
-    background:#374151;
-    cursor:not-allowed;
-    transform:none;
-}
-
-input,
-select{
-    width:100%;
-    padding:13px;
-    margin:7px 0 12px;
-    border:1px solid #334155;
-    border-radius:10px;
-    background:#0f172a;
-    color:white;
-}
-
-.historia{
-    line-height:1.8;
-    color:#cbd5e1;
-    white-space:pre-line;
-}
-
-.barra{
-    width:100%;
-    height:22px;
-    background:#1e293b;
-    border-radius:20px;
-    overflow:hidden;
-    margin:7px 0 15px;
-}
-
-.hp{
-    height:100%;
-    background:linear-gradient(90deg,#dc2626,#ef4444);
-    transition:.4s;
-}
-
-.mana{
-    height:100%;
-    background:linear-gradient(90deg,#2563eb,#06b6d4);
-    transition:.4s;
-}
-
-.xp{
-    height:100%;
-    background:linear-gradient(90deg,#eab308,#f59e0b);
-    transition:.4s;
-}
-
-.status{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin:20px 0;
-}
-
-.status div{
-    background:#111827;
-    border:1px solid #334155;
-    padding:12px;
-    border-radius:10px;
-    text-align:center;
-}
-
-.combate{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-}
-
-.personagem,
-.inimigo{
-    background:#0f172a;
-    border:1px solid #334155;
-    border-radius:15px;
-    padding:20px;
-}
-
-.inimigo{
-    box-shadow:0 0 25px rgba(220,38,38,.15);
-}
-
-.log{
-    background:#020617;
-    border:1px solid #1e293b;
-    height:180px;
-    overflow-y:auto;
-    padding:15px;
-    margin-top:20px;
-    border-radius:10px;
-    font-size:14px;
-}
-
-.log p{
-    margin:5px 0;
-}
-
-.destaque{
-    color:#facc15;
-}
-
-.perigo{
-    color:#ef4444;
-}
-
-.sucesso{
-    color:#4ade80;
-}
-
-.mapa{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-}
-
-.mundo{
-    padding:20px;
-    background:#111827;
-    border:1px solid #334155;
-    border-radius:12px;
-    text-align:center;
-}
-
-.mundo.desbloqueado{
-    cursor:pointer;
-}
-
-.mundo.bloqueado{
-    opacity:.35;
-}
-
-.loja{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-}
-
-.item{
-    padding:15px;
-    background:#111827;
-    border:1px solid #334155;
-    border-radius:12px;
-}
-
-@media(max-width:700px){
-
-    .combate{
-        grid-template-columns:1fr;
-    }
-
-    .status{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .mapa,
-    .loja{
-        grid-template-columns:1fr;
-    }
-}
-
-
-/* ===== NOVOS SISTEMAS ===== */
-.topbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}
-.badge{background:#111827;border:1px solid #334155;padding:8px 12px;border-radius:999px}
-.boss-card{border:1px solid #7f1d1d;background:linear-gradient(135deg,#180b0b,#111827);padding:18px;border-radius:15px;margin:12px 0}
-.miniboss{border-color:#92400e}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.rank{padding:12px;border:1px solid #334155;border-radius:10px;background:#111827}
-.npc{padding:15px;border:1px solid #334155;border-radius:12px;background:#0f172a}
-.pet,.mount{padding:15px;border:1px solid #334155;border-radius:12px;background:#111827}
-.cena{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;display:none;align-items:center;justify-content:center;padding:25px}
-.cena.ativa{display:flex}
-.cena-card{max-width:850px;width:100%;padding:35px;border:1px solid #475569;border-radius:20px;background:radial-gradient(circle at top,#172554,#020617);box-shadow:0 0 60px rgba(59,130,246,.35)}
-.cena-titulo{font-size:30px;color:#facc15;text-align:center}
-.cena-texto{font-size:18px;line-height:1.8;color:#e2e8f0;min-height:130px}
-.narrador{color:#93c5fd;font-style:italic;text-align:center;margin:12px 0}
-@media(max-width:700px){.grid3{grid-template-columns:1fr}}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:
+radial-gradient(circle at 20% 0%,#172554 0,transparent 35%),
+radial-gradient(circle at 90% 20%,#3b0764 0,transparent 30%),var(--bg);
+color:var(--text);min-height:100vh}
+button,input,select{font:inherit}
+button{border:0;border-radius:10px;padding:11px 14px;color:#fff;background:linear-gradient(90deg,#2563eb,#7c3aed);cursor:pointer;transition:.2s}
+button:hover{transform:translateY(-2px);filter:brightness(1.12)}
+button:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.screen{display:none;min-height:100vh;padding:22px;align-items:center;justify-content:center}
+.screen.active{display:flex}
+.card{width:min(1100px,96vw);background:rgba(11,18,32,.96);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 0 45px #0008}
+h1,h2,h3{margin-top:0}.center{text-align:center}.muted{color:var(--muted)}
+.story{max-height:52vh;overflow:auto;line-height:1.8;color:#cbd5e1}
+.form{max-width:500px;margin:auto}.form input,.form select{width:100%;padding:12px;margin:7px 0 13px;border-radius:10px;border:1px solid var(--line);background:#020617;color:white}
+.logo{font-size:58px;text-align:center}.glow{color:var(--blue);text-shadow:0 0 18px #38bdf8}
+.layout{width:min(1450px,98vw);margin:auto;padding:15px}.top{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin:12px 0}
+.stat,.panel,.item{background:rgba(2,6,23,.82);border:1px solid var(--line);border-radius:13px;padding:12px}
+.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:12px}
+.bars{display:grid;gap:8px}.bar{height:16px;background:#020617;border-radius:20px;overflow:hidden;border:1px solid #1e293b}.fill{height:100%;transition:.3s}
+.hp{background:linear-gradient(90deg,#dc2626,#fb7185)}.mp{background:linear-gradient(90deg,#2563eb,#22d3ee)}
+.xp{background:linear-gradient(90deg,#16a34a,#a3e635)}.st{background:linear-gradient(90deg,#d97706,#facc15)}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.log{height:300px;overflow:auto;background:#020617;border:1px solid var(--line);border-radius:13px;padding:12px}
+.log p{margin:6px 0}.enemy{border-color:#7f1d1d;background:radial-gradient(circle at 50% 0,#3f0d16,#020617 65%);box-shadow:0 0 25px #7f1d1d55}
+.enemy h2{color:#f87171}.bossPhase{color:#facc15}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.tabs button{background:#1e293b}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.modal.show{display:flex}
+.modal .card{max-height:90vh;overflow:auto}
+.item{margin:7px 0}.common{border-color:#64748b}.rare{border-color:#3b82f6}.epic{border-color:#a855f7}.divine{border-color:#facc15}.supreme{border-color:#fb7185}.infinite{border-color:#22d3ee}
+.good{color:var(--green)}.bad{color:var(--red)}.gold{color:var(--gold)}.cyan{color:var(--cyan)}
+.map{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.world{min-height:110px}
+@media(max-width:900px){.stats{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:1fr}}
+@media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:repeat(2,1fr)}.map{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
 
-<div class="tela ativa" id="historia">
-  <div class="card">
-    <h1>⚔ CRÔNICAS DO ABISMO INFINITO ⚔</h1>
-    <h2>📖 O DESPERTAR DO ABISMO</h2>
-<p><b>Prólogo — Antes do Primeiro Herói</b></p>
-Antes de existirem reis, cidades ou guerras, existiam sete mundos. Cada mundo possuía uma força diferente: vida, fogo, gelo, tempestade, morte, estrelas e, além de todos eles, o vazio. Os antigos deuses criaram uma barreira para separar esses mundos. Eles sabiam que havia algo do outro lado que não deveria despertar. Esse lugar recebeu um único nome: <b>O Vazio Infinito.</b> Durante milhares de anos, ninguém conseguiu atravessar a barreira. Até que um guerreiro encontrou uma antiga porta escondida nas ruínas de Eldoria. Seu nome era <b>Nihilus</b>. Ele abriu a porta. Naquele instante, os sete mundos começaram a morrer.
-<p><b>Capítulo I — Os Guardiões</b></p>
-Para impedir o avanço do Vazio, cinco grandes guerreiros foram escolhidos: <b>Fenrir</b>, guardião das florestas de Eldoria; <b>Ignaroth</b>, senhor das chamas de Vulkar; <b>Skolgrim</b>, rei das montanhas congeladas de Niflheim; <b>Nocturnus</b>, mestre das tempestades de Tempestia; e <b>Astrael</b>, comandante do Reino das Sombras. Eles receberam poderes capazes de proteger seus mundos. Mas Nihilus não tentou derrotá-los pela força. Ele ofereceu poder. Um poder sem limites. Um poder que prometia salvar tudo aquilo que eles amavam. Um por um, os cinco guardiões aceitaram. E um por um, foram corrompidos.
-<p><b>Capítulo II — Os Dois Guerreiros</b></p>
-Quando os guardiões caíram, dois humanos decidiram enfrentar o impossível. Seus nomes eram <b>Julio</b> e <b>Gustavo</b>. Eles atravessaram Eldoria, enfrentaram criaturas do Abismo e chegaram até a primeira porta dimensional. Julio acreditava que o Abismo poderia ser destruído. Gustavo acreditava que o Abismo deveria ser selado. Os dois discutiram durante dias. Até que encontraram uma mensagem dos antigos deuses: <i>"O Vazio não pode ser destruído. Ele apenas pode ser impedido de consumir tudo."</i> Eles continuaram mesmo assim. Durante sua última batalha, Julio desapareceu. Gustavo conseguiu escapar, mas estava gravemente ferido. Antes de desaparecer, deixou uma mensagem: <i>"Se alguém encontrar esta mensagem... não tente vencer o Abismo. Sobreviva a ele."</i>
-<p><b>Capítulo III — O Senhor do Vazio</b></p>
-Anos se passaram. Os mundos começaram a ser dominados. Então surgiu aquele que todos passaram a temer: <b>Lucas, o Senhor do Vazio.</b> Ninguém sabia de onde ele havia vindo. Alguns diziam que era um antigo guerreiro. Outros diziam que era um dos próprios deuses. Mas existia um segredo. Lucas não havia nascido como vilão. Ele também havia sido um herói. Muito antes de dominar o Vazio, Lucas havia tentado salvar alguém que amava. Para conseguir poder suficiente, abriu uma pequena passagem para o Abismo. O Abismo entrou em sua mente. Ele venceu a batalha, mas perdeu a si mesmo. Desde então, Lucas acreditava que a única maneira de acabar com o sofrimento era destruir todos os mundos.
-<p><b>Capítulo IV — O Novo Guerreiro</b></p>
-Agora, você surge em Eldoria. Você não é considerado um escolhido. Não possui uma espada lendária. Não possui um exército. Você começa apenas com sua coragem. O primeiro NPC que encontra diz: <i>"Você chegou tarde demais."</i> Ao longe, uma criatura observa você e desaparece. Naquela noite, você tem um sonho. Uma voz diz: <i>"Você está procurando uma maneira de vencer. Mas ainda não descobriu o que precisa proteger."</i> Você acorda. O símbolo do Abismo está brilhando em sua mão.
-<p><b>Capítulo V — A Jornada dos Sete Mundos</b></p>
-Sua missão começa em Eldoria. Para avançar, você terá que enfrentar criaturas cada vez mais perigosas, encontrar NPCs, descobrir áreas secretas, conseguir equipamentos, encontrar pets e montarias e derrotar os mini-bosses que protegem os caminhos. Cada mundo possui um guardião: Fenrir, Ignaroth, Skolgrim, Nocturnus, Astrael, Nihilus e, no fim, Lucas.
-<p><b>Capítulo VI — A Verdade</b></p>
-Mas existe algo que você ainda não sabe. Os bosses não são apenas inimigos. Cada um guarda um fragmento da verdade. Ao derrotá-los, você descobrirá partes da história de Julio, Gustavo e Lucas. Você descobrirá que Julio talvez ainda esteja vivo. Descobrirá que Gustavo escondeu algo antes de desaparecer. E descobrirá que Lucas talvez esteja tentando impedir algo ainda pior: algo que vive atrás do Vazio, algo que nem mesmo os deuses conseguiram derrotar.
-<p><b>Capítulo VII — O Último Portal</b></p>
-Quando todos os mundos forem atravessados, sete fragmentos serão reunidos. O portal final será aberto. Você entrará no Vazio Infinito. Não haverá cidades, nem exércitos. Apenas ruínas flutuando em uma escuridão sem fim. No centro estará Lucas. Mas ele não atacará imediatamente. Ele olhará para você e perguntará: <b>"Você realmente acha que eu sou o seu inimigo?"</b> Então o verdadeiro segredo será revelado: <b>Lucas estava mantendo o Abismo preso.</b> E ao derrotá-lo, você poderá libertá-lo.
-<p><b>Capítulo VIII — A Escolha Final</b></p>
-Você poderá escolher: <b>⚔ Caminho da Destruição</b>, derrotar Lucas e libertar o poder do Vazio; <b>🛡 Caminho do Sacrifício</b>, assumir o lugar de Lucas e tornar-se o novo guardião; <b>✨ Caminho da Esperança</b>, reunir os fragmentos dos antigos guardiões e tentar selar o Vazio novamente; ou <b>🌑 Caminho do Abismo</b>, aceitar o poder do Vazio e mudar completamente o destino dos sete mundos. Cada escolha levará a um final diferente.
-<p><b>Epílogo — O Segundo Ciclo</b></p>
-Quando tudo parece terminar, uma pequena luz aparece no céu. Uma voz desconhecida diz: <i>"O primeiro ciclo terminou."</i> Silêncio. <i>"Agora começa o segundo."</i> A tela escurece. <b>FIM... OU APENAS O COMEÇO.</b>
-    <button onclick="abrirCadastro()">⚔ COMEÇAR JORNADA</button>
-    <button onclick="continuarJogo()">💾 CONTINUAR JOGO</button>
-  </div>
+<section id="storyScreen" class="screen active">
+<div class="card">
+<div class="logo">⚔️🌑</div>
+<h1 class="center glow">CRÔNICAS DO ABISMO INFINITO</h1>
+<div class="story">
+<p>Sete mundos existiam separados por antigos selos: Eldoria, Vulkar, Niflheim, Tempestia, Reino das Sombras, Universo Astral e o Vazio Infinito.</p>
+<p>Durante eras, os selos mantiveram em equilíbrio forças que nenhum mortal deveria controlar. Então, em uma única noite, as estrelas desapareceram.</p>
+<p>Fenrir despertou nas montanhas. Ignaroth abriu os vulcões. Skolgrim congelou cidades inteiras. Nocturnus tomou o Reino das Sombras. Astrael atravessou o céu astral. Nihilus começou a apagar a própria realidade.</p>
+<p>Mas esses monstros eram apenas guardiões de algo maior.</p>
+<p>Julio, Gustavo e Lucas haviam encontrado uma passagem para o Abismo. Lucas, o último deles, não queria conquistar um reino: queria romper a fronteira entre todos os mundos.</p>
+<p>Você é um aventureiro sem fama, sem exército e sem garantia de vitória. Sua única vantagem é poder escolher como evoluir.</p>
+<p><b>O Abismo não perdoa erros.</b> Explore, lute, administre seus recursos, melhore seus equipamentos e descubra os segredos antes de encarar o trono final.</p>
+</div>
+<button style="width:100%" onclick="show('registerScreen')">⚔️ COMEÇAR A JORNADA</button>
+</div>
+</section>
+
+<section id="registerScreen" class="screen">
+<div class="card form">
+<h2 class="center">🧙 Criar Aventureiro</h2>
+<input id="regName" placeholder="Nome do personagem" maxlength="24">
+<input id="regBirth" type="date">
+<input id="regAddress" placeholder="Endereço">
+<input id="regEmail" type="email" placeholder="E-mail">
+<input id="regPass" type="password" placeholder="Senha">
+<button style="width:100%" onclick="createCharacter()">Continuar</button>
+<button style="width:100%;background:#1e293b" onclick="loadGame(true)">💾 Carregar save local</button>
+</div>
+</section>
+
+<section id="raceScreen" class="screen">
+<div class="card form">
+<h2 class="center">🧬 Escolha sua Raça</h2>
+<select id="race"></select>
+<p id="raceInfo" class="muted"></p>
+<button style="width:100%" onclick="chooseRace()">Continuar</button>
+</div>
+</section>
+
+<section id="classScreen" class="screen">
+<div class="card form">
+<h2 class="center">⚔️ Escolha sua Classe</h2>
+<select id="class"></select>
+<p id="classInfo" class="muted"></p>
+<button style="width:100%" onclick="chooseClass()">Entrar em Eldoria</button>
+</div>
+</section>
+
+<main id="gameScreen" class="screen">
+<div class="layout">
+<div class="top">
+<div><b class="glow">⚔️ Crônicas do Abismo</b><div class="muted" id="heroLine"></div></div>
+<div>
+<button onclick="openModal('mapModal')">🗺️ Mapa</button>
+<button onclick="openModal('shopModal')">🛒 Loja</button>
+<button onclick="openModal('inventoryModal')">🎒 Inventário</button>
+<button onclick="saveGame()">💾 Salvar</button>
+</div>
 </div>
 
-<div class="tela" id="cadastro">
-  <div class="card">
-    <h2>📜 Registro do Herói</h2>
-    <input id="nome" placeholder="Nome do guerreiro">
-    <input id="nascimento" type="date">
-    <input id="endereco" placeholder="Endereço">
-    <input id="email" type="email" placeholder="E-mail">
-    <input id="senha" type="password" placeholder="Senha">
-    <button onclick="salvarCadastro()">Criar personagem</button>
-  </div>
+<div class="stats">
+<div class="stat">🌍 <b id="worldName"></b><br><small id="worldReq"></small></div>
+<div class="stat">📈 Nível<br><b id="level"></b></div>
+<div class="stat">⚔️ Ataque<br><b id="attack"></b></div>
+<div class="stat">🛡️ Defesa<br><b id="defense"></b></div>
+<div class="stat">💰 Ouro<br><b id="gold"></b></div>
+<div class="stat">⚡ Ações<br><b id="actions"></b></div>
 </div>
 
-<div class="tela" id="raca">
-  <div class="card">
-    <h2>🧬 Escolha sua Raça</h2>
-    <select id="racaEscolhida">
-      <option>Humano</option><option>Elfo</option><option>Anão</option>
-      <option>Vampiro</option><option>Draconiano</option><option>Demônio</option><option>Celestial</option>
-    </select>
-    <button onclick="salvarRaca()">Continuar</button>
-  </div>
+<div class="grid">
+<div>
+<div class="panel">
+<div class="bars">
+<div>❤️ HP <span id="hpText"></span><div class="bar"><div id="hpFill" class="fill hp"></div></div></div>
+<div>🔵 Mana <span id="manaText"></span><div class="bar"><div id="manaFill" class="fill mp"></div></div></div>
+<div>🟢 XP <span id="xpText"></span><div class="bar"><div id="xpFill" class="fill xp"></div></div></div>
+<div>⚡ Energia <span id="stText"></span><div class="bar"><div id="stFill" class="fill st"></div></div></div>
+</div>
+<div class="actions">
+<button onclick="explore()">🗺️ Explorar</button>
+<button onclick="attackEnemy()">⚔️ Atacar</button>
+<button onclick="useSkill()">✨ Habilidade</button>
+<button onclick="defend()">🛡️ Defender</button>
+<button onclick="usePotion()">🧪 Poção</button>
+<button onclick="rest()">🔥 Descansar</button>
+<button onclick="openModal('petModal')">🐉 Pets</button>
+<button onclick="openModal('achievementModal')">🏆 Conquistas</button>
+</div>
 </div>
 
-<div class="tela" id="classe">
-  <div class="card">
-    <h2>⚔ Escolha sua Classe</h2>
-    <select id="classeEscolhida">
-      <option>Guerreiro</option><option>Mago</option><option>Arqueiro</option>
-      <option>Assassino</option><option>Paladino</option><option>Necromante</option>
-      <option>Cavaleiro Dracônico</option><option>Imperador das Sombras</option>
-    </select>
-    <button onclick="entrarJogo()">Entrar no Mundo</button>
-  </div>
+<div id="combatPanel" class="panel" style="display:none;margin-top:12px"></div>
+<div class="panel" style="margin-top:12px">
+<h3>📜 Registro da Jornada</h3>
+<div id="log" class="log"></div>
+</div>
 </div>
 
-<div class="tela" id="jogo">
-  <div class="card">
-    <h1 id="nomeJogador"></h1>
-    <div class="topbar">
-      <span class="badge" id="rankBadge">🏆 Bronze</span>
-      <span class="badge">🔥 Sequência: <b id="streakTexto">0</b></span>
-      <span class="badge">🐾 Pet: <b id="petTexto">Nenhum</b></span>
-      <span class="badge">🐉 Montaria: <b id="montariaTexto">Nenhuma</b></span>
-    </div>
-    <p id="informacoes"></p>
-
-    <div class="status">
-      <div>❤️ HP <strong id="hpTexto"></strong></div>
-      <div>🔵 Mana <strong id="manaTexto"></strong></div>
-      <div>⭐ Nível <strong id="nivelTexto"></strong></div>
-      <div>💰 Ouro <strong id="ouroTexto"></strong></div>
-      <div>⚔ Ataque <strong id="ataqueTexto"></strong></div>
-      <div>🛡 Defesa <strong id="defesaTexto"></strong></div>
-    </div>
-
-    <p>❤️ Vida</p><div class="barra"><div class="hp" id="barraHP"></div></div>
-    <p>🔵 Mana</p><div class="barra"><div class="mana" id="barraMana"></div></div>
-    <p>⭐ Experiência</p><div class="barra"><div class="xp" id="barraXP"></div></div>
-
-    <h2>🌍 Mundo</h2>
-    <div id="mundoAtual"></div>
-    <div id="bossAtual"></div>
-
-    <button onclick="abrirHistoriaJogo()">📖 História</button>
-    <button onclick="abrirMapa()">🗺 Explorar Mundo</button>
-    <button onclick="abrirLoja()">🛒 Loja</button>
-    <button onclick="abrirRanking()">🏆 Ranking</button>
-    <button onclick="abrirNPCs()">🧙 NPCs</button>
-    <button onclick="iniciarCombate()">⚔ Procurar inimigo</button>
-    <button onclick="salvarJogo()">💾 Salvar jogo</button>
-
-    <div class="log" id="log"></div>
-  </div>
+<div>
+<div class="panel">
+<h3>🎯 Objetivo Atual</h3>
+<div id="objective"></div>
 </div>
-
-<div class="tela" id="combate">
-  <div class="card">
-    <h1>⚔ COMBATE</h1>
-    <div class="combate">
-      <div class="personagem">
-        <h2>🧙 <span id="nomeCombate"></span></h2>
-        <p>HP</p><div class="barra"><div class="hp" id="hpCombate"></div></div>
-        <p id="hpCombateTexto"></p>
-        <p>🔵 Mana: <b id="manaCombateTexto"></b></p>
-      </div>
-      <div class="inimigo">
-        <h2 id="nomeInimigo"></h2>
-        <p>HP</p><div class="barra"><div class="hp" id="hpInimigo"></div></div>
-        <p id="hpInimigoTexto"></p>
-      </div>
-    </div>
-    <h3 id="turnoTexto"></h3>
-    <button onclick="atacar()">⚔ Ataque</button>
-    <button onclick="habilidade()">✨ Habilidade (-25 Mana)</button>
-    <button onclick="usarPocao()">🧪 Poção</button>
-    <button onclick="fugir()">🏃 Fugir</button>
-    <div class="log" id="logCombate"></div>
-  </div>
+<div class="panel">
+<h3>🏅 Progresso</h3>
+<p>Bosses derrotados: <b id="bossKills"></b>/9</p>
+<p>Conquistas: <b id="achievementCount"></b></p>
+<p>Pet: <b id="petName"></b></p>
+<p>Montaria: <b id="mountName"></b></p>
 </div>
-
-
-<div class="tela" id="historiaJogo">
-  <div class="card">
-    <h1>📖 CRÔNICAS DO ABISMO</h1>
-    <div class="historia"><h2>📖 O DESPERTAR DO ABISMO</h2>
-<p><b>Prólogo — Antes do Primeiro Herói</b></p>
-Antes de existirem reis, cidades ou guerras, existiam sete mundos. Cada mundo possuía uma força diferente: vida, fogo, gelo, tempestade, morte, estrelas e, além de todos eles, o vazio. Os antigos deuses criaram uma barreira para separar esses mundos. Eles sabiam que havia algo do outro lado que não deveria despertar. Esse lugar recebeu um único nome: <b>O Vazio Infinito.</b> Durante milhares de anos, ninguém conseguiu atravessar a barreira. Até que um guerreiro encontrou uma antiga porta escondida nas ruínas de Eldoria. Seu nome era <b>Nihilus</b>. Ele abriu a porta. Naquele instante, os sete mundos começaram a morrer.
-<p><b>Capítulo I — Os Guardiões</b></p>
-Para impedir o avanço do Vazio, cinco grandes guerreiros foram escolhidos: <b>Fenrir</b>, guardião das florestas de Eldoria; <b>Ignaroth</b>, senhor das chamas de Vulkar; <b>Skolgrim</b>, rei das montanhas congeladas de Niflheim; <b>Nocturnus</b>, mestre das tempestades de Tempestia; e <b>Astrael</b>, comandante do Reino das Sombras. Eles receberam poderes capazes de proteger seus mundos. Mas Nihilus não tentou derrotá-los pela força. Ele ofereceu poder. Um poder sem limites. Um poder que prometia salvar tudo aquilo que eles amavam. Um por um, os cinco guardiões aceitaram. E um por um, foram corrompidos.
-<p><b>Capítulo II — Os Dois Guerreiros</b></p>
-Quando os guardiões caíram, dois humanos decidiram enfrentar o impossível. Seus nomes eram <b>Julio</b> e <b>Gustavo</b>. Eles atravessaram Eldoria, enfrentaram criaturas do Abismo e chegaram até a primeira porta dimensional. Julio acreditava que o Abismo poderia ser destruído. Gustavo acreditava que o Abismo deveria ser selado. Os dois discutiram durante dias. Até que encontraram uma mensagem dos antigos deuses: <i>"O Vazio não pode ser destruído. Ele apenas pode ser impedido de consumir tudo."</i> Eles continuaram mesmo assim. Durante sua última batalha, Julio desapareceu. Gustavo conseguiu escapar, mas estava gravemente ferido. Antes de desaparecer, deixou uma mensagem: <i>"Se alguém encontrar esta mensagem... não tente vencer o Abismo. Sobreviva a ele."</i>
-<p><b>Capítulo III — O Senhor do Vazio</b></p>
-Anos se passaram. Os mundos começaram a ser dominados. Então surgiu aquele que todos passaram a temer: <b>Lucas, o Senhor do Vazio.</b> Ninguém sabia de onde ele havia vindo. Alguns diziam que era um antigo guerreiro. Outros diziam que era um dos próprios deuses. Mas existia um segredo. Lucas não havia nascido como vilão. Ele também havia sido um herói. Muito antes de dominar o Vazio, Lucas havia tentado salvar alguém que amava. Para conseguir poder suficiente, abriu uma pequena passagem para o Abismo. O Abismo entrou em sua mente. Ele venceu a batalha, mas perdeu a si mesmo. Desde então, Lucas acreditava que a única maneira de acabar com o sofrimento era destruir todos os mundos.
-<p><b>Capítulo IV — O Novo Guerreiro</b></p>
-Agora, você surge em Eldoria. Você não é considerado um escolhido. Não possui uma espada lendária. Não possui um exército. Você começa apenas com sua coragem. O primeiro NPC que encontra diz: <i>"Você chegou tarde demais."</i> Ao longe, uma criatura observa você e desaparece. Naquela noite, você tem um sonho. Uma voz diz: <i>"Você está procurando uma maneira de vencer. Mas ainda não descobriu o que precisa proteger."</i> Você acorda. O símbolo do Abismo está brilhando em sua mão.
-<p><b>Capítulo V — A Jornada dos Sete Mundos</b></p>
-Sua missão começa em Eldoria. Para avançar, você terá que enfrentar criaturas cada vez mais perigosas, encontrar NPCs, descobrir áreas secretas, conseguir equipamentos, encontrar pets e montarias e derrotar os mini-bosses que protegem os caminhos. Cada mundo possui um guardião: Fenrir, Ignaroth, Skolgrim, Nocturnus, Astrael, Nihilus e, no fim, Lucas.
-<p><b>Capítulo VI — A Verdade</b></p>
-Mas existe algo que você ainda não sabe. Os bosses não são apenas inimigos. Cada um guarda um fragmento da verdade. Ao derrotá-los, você descobrirá partes da história de Julio, Gustavo e Lucas. Você descobrirá que Julio talvez ainda esteja vivo. Descobrirá que Gustavo escondeu algo antes de desaparecer. E descobrirá que Lucas talvez esteja tentando impedir algo ainda pior: algo que vive atrás do Vazio, algo que nem mesmo os deuses conseguiram derrotar.
-<p><b>Capítulo VII — O Último Portal</b></p>
-Quando todos os mundos forem atravessados, sete fragmentos serão reunidos. O portal final será aberto. Você entrará no Vazio Infinito. Não haverá cidades, nem exércitos. Apenas ruínas flutuando em uma escuridão sem fim. No centro estará Lucas. Mas ele não atacará imediatamente. Ele olhará para você e perguntará: <b>"Você realmente acha que eu sou o seu inimigo?"</b> Então o verdadeiro segredo será revelado: <b>Lucas estava mantendo o Abismo preso.</b> E ao derrotá-lo, você poderá libertá-lo.
-<p><b>Capítulo VIII — A Escolha Final</b></p>
-Você poderá escolher: <b>⚔ Caminho da Destruição</b>, derrotar Lucas e libertar o poder do Vazio; <b>🛡 Caminho do Sacrifício</b>, assumir o lugar de Lucas e tornar-se o novo guardião; <b>✨ Caminho da Esperança</b>, reunir os fragmentos dos antigos guardiões e tentar selar o Vazio novamente; ou <b>🌑 Caminho do Abismo</b>, aceitar o poder do Vazio e mudar completamente o destino dos sete mundos. Cada escolha levará a um final diferente.
-<p><b>Epílogo — O Segundo Ciclo</b></p>
-Quando tudo parece terminar, uma pequena luz aparece no céu. Uma voz desconhecida diz: <i>"O primeiro ciclo terminou."</i> Silêncio. <i>"Agora começa o segundo."</i> A tela escurece. <b>FIM... OU APENAS O COMEÇO.</b></div>
-    <button onclick="voltarJogo()">⚔ Voltar ao jogo</button>
-  </div>
+<div class="panel">
+<h3>⚠️ Regras do Abismo</h3>
+<p class="muted">Ações são limitadas. Habilidades consomem mana. Inimigos escalam com o seu nível. Bosses possuem fases e mecânicas especiais.</p>
 </div>
-
-<div class="tela" id="mapaTela">
-  <div class="card">
-    <h1>🗺 MAPA DOS SETE MUNDOS</h1>
-    <div class="mapa" id="mapa"></div>
-    <button onclick="voltarJogo()">Voltar</button>
-  </div>
 </div>
-
-<div class="tela" id="lojaTela">
-  <div class="card">
-    <h1>🛒 LOJA DO REINO</h1>
-    <h3>💰 Ouro: <span id="ouroLoja"></span></h3>
-    <div class="loja" id="lojaItens"></div>
-    <button onclick="voltarJogo()">Voltar</button>
-  </div>
 </div>
-
-<div class="tela" id="rankingTela">
-  <div class="card">
-    <h1>🏆 RANKING DOS GUERREIROS</h1>
-    <p>O ranking fica salvo neste navegador.</p>
-    <div id="rankingLista"></div>
-    <button onclick="voltarJogo()">Voltar</button>
-  </div>
 </div>
+</main>
 
-<div class="tela" id="npcTela">
-  <div class="card">
-    <h1>🧙 NPCs DO REINO</h1>
-    <div class="grid3" id="npcLista"></div>
-    <button onclick="voltarJogo()">Voltar</button>
-  </div>
-</div>
+<div id="shopModal" class="modal"><div class="card">
+<h2>🛒 Loja do Abismo</h2><p>Ouro: <b id="shopGold"></b></p><div id="shopList"></div>
+<button onclick="closeModals()">Fechar</button></div></div>
 
-<div class="cena" id="cena">
-  <div class="cena-card">
-    <div class="cena-titulo" id="cenaTitulo"></div>
-    <div class="narrador" id="narrador"></div>
-    <div class="cena-texto" id="cenaTexto"></div>
-    <button onclick="fecharCena()">Continuar</button>
-  </div>
-</div>
+<div id="inventoryModal" class="modal"><div class="card">
+<h2>🎒 Inventário</h2><div id="inventoryList"></div><button onclick="closeModals()">Fechar</button></div></div>
+
+<div id="petModal" class="modal"><div class="card">
+<h2>🐉 Pets e Montarias</h2><div id="petList"></div><button onclick="closeModals()">Fechar</button></div></div>
+
+<div id="achievementModal" class="modal"><div class="card">
+<h2>🏆 Conquistas</h2><div id="achievementList"></div><button onclick="closeModals()">Fechar</button></div></div>
+
+<div id="mapModal" class="modal"><div class="card">
+<h2>🗺️ Mundos</h2><div id="mapList" class="map"></div><button onclick="closeModals()">Fechar</button></div></div>
 
 <script>
-const mundos = [
- {nome:"Eldoria",nivel:1,boss:"Fenrir",mini:"Guardião da Floresta",cor:"#60a5fa"},
- {nome:"Vulkar",nivel:10,boss:"Ignaroth",mini:"Golem de Magma",cor:"#ef4444"},
- {nome:"Niflheim",nivel:20,boss:"Skolgrim",mini:"Yeti Ancestral",cor:"#38bdf8"},
- {nome:"Tempestia",nivel:30,boss:"Nocturnus",mini:"Tempestade Viva",cor:"#a78bfa"},
- {nome:"Reino das Sombras",nivel:45,boss:"Astrael",mini:"Cavaleiro Espectral",cor:"#9333ea"},
- {nome:"Universo Astral",nivel:65,boss:"Nihilus",mini:"Arauto Astral",cor:"#e879f9"},
- {nome:"Vazio Infinito",nivel:85,boss:"Lucas",mini:"General do Vazio",cor:"#facc15"}
-];
+"use strict";
 
-const npcs = [
- ["🧙","Eldrin","Mago da vila","Troca dicas por ouro e revela segredos dos mundos."],
- ["⚒️","Brom","Ferreiro","Melhora equipamentos por um preço alto."],
- ["🧝","Lyria","Exploradora","Conta histórias sobre os chefes e os mini-bosses."],
- ["🧪","Mira","Alquimista","Vende poções e itens especiais."],
- ["🐺","Kael","Mestre das Feras","Ensina como encontrar pets raros."],
- ["🗺️","Orion","Cartógrafo","Revela áreas secretas do mapa."]
-];
-
-const loja = [
- ["🧪","Poção Maior","Recupera 50% do HP.",100,"pocao"],
- ["⚔️","Espada Sombria","+15 Ataque.",300,"espada"],
- ["🛡️","Armadura Ancestral","+15 Defesa.",300,"armadura"],
- ["💎","Cristal do Abismo","+30 Ataque.",1000,"cristal"],
- ["🐺","Lobo Sombrio","Pet: +8 Ataque.",1500,"lobo"],
- ["🦅","Falcão Astral","Pet: +12 Ataque e +5 Defesa.",2500,"falcao"],
- ["🐉","Dragão Jovem","Montaria: +25 Ataque.",5000,"dragao"],
- ["🐎","Corcel das Sombras","Montaria: +15 Defesa.",3500,"corcel"],
- ["💙","Essência Arcana","+40 Mana máxima.",1800,"mana"],
- ["🧿","Amuleto Real","+10 Defesa e +10 Ataque.",2200,"amuleto"]
-];
-
-let jogador = {
- nome:"",email:"",raca:"",classe:"",
- nivel:1,xp:0,xpProximo:100,
- hp:100,hpMax:100,mana:50,manaMax:50,
- ataque:15,defesa:5,ouro:100,pocoes:2,mundo:0,
- bossesDerrotados:[],miniBossesDerrotados:[],equipamento:[],
- vitorias:0,derrotas:0,streak:0,melhorStreak:0,
- pet:"",montaria:"",historia:0
+/* =========================
+   CONFIGURAÇÕES DO RPG
+========================= */
+const races={
+"Humano":{hp:100,mana:100,atk:10,def:10,crit:5},
+"Elfo":{hp:85,mana:130,atk:14,def:8,crit:10},
+"Anão":{hp:135,mana:80,atk:12,def:20,crit:3},
+"Vampiro":{hp:105,mana:110,atk:18,def:9,crit:12},
+"Draconiano":{hp:150,mana:90,atk:20,def:15,crit:7},
+"Demônio":{hp:120,mana:100,atk:25,def:12,crit:9},
+"Celestial":{hp:115,mana:140,atk:22,def:20,crit:8}
 };
+const classes={
+"Guerreiro":{atk:15,def:20,skill:"Golpe Colossal"},
+"Mago":{atk:30,def:8,skill:"Meteoro Astral"},
+"Arqueiro":{atk:24,def:12,skill:"Chuva de Flechas"},
+"Assassino":{atk:35,def:7,skill:"Lâmina Fantasma"},
+"Paladino":{atk:20,def:30,skill:"Martelo Celestial"},
+"Necromante":{atk:32,def:12,skill:"Exército Sombrio"},
+"Cavaleiro Dracônico":{atk:38,def:25,skill:"Sopro Dracônico"},
+"Imperador das Sombras":{atk:50,def:30,skill:"Apocalipse Sombrio"}
+};
+const worlds=[
+{name:"Eldoria",req:1,boss:"Fenrir",color:"🌲"},
+{name:"Vulkar",req:10,boss:"Ignaroth",color:"🔥"},
+{name:"Niflheim",req:20,boss:"Skolgrim",color:"❄️"},
+{name:"Tempestia",req:30,boss:"Nocturnus",color:"⚡"},
+{name:"Reino das Sombras",req:45,boss:"Astrael",color:"🌑"},
+{name:"Universo Astral",req:65,boss:"Nihilus",color:"✨"},
+{name:"Vazio Infinito",req:90,boss:"Julio",color:"☠️"},
+{name:"Abismo Final",req:120,boss:"Gustavo",color:"👑"},
+{name:"Trono do Infinito",req:150,boss:"Lucas",color:"⚔️"}
+];
+const bossBase={
+Fenrir:{hp:2500,atk:95,def:40,phase:2},
+Ignaroth:{hp:8500,atk:190,def:100,phase:2},
+Skolgrim:{hp:20000,atk:370,def:190,phase:3},
+Nocturnus:{hp:45000,atk:700,def:330,phase:3},
+Astrael:{hp:100000,atk:1200,def:550,phase:3},
+Nihilus:{hp:230000,atk:1900,def:950,phase:4},
+Julio:{hp:380000,atk:2900,def:1450,phase:4},
+Gustavo:{hp:650000,atk:4700,def:2300,phase:4},
+Lucas:{hp:1000000,atk:10000,def:5000,phase:4}
+};
+const shop=[
+{id:"potion",name:"🧪 Poção Suprema",price:100,rarity:"common",type:"potion"},
+{id:"blade",name:"⚔️ Espada Sombria",price:700,rarity:"rare",atk:90,type:"gear"},
+{id:"armor",name:"🛡️ Armadura Abissal",price:1200,rarity:"epic",def:140,type:"gear"},
+{id:"staff",name:"🔮 Cajado Astral",price:2500,rarity:"divine",atk:300,mana:80,type:"gear"},
+{id:"crown",name:"👑 Coroa do Infinito",price:8000,rarity:"supreme",atk:650,def:400,hp:500,type:"gear"}
+];
+const pets=[
+{name:"Lobo Sombrio",icon:"🐺",atk:0.12,def:0.03,price:500},
+{name:"Fênix Astral",icon:"🦅",atk:0.18,def:0.08,price:1800},
+{name:"Dragão Ancestral",icon:"🐉",atk:0.30,def:0.12,price:5000}
+];
+const mounts=[
+{name:"Cavalo Lunar",icon:"🏇",gold:1200,energy:15},
+{name:"Lobo de Gelo",icon:"🐺",gold:2500,energy:25},
+{name:"Dragão Celestial",icon:"🐲",gold:8000,energy:40}
+];
+const achievements=[
+{id:"first",name:"Primeiro Sangue",desc:"Derrote seu primeiro inimigo."},
+{id:"boss",name:"Caçador de Bosses",desc:"Derrote um boss."},
+{id:"five",name:"Veterano",desc:"Derrote 5 bosses."},
+{id:"max",name:"O Último Desafio",desc:"Alcance o nível 150."},
+{id:"lucas",name:"Fim do Abismo",desc:"Derrote Lucas."},
+{id:"rich",name:"Mercador",desc:"Tenha 10.000 de ouro."}
+];
 
-let inimigo=null, emCombate=false;
+let game=null;
+let selectedRace=null;
+let selectedClass=null;
 
-function trocar(id){
- document.querySelectorAll(".tela").forEach(t=>t.classList.remove("ativa"));
- document.getElementById(id).classList.add("ativa");
+/* =========================
+   UTILIDADES
+========================= */
+function show(id){
+ document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
 }
-function abrirCadastro(){trocar("cadastro")}
-function salvarCadastro(){
- const nome=document.getElementById("nome").value.trim();
- const email=document.getElementById("email").value.trim();
- const senha=document.getElementById("senha").value;
- if(!nome||!email||!senha){alert("Preencha nome, e-mail e senha.");return}
- jogador.nome=nome;jogador.email=email;jogador.senha=senha;
- salvarJogo();trocar("raca");
+function openModal(id){
+ renderModals();
+ document.getElementById(id).classList.add("show");
 }
-function salvarRaca(){jogador.raca=document.getElementById("racaEscolhida").value;aplicarBonusRaca();trocar("classe")}
-function aplicarBonusRaca(){
- switch(jogador.raca){
-  case"Humano":jogador.ataque+=3;jogador.defesa+=3;break;
-  case"Elfo":jogador.manaMax+=25;break;
-  case"Anão":jogador.defesa+=8;break;
-  case"Vampiro":jogador.ataque+=7;jogador.hpMax-=10;break;
-  case"Draconiano":jogador.ataque+=10;break;
-  case"Demônio":jogador.ataque+=12;jogador.defesa-=2;break;
-  case"Celestial":jogador.defesa+=10;jogador.manaMax+=15;break;
- }
- jogador.hp=jogador.hpMax;jogador.mana=jogador.manaMax;
+function closeModals(){document.querySelectorAll(".modal").forEach(x=>x.classList.remove("show"))}
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function pct(v,max){return clamp(v/max*100,0,100)}
+function log(msg){
+ const el=document.getElementById("log");
+ if(!el)return;
+ const p=document.createElement("p");
+ p.innerHTML=msg;
+ el.prepend(p);
+ while(el.children.length>100)el.lastChild.remove();
 }
-function entrarJogo(){
- jogador.classe=document.getElementById("classeEscolhida").value;
- aplicarBonusClasse();salvarJogo();atualizarTela();trocar("jogo");
- log("🌟 Sua aventura começou. Os inimigos estão mais fortes.");
- mostrarCena("O ABISMO DESPERTA","O narrador","Você entra em Eldoria. Desta vez, sobreviver será mais difícil.");
-}
-function aplicarBonusClasse(){
- switch(jogador.classe){
-  case"Guerreiro":jogador.hpMax+=50;jogador.ataque+=8;break;
-  case"Mago":jogador.manaMax+=60;jogador.ataque+=5;break;
-  case"Arqueiro":jogador.ataque+=12;break;
-  case"Assassino":jogador.ataque+=18;jogador.defesa-=2;break;
-  case"Paladino":jogador.hpMax+=70;jogador.defesa+=12;break;
-  case"Necromante":jogador.manaMax+=45;jogador.ataque+=10;break;
-  case"Cavaleiro Dracônico":jogador.hpMax+=100;jogador.ataque+=15;jogador.defesa+=10;break;
-  case"Imperador das Sombras":jogador.ataque+=25;jogador.manaMax+=25;break;
- }
- jogador.hp=jogador.hpMax;jogador.mana=jogador.manaMax;
-}
-function atualizarTela(){
- document.getElementById("nomeJogador").innerText="⚔ "+jogador.nome;
- document.getElementById("informacoes").innerHTML=`Raça: <b>${jogador.raca}</b> | Classe: <b>${jogador.classe}</b>`;
- document.getElementById("hpTexto").innerText=`${Math.max(0,jogador.hp)} / ${jogador.hpMax}`;
- document.getElementById("manaTexto").innerText=`${Math.max(0,jogador.mana)} / ${jogador.manaMax}`;
- document.getElementById("nivelTexto").innerText=jogador.nivel;
- document.getElementById("ouroTexto").innerText=jogador.ouro;
- document.getElementById("ataqueTexto").innerText=jogador.ataque;
- document.getElementById("defesaTexto").innerText=jogador.defesa;
- document.getElementById("streakTexto").innerText=jogador.streak;
- document.getElementById("petTexto").innerText=jogador.pet||"Nenhum";
- document.getElementById("montariaTexto").innerText=jogador.montaria||"Nenhuma";
- document.getElementById("barraHP").style.width=Math.max(0,jogador.hp/jogador.hpMax*100)+"%";
- document.getElementById("barraMana").style.width=Math.max(0,jogador.mana/jogador.manaMax*100)+"%";
- document.getElementById("barraXP").style.width=Math.min(100,jogador.xp/jogador.xpProximo*100)+"%";
- document.getElementById("mundoAtual").innerHTML=`🌍 <b>${mundos[jogador.mundo].nome}</b> — Nível ${jogador.nivel}`;
- const m=mundos[jogador.mundo];
- const bossVencido=jogador.bossesDerrotados.includes(m.boss);
- document.getElementById("bossAtual").innerHTML=`<div class="boss-card"><b>👑 Boss da fase: ${m.boss}</b><br>☠️ Mini-boss: ${m.mini}<br>${bossVencido?"✅ Fase concluída":"⚠️ Derrote o boss para dominar este mundo."}</div>`;
- document.getElementById("rankBadge").innerText="🏆 "+getRank();
-}
-function getRank(){
- const p=jogador.vitorias*100+jogador.nivel*50+jogador.bossesDerrotados.length*1000+jogador.miniBossesDerrotados.length*400;
- if(p>=12000)return"☠️ Lendário";
- if(p>=7000)return"👑 Mestre";
- if(p>=4000)return"💎 Diamante";
- if(p>=2000)return"🥇 Ouro";
- if(p>=800)return"🥈 Prata";
- return"🥉 Bronze";
-}
-function log(t){const a=document.getElementById("log");const p=document.createElement("p");p.innerHTML=t;a.appendChild(p);a.scrollTop=a.scrollHeight}
-function logCombate(t){const a=document.getElementById("logCombate");const p=document.createElement("p");p.innerHTML=t;a.appendChild(p);a.scrollTop=a.scrollHeight}
-
-function gerarInimigo(){
- const m=mundos[jogador.mundo];
- const chance=Math.random();
- const eNivel=Math.max(1,jogador.nivel+Math.floor(Math.random()*7)-2);
- const dificuldade=1+jogador.mundo*.75;
- if(chance<.12 && !jogador.miniBossesDerrotados.includes(m.mini)){
-   const hp=Math.floor(150*eNivel*dificuldade);
-   return{nome:m.mini,nivel:eNivel,hp,hpMax:hp,ataque:Math.floor(18*eNivel*dificuldade),defesa:Math.floor(7*eNivel*dificuldade),tipo:"mini"};
- }
- if(chance<.08 && jogador.nivel>=m.nivel && !jogador.bossesDerrotados.includes(m.boss)){
-   const hp=Math.floor(300*eNivel*dificuldade);
-   return{nome:m.boss,nivel:eNivel,hp,hpMax:hp,ataque:Math.floor(28*eNivel*dificuldade),defesa:Math.floor(12*eNivel*dificuldade),tipo:"boss"};
- }
- const nomes=["Lobo Sombrio","Guardião Perdido","Demônio Abissal","Caçador das Trevas","Espectro","Colosso","Assassino do Vazio"];
- const hp=Math.floor(85*eNivel*dificuldade);
- return{nome:nomes[Math.floor(Math.random()*nomes.length)],nivel:eNivel,hp,hpMax:hp,ataque:Math.floor(13*eNivel*dificuldade),defesa:Math.floor(5*eNivel*dificuldade),tipo:"normal"};
-}
-function iniciarCombate(){
- inimigo=gerarInimigo();emCombate=true;
- document.getElementById("nomeInimigo").innerText=(inimigo.tipo==="boss"?"👑 ":inimigo.tipo==="mini"?"🔥 ":"👹 ")+inimigo.nome+" Lv."+inimigo.nivel;
- document.getElementById("nomeCombate").innerText=jogador.nome;
- document.getElementById("logCombate").innerHTML="";
- logCombate(inimigo.tipo==="boss"?"🚨 BOSS DA FASE!":"⚠️ Um inimigo apareceu.");
- atualizarCombate();trocar("combate");
- if(inimigo.tipo==="boss") narrar("Boss da fase: "+inimigo.nome+"!");
-}
-function atualizarCombate(){
- if(!inimigo)return;
- document.getElementById("hpCombate").style.width=Math.max(0,jogador.hp/jogador.hpMax*100)+"%";
- document.getElementById("hpInimigo").style.width=Math.max(0,inimigo.hp/inimigo.hpMax*100)+"%";
- document.getElementById("hpCombateTexto").innerText=`${Math.max(0,jogador.hp)} / ${jogador.hpMax}`;
- document.getElementById("hpInimigoTexto").innerText=`${Math.max(0,inimigo.hp)} / ${inimigo.hpMax}`;
- document.getElementById("manaCombateTexto").innerText=`${Math.max(0,jogador.mana)} / ${jogador.manaMax}`;
- document.getElementById("turnoTexto").innerText="⚔ Escolha sua ação";
-}
-function atacar(){
- if(!emCombate)return;
- let dano=Math.max(1,jogador.ataque-Math.floor(inimigo.defesa*.45));
- if(Math.random()<.12)dano*=2;
- inimigo.hp-=dano;logCombate(`⚔ Você causou <b>${dano}</b> de dano.`);
- if(inimigo.hp<=0){vencerCombate();return} turnoInimigo();atualizarCombate();
-}
-function habilidade(){
- if(!emCombate)return;
- const custo=25;
- if(jogador.mana<custo){logCombate("🔵 Mana insuficiente.");return}
- jogador.mana-=custo;
- const dano=Math.floor(jogador.ataque*2.0);
- inimigo.hp-=dano;logCombate(`✨ Habilidade! <b>${dano}</b> de dano. (-${custo} mana)`);
- if(inimigo.hp<=0){vencerCombate();return} turnoInimigo();atualizarCombate();
-}
-function usarPocao(){
- if(!emCombate)return;
- if(jogador.pocoes<=0){logCombate("🧪 Você não possui poções.");return}
- jogador.pocoes--;const cura=Math.floor(jogador.hpMax*.4);
- jogador.hp=Math.min(jogador.hpMax,jogador.hp+cura);
- logCombate(`🧪 +${cura} HP.`);turnoInimigo();atualizarCombate();
-}
-function turnoInimigo(){
- let dano=Math.max(1,inimigo.ataque-jogador.defesa);
- jogador.hp-=dano;logCombate(`👹 ${inimigo.nome} causou ${dano} de dano.`);
- // Mana se esgota mais rápido: cada turno também drena uma pequena quantidade.
- const drenagem=Math.max(2,Math.floor(jogador.manaMax*.07));
- jogador.mana=Math.max(0,jogador.mana-drenagem);
- logCombate(`🔻 O combate drenou ${drenagem} de mana.`);
- if(jogador.hp<=0)derrota();
-}
-function vencerCombate(){
- emCombate=false;
- const mult=inimigo.tipo==="boss"?5:inimigo.tipo==="mini"?2.5:1;
- const xp=Math.floor(inimigo.nivel*40*mult), ouro=Math.floor(inimigo.nivel*25*mult);
- jogador.xp+=xp;jogador.ouro+=ouro;jogador.vitorias++;jogador.streak++;jogador.melhorStreak=Math.max(jogador.melhorStreak,jogador.streak);
- if(inimigo.tipo==="boss"){
-  if(!jogador.bossesDerrotados.includes(inimigo.nome))jogador.bossesDerrotados.push(inimigo.nome);
-  mostrarCena("BOSS DERROTADO","O narrador",`Você derrotou ${inimigo.nome}. O caminho para o próximo mundo se abriu.`);
-  verificarMundo(true);
- } else if(inimigo.tipo==="mini"){
-  if(!jogador.miniBossesDerrotados.includes(inimigo.nome))jogador.miniBossesDerrotados.push(inimigo.nome);
- }
- logCombate("🏆 <span class='sucesso'>VITÓRIA!</span>");
- logCombate(`⭐ +${xp} XP | 💰 +${ouro} ouro`);
- verificarNivel();
- if(inimigo.tipo==="boss" && inimigo.nome==="Lucas"){
-   mostrarCena("🌑 O ÚLTIMO PORTAL","🎙 O narrador",
-     "Lucas cai, mas o Vazio começa a despertar. Agora você precisa decidir o destino dos sete mundos. A verdadeira batalha apenas começou.");
- }
- salvarJogo();atualizarTela();
- setTimeout(()=>{trocar("jogo")},900);
-}
-function verificarNivel(){
- while(jogador.xp>=jogador.xpProximo){
-  jogador.xp-=jogador.xpProximo;jogador.nivel++;
-  jogador.xpProximo=Math.floor(jogador.xpProximo*1.55);
-  jogador.hpMax+=22;jogador.manaMax+=7;jogador.ataque+=7;jogador.defesa+=3;
-  jogador.hp=jogador.hpMax;jogador.mana=jogador.manaMax;
-  log(`🌟 <span class="destaque">LEVEL UP!</span> Nível ${jogador.nivel}.`);
-  verificarMundo(false);
- }
-}
-function verificarMundo(apenasBoss){
- const proximo=jogador.mundo+1;
- if(proximo<mundos.length && jogador.nivel>=mundos[proximo].nivel && jogador.bossesDerrotados.includes(mundos[jogador.mundo].boss)){
-  jogador.mundo=proximo;
-  mostrarCena("NOVO MUNDO","O narrador",`O portal para ${mundos[jogador.mundo].nome} foi aberto.`);
- }
-}
-function fugir(){
- if(!emCombate)return;
- if(Math.random()<.45){emCombate=false;logCombate("🏃 Você escapou.");trocar("jogo");atualizarTela()}
- else{logCombate("❌ A fuga falhou.");turnoInimigo();atualizarCombate()}
-}
-function derrota(){
- emCombate=false;jogador.derrotas++;jogador.streak=0;jogador.ouro=Math.floor(jogador.ouro*.65);jogador.xp=Math.floor(jogador.xp*.75);
- logCombate("💀 Você foi derrotado. Parte do ouro e XP foi perdida.");
- setTimeout(()=>{jogador.hp=Math.floor(jogador.hpMax*.5);jogador.mana=Math.floor(jogador.manaMax*.35);salvarJogo();atualizarTela();trocar("jogo")},1200);
+function freshGame(name,birth,address,email,pass){
+ return {
+  profile:{name,birth,address,email,pass},
+  race:null,className:null,level:1,xp:0,xpMax:100,
+  gold:250,world:0,actions:12,maxActions:12,energy:100,maxEnergy:100,
+  hp:100,hpMax:100,mana:100,manaMax:100,
+  attack:10,defense:10,crit:5,
+  potions:3,inventory:[],pet:null,mount:null,
+  defeatedBosses:[],achievements:[],enemy:null,guard:false,
+  wins:0,days:0
+ };
 }
 
-function abrirHistoriaJogo(){ trocar("historiaJogo"); }
-function abrirMapa(){
- const area=document.getElementById("mapa");area.innerHTML="";
- mundos.forEach((m,i)=>{
-  const div=document.createElement("div");div.className="mundo";
-  const liberado=jogador.nivel>=m.nivel && (i===0 || jogador.bossesDerrotados.includes(mundos[i-1].boss));
-  if(liberado){
-   div.classList.add("desbloqueado");
-   div.innerHTML=`🌍 <b>${m.nome}</b><br>Requisito: Lv.${m.nivel}<br>👑 ${m.boss}<br>🔥 ${m.mini}`;
-   div.onclick=()=>{jogador.mundo=i;atualizarTela();voltarJogo()};
-  }else{div.classList.add("bloqueado");div.innerHTML=`🔒 ${m.nome}<br>Lv.${m.nivel}`;}
-  area.appendChild(div);
- });
- trocar("mapaTela");
+/* =========================
+   CADASTRO / CRIAÇÃO
+========================= */
+function createCharacter(){
+ const name=document.getElementById("regName").value.trim();
+ const birth=document.getElementById("regBirth").value;
+ const address=document.getElementById("regAddress").value.trim();
+ const email=document.getElementById("regEmail").value.trim();
+ const pass=document.getElementById("regPass").value;
+ if(name.length<3)return alert("Nome deve ter pelo menos 3 caracteres.");
+ if(!email.includes("@"))return alert("Digite um e-mail válido.");
+ if(pass.length<4)return alert("Senha deve ter pelo menos 4 caracteres.");
+ game=freshGame(name,birth,address,email,pass);
+ fillSelects();
+ show("raceScreen");
 }
-function abrirLoja(){
- document.getElementById("ouroLoja").innerText=jogador.ouro;
- const area=document.getElementById("lojaItens");area.innerHTML="";
- loja.forEach(([ico,nome,desc,preco,id])=>{
-  const d=document.createElement("div");d.className="item";
-  d.innerHTML=`<h3>${ico} ${nome}</h3><p>${desc}</p><button onclick="comprar('${id}',${preco},'${nome}')">Comprar — ${preco} ouro</button>`;
-  area.appendChild(d);
- });
- trocar("lojaTela");
+function fillSelects(){
+ const r=document.getElementById("race");
+ r.innerHTML=Object.keys(races).map(x=>`<option>${x}</option>`).join("");
+ const c=document.getElementById("class");
+ c.innerHTML=Object.keys(classes).map(x=>`<option>${x}</option>`).join("");
+ updateRaceInfo();updateClassInfo();
+ r.onchange=updateRaceInfo;c.onchange=updateClassInfo;
 }
-function comprar(id,preco,nome){
- if(jogador.ouro<preco){alert("Ouro insuficiente.");return}
- jogador.ouro-=preco;
- if(id==="pocao")jogador.pocoes++;
- if(id==="espada"){jogador.ataque+=15;jogador.equipamento.push(nome)}
- if(id==="armadura"){jogador.defesa+=15;jogador.equipamento.push(nome)}
- if(id==="cristal"){jogador.ataque+=30;jogador.equipamento.push(nome)}
- if(id==="lobo"){jogador.pet="Lobo Sombrio";jogador.ataque+=8}
- if(id==="falcao"){jogador.pet="Falcão Astral";jogador.ataque+=12;jogador.defesa+=5}
- if(id==="dragao"){jogador.montaria="Dragão Jovem";jogador.ataque+=25}
- if(id==="corcel"){jogador.montaria="Corcel das Sombras";jogador.defesa+=15}
- if(id==="mana"){jogador.manaMax+=40;jogador.mana=jogador.manaMax}
- if(id==="amuleto"){jogador.ataque+=10;jogador.defesa+=10}
- salvarJogo();atualizarTela();abrirLoja();
+function updateRaceInfo(){
+ const r=races[document.getElementById("race").value];
+ document.getElementById("raceInfo").innerHTML=`❤️ ${r.hp} HP base · 🔵 ${r.mana} Mana · ⚔️ ${r.atk} Ataque · 🛡️ ${r.def} Defesa · 🎯 ${r.crit}% crítico`;
 }
-function abrirRanking(){
- const registros=JSON.parse(localStorage.getItem("rankingAbismo")||"[]");
- const todos=[...registros.filter(x=>x.nome!==jogador.nome),criarRegistro()];
- todos.sort((a,b)=>b.pontos-a.pontos);
- const area=document.getElementById("rankingLista");area.innerHTML="";
- todos.slice(0,10).forEach((r,i)=>{
-  const d=document.createElement("div");d.className="rank";
-  d.innerHTML=`<b>#${i+1} ${r.nome}</b> — ${r.rank}<br>⭐ Nível ${r.nivel} | 👑 Bosses ${r.bosses} | ⚔ Vitórias ${r.vitorias} | 🏆 ${r.pontos} pontos`;
-  area.appendChild(d);
- });
- trocar("rankingTela");
+function updateClassInfo(){
+ const c=classes[document.getElementById("class").value];
+ document.getElementById("classInfo").innerHTML=`⚔️ +${c.atk} Ataque · 🛡️ +${c.def} Defesa · ✨ Habilidade: <b>${c.skill}</b>`;
 }
-function criarRegistro(){
- return {nome:jogador.nome||"Herói",nivel:jogador.nivel,bosses:jogador.bossesDerrotados.length,vitorias:jogador.vitorias,pontos:jogador.nivel*50+jogador.vitorias*100+jogador.bossesDerrotados.length*1000+jogador.miniBossesDerrotados.length*400,rank:getRank()}
+function chooseRace(){
+ selectedRace=document.getElementById("race").value;
+ const r=races[selectedRace];
+ game.race=selectedRace;
+ game.hpMax=r.hp;game.hp=r.hp;
+ game.manaMax=r.mana;game.mana=r.mana;
+ game.attack=r.atk;game.defense=r.def;game.crit=r.crit;
+ show("classScreen");
 }
-function salvarRanking(){
- let r=JSON.parse(localStorage.getItem("rankingAbismo")||"[]");
- r=r.filter(x=>x.nome!==jogador.nome);r.push(criarRegistro());
- localStorage.setItem("rankingAbismo",JSON.stringify(r));
+function chooseClass(){
+ selectedClass=document.getElementById("class").value;
+ const c=classes[selectedClass];
+ game.className=selectedClass;
+ game.attack+=c.atk;game.defense+=c.def;
+ saveGame();
+ show("gameScreen");
+ log(`🌅 <b>${game.profile.name}</b>, sua jornada começa em <b>Eldoria</b>.`);
+ log(`🧬 Raça: ${game.race} · ⚔️ Classe: ${game.className}.`);
+ log(`🎯 Objetivo: alcançar o Trono do Infinito e descobrir a verdade sobre Lucas.`);
+ updateUI();
 }
-function abrirNPCs(){
- const area=document.getElementById("npcLista");area.innerHTML="";
- npcs.forEach(n=>{
-  const d=document.createElement("div");d.className="npc";
-  d.innerHTML=`<h3>${n[0]} ${n[1]}</h3><b>${n[2]}</b><p>${n[3]}</p><button onclick="falarNPC('${n[1]}')">💬 Falar</button>`;
-  area.appendChild(d);
- });
- trocar("npcTela");
+
+/* =========================
+   SAVE
+========================= */
+function saveGame(){
+ if(!game)return;
+ localStorage.setItem("abismoUltraSave",JSON.stringify(game));
 }
-function falarNPC(nome){
- const n=npcs.find(x=>x[1]===nome);
- mostrarCena(n[1],n[1],n[3]);
+function loadGame(ask=false){
+ const raw=localStorage.getItem("abismoUltraSave");
+ if(!raw)return alert("Nenhum save encontrado.");
+ try{
+  game=JSON.parse(raw);
+  if(!game.profile)throw new Error();
+  if(ask||game.className){
+   show("gameScreen");updateUI();log("💾 Save carregado com sucesso.");
+  }
+ }catch(e){localStorage.removeItem("abismoUltraSave");alert("Save inválido.");}
 }
-function mostrarCena(titulo,narrador,texto){
- document.getElementById("cenaTitulo").innerText=titulo;
- document.getElementById("narrador").innerText="🎙 "+narrador;
- document.getElementById("cenaTexto").innerText=texto;
- document.getElementById("cena").classList.add("ativa");
- narrar(texto);
-}
-function fecharCena(){document.getElementById("cena").classList.remove("ativa");}
-function narrar(texto){
- if("speechSynthesis" in window){
-  speechSynthesis.cancel();
-  const voz=new SpeechSynthesisUtterance(texto);
-  voz.lang="pt-BR";voz.rate=.9;voz.pitch=0.8;
-  speechSynthesis.speak(voz);
+function deleteSave(){
+ if(confirm("Apagar todo o progresso local?")){
+  localStorage.removeItem("abismoUltraSave");location.reload();
  }
 }
-function voltarJogo(){atualizarTela();trocar("jogo")}
-function salvarJogo(){
- localStorage.setItem("cronicasAbismo",JSON.stringify(jogador));
- salvarRanking();
+
+/* =========================
+   UI
+========================= */
+function updateUI(){
+ if(!game)return;
+ const w=worlds[game.world];
+ document.getElementById("heroLine").textContent=`${game.race} · ${game.className}`;
+ document.getElementById("worldName").textContent=`${w.color} ${w.name}`;
+ document.getElementById("worldReq").textContent=`Boss: ${w.boss} · Nível ${w.req}+`;
+ document.getElementById("level").textContent=game.level;
+ document.getElementById("attack").textContent=Math.floor(game.attack);
+ document.getElementById("defense").textContent=Math.floor(game.defense);
+ document.getElementById("gold").textContent=game.gold;
+ document.getElementById("actions").textContent=`${game.actions}/${game.maxActions}`;
+ document.getElementById("hpText").textContent=`${Math.floor(game.hp)}/${game.hpMax}`;
+ document.getElementById("manaText").textContent=`${Math.floor(game.mana)}/${game.manaMax}`;
+ document.getElementById("xpText").textContent=`${game.xp}/${game.xpMax}`;
+ document.getElementById("stText").textContent=`${Math.floor(game.energy)}/${game.maxEnergy}`;
+ document.getElementById("hpFill").style.width=pct(game.hp,game.hpMax)+"%";
+ document.getElementById("manaFill").style.width=pct(game.mana,game.manaMax)+"%";
+ document.getElementById("xpFill").style.width=pct(game.xp,game.xpMax)+"%";
+ document.getElementById("stFill").style.width=pct(game.energy,game.maxEnergy)+"%";
+ document.getElementById("bossKills").textContent=game.defeatedBosses.length;
+ document.getElementById("achievementCount").textContent=game.achievements.length+"/"+achievements.length;
+ document.getElementById("petName").textContent=game.pet||"Nenhum";
+ document.getElementById("mountName").textContent=game.mount||"Nenhuma";
+ document.getElementById("objective").innerHTML=game.enemy
+  ? `⚔️ Derrote <b>${game.enemy.name}</b>.<br>❤️ ${Math.max(0,Math.floor(game.enemy.hp))}/${game.enemy.maxHp}`
+  : `🗺️ Explore ${w.name} e encontre ${w.boss}.`;
+ if(game.enemy)renderCombat();
 }
-function continuarJogo(){
- const s=localStorage.getItem("cronicasAbismo");
- if(!s){alert("Nenhum progresso salvo neste navegador.");return}
- try{jogador=Object.assign(jogador,JSON.parse(s));atualizarTela();trocar("jogo");log("💾 Progresso carregado com sucesso.")}catch(e){alert("Save inválido.")}
+function consumeAction(cost=1){
+ if(game.actions<cost){log("⏳ Você está sem ações. Use <b>Descansar</b>.");return false}
+ game.actions-=cost;return true;
 }
-setInterval(()=>{if(jogador.nome)salvarJogo()},5000);
+function consumeEnergy(cost){
+ if(game.energy<cost){log("⚡ Energia insuficiente.");return false}
+ game.energy-=cost;return true;
+}
+
+/* =========================
+   EXPLORAÇÃO
+========================= */
+function explore(){
+ if(game.enemy)return log("⚔️ Termine o combate atual antes de explorar.");
+ if(!consumeAction(1)||!consumeEnergy(8))return;
+ const roll=Math.random();
+ if(roll<0.16){
+  startBoss();
+ }else if(roll<0.62){
+  startEnemy();
+ }else if(roll<0.82){
+  const gold=rnd(40,90)+game.level*8;
+  game.gold+=gold;log(`💰 Você encontrou <b>${gold}</b> ouro.`);
+ }else if(roll<0.94){
+  const xp=rnd(20,50)+game.level*7;
+  gainXP(xp);log(`✨ Uma relíquia antiga concedeu <b>${xp} XP</b>.`);
+ }else{
+  game.potions++;log("🧪 Você encontrou uma Poção Suprema.");
+ }
+ updateUI();saveGame();checkAchievements();
+}
+function startEnemy(){
+ const scale=1+game.level*.12;
+ const names=["Goblin Abissal","Lobo Astral","Guardião de Cinzas","Cavaleiro Perdido","Mago do Vazio","Predador Lunar"];
+ const name=names[rnd(0,names.length-1)];
+ const max=Math.floor((180+game.level*75)*scale);
+ game.enemy={name,hp:max,maxHp:max,atk:Math.floor((25+game.level*17)*scale),def:Math.floor((8+game.level*8)*scale),crit:8};
+ log(`👹 <b>${name}</b> apareceu com ${max} HP!`);
+ renderCombat();
+}
+function startBoss(){
+ const w=worlds[game.world], base=bossBase[w.boss];
+ if(game.level<base.phase*20 && game.level<w.req){
+  log(`⚠️ O boss <b>${w.boss}</b> ainda está além do seu nível.`);
+  return;
+ }
+ const multiplier=1+Math.max(0,game.level-base.phase*20)*.04;
+ game.enemy={name:w.boss,hp:Math.floor(base.hp*multiplier),maxHp:Math.floor(base.hp*multiplier),atk:Math.floor(base.atk*multiplier),def:Math.floor(base.def*multiplier),crit:12,boss:true,phase:1};
+ log(`☠️ <b>${w.boss}</b> desceu ao campo. A batalha será dividida em fases.`);
+ renderCombat();
+}
+function renderCombat(){
+ const box=document.getElementById("combatPanel");
+ if(!game.enemy){box.style.display="none";return}
+ box.style.display="block";
+ const e=game.enemy;
+ const percent=pct(e.hp,e.maxHp);
+ box.innerHTML=`
+ <div class="panel enemy">
+ <h2>${e.boss?"☠️":"👹"} ${e.name}</h2>
+ <div class="bar"><div class="fill hp" style="width:${percent}%"></div></div>
+ <p>❤️ ${Math.max(0,Math.floor(e.hp))}/${e.maxHp} · ⚔️ ${e.atk} · 🛡️ ${e.def}</p>
+ ${e.boss?`<p class="bossPhase">Fase ${e.phase} · ${bossBase[e.name].phase} fases</p>`:""}
+ <button onclick="flee()">🏃 Fugir</button>
+ </div>`;
+}
+
+/* =========================
+   COMBATE
+========================= */
+function playerDamage(mult=1){
+ let base=game.attack*mult;
+ let dmg=Math.max(1,Math.floor(base-rnd(0,Math.max(2,game.attack*.25))));
+ if(Math.random()*100<game.crit){dmg*=2;log("💥 <b>CRÍTICO!</b>");}
+ return dmg;
+}
+function attackEnemy(){
+ if(!game.enemy)return log("🗺️ Explore para encontrar um inimigo.");
+ if(!consumeAction(1)||!consumeEnergy(10))return;
+ const dmg=Math.max(1,playerDamage(1)-game.enemy.def);
+ game.enemy.hp-=dmg;
+ log(`⚔️ Você causou <b>${dmg}</b> de dano.`);
+ if(resolveEnemy())return;
+ enemyTurn();updateUI();saveGame();
+}
+function useSkill(){
+ if(!game.enemy)return log("Não há alvo.");
+ if(!consumeAction(2)||!consumeEnergy(18))return;
+ const cost=35;
+ if(game.mana<cost){log("🔵 Mana insuficiente.");game.actions+=2;game.energy+=18;return}
+ game.mana-=cost;
+ const dmg=Math.max(1,playerDamage(2.15)-Math.floor(game.enemy.def*.5));
+ game.enemy.hp-=dmg;
+ log(`✨ <b>${classes[game.className].skill}</b> causou ${dmg} de dano.`);
+ if(resolveEnemy())return;
+ enemyTurn();updateUI();saveGame();
+}
+function defend(){
+ if(!game.enemy)return log("Não há inimigo.");
+ if(!consumeAction(1)||!consumeEnergy(6))return;
+ game.guard=true;
+ log("🛡️ Você entrou em posição defensiva. O próximo dano será reduzido.");
+ enemyTurn();updateUI();saveGame();
+}
+function enemyTurn(){
+ const e=game.enemy;
+ let damage=Math.max(1,e.atk-game.defense);
+ damage=Math.floor(damage*(.75+Math.random()*.55));
+ if(e.boss && Math.random()*100<e.crit){damage*=2;log("☠️ <b>Golpe crítico do boss!</b>")}
+ if(game.guard){damage=Math.floor(damage*.4);game.guard=false}
+ game.hp-=damage;
+ log(`👹 ${e.name} causou <b>${damage}</b> de dano.`);
+ if(game.hp<=0)playerDeath();
+}
+function resolveEnemy(){
+ if(game.enemy.hp>0){
+  if(game.enemy.boss)updateBossPhase();
+  return false;
+ }
+ const defeated=game.enemy;
+ game.enemy=null;
+ if(defeated.boss)bossVictory(defeated.name);
+ else{
+  const xp=rnd(35,65)+game.level*12;
+  const gold=rnd(25,70)+game.level*9;
+  game.wins++;game.gold+=gold;gainXP(xp);
+  log(`🏆 Inimigo derrotado! +${xp} XP e +${gold} ouro.`);
+  unlock("first");
+ }
+ updateUI();saveGame();checkAchievements();
+ return true;
+}
+function updateBossPhase(){
+ const e=game.enemy,b=bossBase[e.name],hpPercent=e.hp/e.maxHp;
+ const phaseCount=b.phase;
+ let newPhase=hpPercent>.75?1:hpPercent>.5?2:hpPercent>.25?3:4;
+ newPhase=Math.min(newPhase,phaseCount);
+ if(newPhase>e.phase){
+  e.phase=newPhase;
+  e.atk=Math.floor(e.atk*(1+.18*newPhase));
+  e.def=Math.floor(e.def*(1+.10*newPhase));
+  log(`🔥 <b>${e.name}</b> entrou na FASE ${newPhase}! Seus atributos aumentaram.`);
+ }
+}
+function bossVictory(name){
+ game.defeatedBosses.push(name);
+ game.wins++;
+ const base=bossBase[name];
+ const xp=base.hp>500000?150000:base.hp>200000?70000:base.hp>50000?25000:base.hp/5;
+ const gold=Math.floor(base.hp/20);
+ game.gold+=gold;gainXP(Math.floor(xp));
+ log(`👑 <b>${name} foi derrotado!</b> +${Math.floor(xp)} XP · +${gold} ouro.`);
+ if(name==="Lucas"){
+  unlock("lucas");
+  log("🌌 <b>O Vazio Infinito se abriu.</b> Você descobriu o segredo final.");
+ }else{
+  const next=game.world+1;
+  if(next<worlds.length){
+   game.world=next;
+   log(`🌍 Novo mundo desbloqueado: <b>${worlds[next].name}</b>.`);
+  }
+ }
+ updateUI();saveGame();checkAchievements();
+}
+function flee(){
+ if(!game.enemy)return;
+ if(!consumeAction(1))return;
+ if(Math.random()<.55){log("🏃 Você conseguiu fugir.");game.enemy=null}
+ else{log("❌ A fuga falhou.");enemyTurn()}
+ updateUI();saveGame();
+}
+function playerDeath(){
+ log("☠️ <b>Você caiu no Abismo.</b>");
+ game.hp=Math.max(1,Math.floor(game.hpMax*.35));
+ game.mana=Math.floor(game.manaMax*.35);
+ game.actions=Math.max(1,Math.floor(game.maxActions/2));
+ game.energy=Math.max(1,Math.floor(game.maxEnergy/2));
+ game.enemy=null;
+ game.gold=Math.floor(game.gold*.9);
+ log("💀 Você perdeu 10% do ouro e voltou enfraquecido.");
+ updateUI();saveGame();
+}
+
+/* =========================
+   PROGRESSÃO
+========================= */
+function gainXP(amount){
+ game.xp+=Math.floor(amount);
+ while(game.xp>=game.xpMax){
+  game.xp-=game.xpMax;
+  game.level++;
+  game.xpMax=Math.floor(game.xpMax*1.42+30);
+  game.hpMax+=25+game.level*4;
+  game.manaMax+=10+game.level*2;
+  game.attack+=12+game.level*2;
+  game.defense+=7+game.level;
+  game.hp=game.hpMax;game.mana=game.manaMax;
+  game.maxActions=Math.min(20,game.maxActions+1);
+  game.actions=game.maxActions;
+  game.maxEnergy=Math.min(180,game.maxEnergy+4);
+  game.energy=game.maxEnergy;
+  log(`🔥 <b>LEVEL UP!</b> Você alcançou o nível ${game.level}.`);
+ }
+ checkAchievements();
+}
+
+/* =========================
+   RECURSOS
+========================= */
+function usePotion(){
+ if(game.potions<=0)return log("🧪 Você não possui poções.");
+ if(game.hp>=game.hpMax)return log("❤️ Sua vida já está cheia.");
+ game.potions--;
+ const heal=Math.floor(game.hpMax*.45);
+ game.hp=Math.min(game.hpMax,game.hp+heal);
+ log(`🧪 Poção recuperou ${heal} HP.`);
+ updateUI();saveGame();
+}
+function rest(){
+ if(game.enemy)return log("⚔️ Você não pode descansar durante um combate.");
+ game.actions=game.maxActions;
+ game.energy=game.maxEnergy;
+ game.mana=Math.min(game.manaMax,game.mana+Math.floor(game.manaMax*.4));
+ game.hp=Math.min(game.hpMax,game.hp+Math.floor(game.hpMax*.3));
+ log("🔥 Você descansou. Seus recursos foram restaurados.");
+ updateUI();saveGame();
+}
+
+/* =========================
+   LOJA
+========================= */
+function renderShop(){
+ const el=document.getElementById("shopList");
+ el.innerHTML=shop.map(i=>`
+ <div class="item ${i.rarity}">
+ <b>${i.name}</b> — <span class="gold">${i.price} ouro</span>
+ <br><small>${i.type==="potion"?"Recupera HP em combate.":`+${i.atk||0} ATK · +${i.def||0} DEF · +${i.hp||0} HP · +${i.mana||0} Mana`}</small>
+ <button onclick="buy('${i.id}')">Comprar</button>
+ </div>`).join("");
+}
+function buy(id){
+ const i=shop.find(x=>x.id===id);
+ if(game.gold<i.price)return log("💰 Ouro insuficiente.");
+ game.gold-=i.price;
+ if(i.type==="potion")game.potions++;
+ else{
+  if(i.atk)game.attack+=i.atk;
+  if(i.def)game.defense+=i.def;
+  if(i.hp){game.hpMax+=i.hp;game.hp+=i.hp}
+  if(i.mana){game.manaMax+=i.mana;game.mana+=i.mana}
+  game.inventory.push({name:i.name,rarity:i.rarity});
+ }
+ log(`🛒 Você comprou <b>${i.name}</b>.`);
+ updateUI();saveGame();renderModals();checkAchievements();
+}
+
+/* =========================
+   PETS / MONTARIAS
+========================= */
+function renderPets(){
+ const el=document.getElementById("petList");
+ el.innerHTML="<h3>🐉 Pets</h3>"+pets.map((p,i)=>`
+ <div class="item epic">
+ ${p.icon} <b>${p.name}</b><br>
+ +${p.atk*100}% Ataque · +${p.def*100}% Defesa · ${p.price} ouro
+ <button onclick="buyPet(${i})">${game.pet===p.name?"Equipado":"Comprar / Equipar"}</button>
+ </div>`).join("")+
+ "<h3>🏇 Montarias</h3>"+
+ mounts.map((m,i)=>`
+ <div class="item rare">${m.icon} <b>${m.name}</b><br>
+ +${m.energy} Energia máxima · ${m.gold} ouro
+ <button onclick="buyMount(${i})">${game.mount===m.name?"Equipado":"Comprar / Equipar"}</button>
+ </div>`).join("");
+}
+function buyPet(i){
+ const p=pets[i];
+ if(game.pet===p.name)return;
+ if(game.gold<p.price)return log("💰 Ouro insuficiente.");
+ game.gold-=p.price;
+ game.pet=p.name;
+ game.attack=Math.floor(game.attack*(1+p.atk));
+ game.defense=Math.floor(game.defense*(1+p.def));
+ log(`🐉 <b>${p.name}</b> se juntou à sua jornada.`);
+ updateUI();saveGame();renderModals();
+}
+function buyMount(i){
+ const m=mounts[i];
+ if(game.mount===m.name)return;
+ if(game.gold<m.gold)return log("💰 Ouro insuficiente.");
+ game.gold-=m.gold;
+ game.mount=m.name;
+ game.maxEnergy=Math.min(200,game.maxEnergy+m.energy);
+ game.energy=game.maxEnergy;
+ log(`🏇 Montaria equipada: <b>${m.name}</b>.`);
+ updateUI();saveGame();renderModals();
+}
+
+/* =========================
+   INVENTÁRIO / MAPA
+========================= */
+function renderInventory(){
+ const el=document.getElementById("inventoryList");
+ el.innerHTML=`<div class="item">🧪 Poções: <b>${game.potions}</b></div>`;
+ if(!game.inventory.length)el.innerHTML+="<p class='muted'>Nenhum equipamento guardado.</p>";
+ game.inventory.forEach(x=>el.innerHTML+=`<div class="item ${x.rarity}">${x.name}</div>`);
+}
+function renderMap(){
+ const el=document.getElementById("mapList");
+ el.innerHTML=worlds.map((w,i)=>{
+  const unlocked=game.level>=w.req||i<=game.world;
+  return `<div class="item world ${unlocked?"":"bad"}">
+  <b>${w.color} ${w.name}</b><br>
+  Nível ${w.req}+<br>Boss: ${w.boss}<br>
+  ${unlocked?"🟢 Desbloqueado":"🔒 Bloqueado"}
+  ${unlocked?`<button onclick="travel(${i})">Viajar</button>`:""}
+  </div>`;
+ }).join("");
+}
+function travel(i){
+ if(game.level<worlds[i].req)return log("⚠️ Seu nível é insuficiente.");
+ if(game.enemy)return log("⚔️ Termine o combate primeiro.");
+ game.world=i;closeModals();updateUI();saveGame();
+ log(`🌍 Você viajou para <b>${worlds[i].name}</b>.`);
+}
+
+/* =========================
+   CONQUISTAS
+========================= */
+function unlock(id){
+ if(!game.achievements.includes(id)){
+  game.achievements.push(id);
+  const a=achievements.find(x=>x.id===id);
+  if(a)log(`🏆 Conquista desbloqueada: <b>${a.name}</b>`);
+ }
+}
+function checkAchievements(){
+ if(game.wins>=1)unlock("first");
+ if(game.defeatedBosses.length>=1)unlock("boss");
+ if(game.defeatedBosses.length>=5)unlock("five");
+ if(game.level>=150)unlock("max");
+ if(game.defeatedBosses.includes("Lucas"))unlock("lucas");
+ if(game.gold>=10000)unlock("rich");
+}
+function renderAchievements(){
+ const el=document.getElementById("achievementList");
+ el.innerHTML=achievements.map(a=>{
+  const done=game.achievements.includes(a.id);
+  return `<div class="item ${done?"divine":""}">
+  ${done?"🏆":"🔒"} <b>${a.name}</b><br><span class="muted">${a.desc}</span>
+  </div>`;
+ }).join("");
+}
+
+/* =========================
+   MODAIS
+========================= */
+function renderModals(){
+ if(!game)return;
+ document.getElementById("shopGold").textContent=game.gold;
+ renderShop();renderInventory();renderPets();renderAchievements();renderMap();
+}
+
+/* =========================
+   AUTOSAVE
+========================= */
+setInterval(()=>{if(game){saveGame();}},10000);
+
+/* =========================
+   REGENERAÇÃO LENTA
+========================= */
+setInterval(()=>{
+ if(!game)return;
+ if(!document.getElementById("gameScreen").classList.contains("active"))return;
+ game.mana=Math.min(game.manaMax,game.mana+3);
+ game.energy=Math.min(game.maxEnergy,game.energy+2);
+ updateUI();
+},5000);
+
+/* =========================
+   TECLAS
+========================= */
 document.addEventListener("keydown",e=>{
- if(e.key==="Escape" && document.getElementById("cena").classList.contains("ativa"))fecharCena();
+ if(!game)return;
+ if(e.key==="1")explore();
+ if(e.key==="2")attackEnemy();
+ if(e.key==="3")useSkill();
+ if(e.key==="4")usePotion();
 });
-if(localStorage.getItem("cronicasAbismo")){
- try{jogador=Object.assign(jogador,JSON.parse(localStorage.getItem("cronicasAbismo")))}catch(e){}
+
+/* =========================
+   INICIALIZAÇÃO
+========================= */
+fillSelects();
+const existing=localStorage.getItem("abismoUltraSave");
+if(existing){
+ setTimeout(()=>{
+  if(confirm("Existe um save local. Deseja carregá-lo?"))loadGame();
+ },300);
 }
-if(jogador.nome)atualizarTela();
 </script>
 </body>
 </html>
