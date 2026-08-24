@@ -1,809 +1,285 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Crônicas do Abismo Infinito — ULTRA</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crônicas do Abismo Infinito — ULTRA 2.0</title>
 <style>
-*{box-sizing:border-box}
-:root{
- --bg:#030712;--panel:#0b1220;--panel2:#111827;--line:#263449;
- --text:#e5e7eb;--muted:#94a3b8;--blue:#38bdf8;--purple:#a78bfa;
- --red:#f87171;--green:#4ade80;--gold:#facc15;--cyan:#22d3ee;
-}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:
-radial-gradient(circle at 20% 0%,#172554 0,transparent 35%),
-radial-gradient(circle at 90% 20%,#3b0764 0,transparent 30%),var(--bg);
-color:var(--text);min-height:100vh}
-button,input,select{font:inherit}
-button{border:0;border-radius:10px;padding:11px 14px;color:#fff;background:linear-gradient(90deg,#2563eb,#7c3aed);cursor:pointer;transition:.2s}
-button:hover{transform:translateY(-2px);filter:brightness(1.12)}
-button:disabled{opacity:.35;cursor:not-allowed;transform:none}
-.screen{display:none;min-height:100vh;padding:22px;align-items:center;justify-content:center}
-.screen.active{display:flex}
-.card{width:min(1100px,96vw);background:rgba(11,18,32,.96);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 0 45px #0008}
-h1,h2,h3{margin-top:0}.center{text-align:center}.muted{color:var(--muted)}
-.story{max-height:52vh;overflow:auto;line-height:1.8;color:#cbd5e1}
-.form{max-width:500px;margin:auto}.form input,.form select{width:100%;padding:12px;margin:7px 0 13px;border-radius:10px;border:1px solid var(--line);background:#020617;color:white}
-.logo{font-size:58px;text-align:center}.glow{color:var(--blue);text-shadow:0 0 18px #38bdf8}
-.layout{width:min(1450px,98vw);margin:auto;padding:15px}.top{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin:12px 0}
-.stat,.panel,.item{background:rgba(2,6,23,.82);border:1px solid var(--line);border-radius:13px;padding:12px}
-.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:12px}
-.bars{display:grid;gap:8px}.bar{height:16px;background:#020617;border-radius:20px;overflow:hidden;border:1px solid #1e293b}.fill{height:100%;transition:.3s}
-.hp{background:linear-gradient(90deg,#dc2626,#fb7185)}.mp{background:linear-gradient(90deg,#2563eb,#22d3ee)}
-.xp{background:linear-gradient(90deg,#16a34a,#a3e635)}.st{background:linear-gradient(90deg,#d97706,#facc15)}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
-.log{height:300px;overflow:auto;background:#020617;border:1px solid var(--line);border-radius:13px;padding:12px}
-.log p{margin:6px 0}.enemy{border-color:#7f1d1d;background:radial-gradient(circle at 50% 0,#3f0d16,#020617 65%);box-shadow:0 0 25px #7f1d1d55}
-.enemy h2{color:#f87171}.bossPhase{color:#facc15}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.tabs button{background:#1e293b}
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.modal.show{display:flex}
-.modal .card{max-height:90vh;overflow:auto}
-.item{margin:7px 0}.common{border-color:#64748b}.rare{border-color:#3b82f6}.epic{border-color:#a855f7}.divine{border-color:#facc15}.supreme{border-color:#fb7185}.infinite{border-color:#22d3ee}
-.good{color:var(--green)}.bad{color:var(--red)}.gold{color:var(--gold)}.cyan{color:var(--cyan)}
-.map{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.world{min-height:110px}
-@media(max-width:900px){.stats{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:1fr}}
-@media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:repeat(2,1fr)}.map{grid-template-columns:1fr}}
+*{box-sizing:border-box}body{margin:0;background:#030712;color:#e5e7eb;font:15px Arial,sans-serif}
+button,input,select{font:inherit}button{background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff;border:0;border-radius:10px;padding:10px 13px;cursor:pointer;margin:3px}
+button:hover{filter:brightness(1.15);transform:translateY(-1px)}button:disabled{opacity:.35;cursor:not-allowed}
+.screen{display:none;min-height:100vh;padding:18px;align-items:center;justify-content:center}.active{display:flex}
+.card,.panel{background:#0b1220eF;border:1px solid #263449;border-radius:18px;box-shadow:0 0 30px #0008}.card{width:min(1200px,96vw);padding:24px}
+.form{width:min(520px,96vw)}input,select{width:100%;padding:12px;margin:7px 0;background:#020617;color:#fff;border:1px solid #334155;border-radius:10px}
+.center{text-align:center}.muted{color:#94a3b8}.glow{color:#67e8f9;text-shadow:0 0 16px #22d3ee}
+.story{line-height:1.75;max-height:52vh;overflow:auto}.logo{font-size:60px}
+.app{width:min(1500px,98vw);margin:auto;padding:12px}.top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(8,1fr);gap:7px;margin:10px 0}.stat{padding:10px;background:#0b1220;border:1px solid #263449;border-radius:12px}
+.grid{display:grid;grid-template-columns:1.55fr 1fr;gap:10px}.panel{padding:13px;margin-bottom:10px}.bars{display:grid;gap:7px}.bar{height:14px;background:#020617;border-radius:20px;overflow:hidden;border:1px solid #1e293b}.fill{height:100%;transition:.25s}.hp{background:#ef4444}.mp{background:#3b82f6}.xp{background:#22c55e}.en{background:#f59e0b}.mor{background:#a855f7}
+.actions{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.log{height:290px;overflow:auto;background:#020617;padding:10px;border-radius:10px}.log p{margin:5px 0}
+.combat{background:radial-gradient(circle at 50% 0,#3f0d16,#020617 65%);border-color:#7f1d1d}.enemyTitle{color:#f87171}
+.tabs{display:flex;flex-wrap:wrap}.item{padding:9px;margin:6px 0;border:1px solid #334155;border-radius:10px;background:#020617}.common{border-color:#64748b}.rare{border-color:#3b82f6}.epic{border-color:#a855f7}.divine{border-color:#facc15}.supreme{border-color:#fb7185}.infinite{border-color:#22d3ee}
+.map{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.world{min-height:100px}.locked{opacity:.45}.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:15px;z-index:30}.modal.show{display:flex}.modal .card{max-height:92vh;overflow:auto}
+.bad{color:#fb7185}.good{color:#4ade80}.gold{color:#facc15}.cyan{color:#22d3ee}.warn{color:#fbbf24}
+.skill{border:1px solid #7c3aed;background:#140d2c}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(4,1fr)}.grid{grid-template-columns:1fr}}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:repeat(2,1fr)}.map{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<section id="storyScreen" class="screen active">
-<div class="card">
-<div class="logo">⚔️🌑</div>
-<h1 class="center glow">CRÔNICAS DO ABISMO INFINITO</h1>
+<section id="intro" class="screen active"><div class="card">
+<div class="logo center">⚔️🌑🌌</div>
+<h1 class="center glow">CRÔNICAS DO ABISMO INFINITO — ULTRA 2.0</h1>
 <div class="story">
-<p>Sete mundos existiam separados por antigos selos: Eldoria, Vulkar, Niflheim, Tempestia, Reino das Sombras, Universo Astral e o Vazio Infinito.</p>
-<p>Durante eras, os selos mantiveram em equilíbrio forças que nenhum mortal deveria controlar. Então, em uma única noite, as estrelas desapareceram.</p>
-<p>Fenrir despertou nas montanhas. Ignaroth abriu os vulcões. Skolgrim congelou cidades inteiras. Nocturnus tomou o Reino das Sombras. Astrael atravessou o céu astral. Nihilus começou a apagar a própria realidade.</p>
-<p>Mas esses monstros eram apenas guardiões de algo maior.</p>
-<p>Julio, Gustavo e Lucas haviam encontrado uma passagem para o Abismo. Lucas, o último deles, não queria conquistar um reino: queria romper a fronteira entre todos os mundos.</p>
-<p>Você é um aventureiro sem fama, sem exército e sem garantia de vitória. Sua única vantagem é poder escolher como evoluir.</p>
-<p><b>O Abismo não perdoa erros.</b> Explore, lute, administre seus recursos, melhore seus equipamentos e descubra os segredos antes de encarar o trono final.</p>
+<p>Os sete mundos foram criados para nunca se encontrarem. Eldoria protegia a vida; Vulkar, o fogo; Niflheim, o gelo; Tempestia, as tempestades; o Reino das Sombras, os segredos; o Universo Astral, o conhecimento; e o Vazio Infinito, aquilo que deveria permanecer esquecido.</p>
+<p>Então os selos começaram a desaparecer.</p>
+<p>Fenrir, Ignaroth, Skolgrim, Nocturnus, Astrael e Nihilus surgiram como arautos. Julio e Gustavo avançaram pelos últimos portais. No centro de tudo estava Lucas, guardião do Trono do Infinito.</p>
+<p>Você não recebeu uma profecia dizendo que venceria. Recebeu apenas uma escolha: continuar avançando.</p>
+<p><b>ULTRA 2.0</b> traz combate estratégico, IA de inimigos, árvore de habilidades, loot aleatório, eventos, dungeons, reputação, pets, montarias, equipamentos aprimoráveis, New Game+, modo Abismo e bosses com fases.</p>
 </div>
-<button style="width:100%" onclick="show('registerScreen')">⚔️ COMEÇAR A JORNADA</button>
-</div>
-</section>
+<button style="width:100%" onclick="show('register')">⚔️ COMEÇAR</button>
+<button style="width:100%;background:#1e293b" onclick="load()">💾 CARREGAR SAVE</button>
+</div></section>
 
-<section id="registerScreen" class="screen">
-<div class="card form">
+<section id="register" class="screen"><div class="card form">
 <h2 class="center">🧙 Criar Aventureiro</h2>
-<input id="regName" placeholder="Nome do personagem" maxlength="24">
-<input id="regBirth" type="date">
-<input id="regAddress" placeholder="Endereço">
-<input id="regEmail" type="email" placeholder="E-mail">
-<input id="regPass" type="password" placeholder="Senha">
-<button style="width:100%" onclick="createCharacter()">Continuar</button>
-<button style="width:100%;background:#1e293b" onclick="loadGame(true)">💾 Carregar save local</button>
-</div>
-</section>
+<input id="name" maxlength="24" placeholder="Nome">
+<input id="birth" type="date"><input id="address" placeholder="Endereço">
+<input id="email" type="email" placeholder="E-mail"><input id="pass" type="password" placeholder="Senha">
+<button style="width:100%" onclick="create()">Continuar</button>
+</div></section>
 
-<section id="raceScreen" class="screen">
-<div class="card form">
-<h2 class="center">🧬 Escolha sua Raça</h2>
-<select id="race"></select>
-<p id="raceInfo" class="muted"></p>
-<button style="width:100%" onclick="chooseRace()">Continuar</button>
-</div>
-</section>
+<section id="race" class="screen"><div class="card form">
+<h2>🧬 Raça</h2><select id="raceSel" onchange="raceInfo()"></select><p id="raceDesc" class="muted"></p>
+<button style="width:100%" onclick="pickRace()">Continuar</button></div></section>
 
-<section id="classScreen" class="screen">
-<div class="card form">
-<h2 class="center">⚔️ Escolha sua Classe</h2>
-<select id="class"></select>
-<p id="classInfo" class="muted"></p>
-<button style="width:100%" onclick="chooseClass()">Entrar em Eldoria</button>
-</div>
-</section>
+<section id="class" class="screen"><div class="card form">
+<h2>⚔️ Classe</h2><select id="classSel" onchange="classInfo()"></select><p id="classDesc" class="muted"></p>
+<button style="width:100%" onclick="pickClass()">Entrar em Eldoria</button></div></section>
 
-<main id="gameScreen" class="screen">
-<div class="layout">
-<div class="top">
-<div><b class="glow">⚔️ Crônicas do Abismo</b><div class="muted" id="heroLine"></div></div>
-<div>
-<button onclick="openModal('mapModal')">🗺️ Mapa</button>
-<button onclick="openModal('shopModal')">🛒 Loja</button>
-<button onclick="openModal('inventoryModal')">🎒 Inventário</button>
-<button onclick="saveGame()">💾 Salvar</button>
-</div>
-</div>
+<section id="game" class="screen"><div class="app">
+<div class="top"><div><b class="glow">⚔️ ABISMO INFINITO 2.0</b><div id="hero" class="muted"></div></div>
+<div><button onclick="modal('map')">🗺️</button><button onclick="modal('shop')">🛒</button><button onclick="modal('bag')">🎒</button><button onclick="modal('skills')">✨</button><button onclick="save()">💾</button></div></div>
 
 <div class="stats">
-<div class="stat">🌍 <b id="worldName"></b><br><small id="worldReq"></small></div>
-<div class="stat">📈 Nível<br><b id="level"></b></div>
-<div class="stat">⚔️ Ataque<br><b id="attack"></b></div>
-<div class="stat">🛡️ Defesa<br><b id="defense"></b></div>
-<div class="stat">💰 Ouro<br><b id="gold"></b></div>
-<div class="stat">⚡ Ações<br><b id="actions"></b></div>
+<div class="stat">🌍 <b id="world"></b><br><small id="bossGoal"></small></div><div class="stat">📈 Nível<br><b id="lvl"></b></div>
+<div class="stat">⚔️ ATK<br><b id="atk"></b></div><div class="stat">🛡️ DEF<br><b id="def"></b></div>
+<div class="stat">💰 Ouro<br><b id="gold"></b></div><div class="stat">⭐ Reputação<br><b id="rep"></b></div>
+<div class="stat">🔥 NG+<br><b id="ng"></b></div><div class="stat">🌑 Abismo<br><b id="abyss"></b></div>
 </div>
 
-<div class="grid">
-<div>
-<div class="panel">
-<div class="bars">
-<div>❤️ HP <span id="hpText"></span><div class="bar"><div id="hpFill" class="fill hp"></div></div></div>
-<div>🔵 Mana <span id="manaText"></span><div class="bar"><div id="manaFill" class="fill mp"></div></div></div>
-<div>🟢 XP <span id="xpText"></span><div class="bar"><div id="xpFill" class="fill xp"></div></div></div>
-<div>⚡ Energia <span id="stText"></span><div class="bar"><div id="stFill" class="fill st"></div></div></div>
+<div class="grid"><div>
+<div class="panel"><div class="bars">
+<div>❤️ HP <span id="hpT"></span><div class="bar"><div id="hpF" class="fill hp"></div></div></div>
+<div>🔵 Mana <span id="mpT"></span><div class="bar"><div id="mpF" class="fill mp"></div></div></div>
+<div>🟢 XP <span id="xpT"></span><div class="bar"><div id="xpF" class="fill xp"></div></div></div>
+<div>⚡ Energia <span id="enT"></span><div class="bar"><div id="enF" class="fill en"></div></div></div>
+<div>🌑 Corrupção <span id="corT"></span><div class="bar"><div id="corF" class="fill mor"></div></div></div>
 </div>
 <div class="actions">
-<button onclick="explore()">🗺️ Explorar</button>
-<button onclick="attackEnemy()">⚔️ Atacar</button>
-<button onclick="useSkill()">✨ Habilidade</button>
-<button onclick="defend()">🛡️ Defender</button>
-<button onclick="usePotion()">🧪 Poção</button>
-<button onclick="rest()">🔥 Descansar</button>
-<button onclick="openModal('petModal')">🐉 Pets</button>
-<button onclick="openModal('achievementModal')">🏆 Conquistas</button>
+<button onclick="explore()">🗺️ Explorar</button><button onclick="attack()">⚔️ Atacar</button><button onclick="skill()">✨ Habilidade</button>
+<button onclick="defend()">🛡️ Defender</button><button onclick="potion()">🧪 Poção</button><button onclick="rest()">🔥 Descansar</button>
+<button onclick="eventRoll()">🎲 Evento</button><button onclick="dungeon()">🏰 Dungeon</button><button onclick="openPets()">🐉 Pet</button><button onclick="newGamePlus()">♾️ NG+</button>
+</div></div>
+<div id="combat" class="panel combat" style="display:none"></div>
+<div class="panel"><h3>📜 Jornada</h3><div id="log" class="log"></div></div>
 </div>
-</div>
-
-<div id="combatPanel" class="panel" style="display:none;margin-top:12px"></div>
-<div class="panel" style="margin-top:12px">
-<h3>📜 Registro da Jornada</h3>
-<div id="log" class="log"></div>
-</div>
-</div>
-
 <div>
-<div class="panel">
-<h3>🎯 Objetivo Atual</h3>
-<div id="objective"></div>
-</div>
-<div class="panel">
-<h3>🏅 Progresso</h3>
-<p>Bosses derrotados: <b id="bossKills"></b>/9</p>
-<p>Conquistas: <b id="achievementCount"></b></p>
-<p>Pet: <b id="petName"></b></p>
-<p>Montaria: <b id="mountName"></b></p>
-</div>
-<div class="panel">
-<h3>⚠️ Regras do Abismo</h3>
-<p class="muted">Ações são limitadas. Habilidades consomem mana. Inimigos escalam com o seu nível. Bosses possuem fases e mecânicas especiais.</p>
-</div>
-</div>
-</div>
-</div>
-</main>
+<div class="panel"><h3>🎯 Objetivo</h3><div id="objective"></div></div>
+<div class="panel"><h3>📊 Atributos</h3><div id="attributes"></div></div>
+<div class="panel"><h3>🎒 Equipamento</h3><div id="equipment"></div></div>
+<div class="panel"><h3>🏆 Conquistas</h3><div id="ach"></div></div>
+</div></div></div></section>
 
-<div id="shopModal" class="modal"><div class="card">
-<h2>🛒 Loja do Abismo</h2><p>Ouro: <b id="shopGold"></b></p><div id="shopList"></div>
-<button onclick="closeModals()">Fechar</button></div></div>
-
-<div id="inventoryModal" class="modal"><div class="card">
-<h2>🎒 Inventário</h2><div id="inventoryList"></div><button onclick="closeModals()">Fechar</button></div></div>
-
-<div id="petModal" class="modal"><div class="card">
-<h2>🐉 Pets e Montarias</h2><div id="petList"></div><button onclick="closeModals()">Fechar</button></div></div>
-
-<div id="achievementModal" class="modal"><div class="card">
-<h2>🏆 Conquistas</h2><div id="achievementList"></div><button onclick="closeModals()">Fechar</button></div></div>
-
-<div id="mapModal" class="modal"><div class="card">
-<h2>🗺️ Mundos</h2><div id="mapList" class="map"></div><button onclick="closeModals()">Fechar</button></div></div>
+<div id="modal" class="modal"><div class="card"><div id="modalBody"></div><button onclick="closeModal()">Fechar</button></div></div>
 
 <script>
 "use strict";
+const R={
+Humano:{hp:110,mp:100,atk:12,def:12,agi:10,int:10,luck:8},
+Elfo:{hp:90,mp:135,atk:15,def:8,agi:16,int:14,luck:12},
+Anão:{hp:145,mp:75,atk:14,def:22,agi:6,int:8,luck:6},
+Vampiro:{hp:115,mp:115,atk:19,def:10,agi:14,int:13,luck:11},
+Draconiano:{hp:155,mp:90,atk:22,def:16,agi:9,int:11,luck:8},
+Demônio:{hp:125,mp:105,atk:27,def:13,agi:12,int:12,luck:10},
+Celestial:{hp:120,mp:145,atk:22,def:21,agi:11,int:17,luck:14}};
+const C={
+Guerreiro:{atk:18,def:22,agi:5,int:3,skill:"Golpe Colossal"},
+Mago:{atk:32,def:7,agi:7,int:25,skill:"Meteoro Astral"},
+Arqueiro:{atk:25,def:11,agi:20,int:8,skill:"Chuva de Flechas"},
+Assassino:{atk:37,def:6,agi:25,int:8,skill:"Lâmina Fantasma"},
+Paladino:{atk:21,def:31,agi:4,int:10,skill:"Martelo Celestial"},
+Necromante:{atk:34,def:11,agi:8,int:24,skill:"Exército Sombrio"},
+"Cavaleiro Dracônico":{atk:40,def:26,agi:6,int:10,skill:"Sopro Dracônico"},
+"Imperador das Sombras":{atk:52,def:31,agi:15,int:25,skill:"Apocalipse Sombrio"}};
+const W=[
+["Eldoria",1,"Fenrir"],["Vulkar",10,"Ignaroth"],["Niflheim",20,"Skolgrim"],["Tempestia",30,"Nocturnus"],
+["Reino das Sombras",45,"Astrael"],["Universo Astral",65,"Nihilus"],["Vazio Infinito",90,"Julio"],["Abismo Final",120,"Gustavo"],["Trono do Infinito",150,"Lucas"]];
+const B={
+Fenrir:[2500,95,40,3],Ignaroth:[9000,200,110,3],Skolgrim:[22000,390,200,4],Nocturnus:[48000,730,350,4],
+Astrael:[110000,1300,600,4],Nihilus:[250000,2050,1050,5],Julio:[420000,3100,1550,5],Gustavo:[700000,5000,2450,5],Lucas:[1000000,10500,5200,6]};
+const EN=["Goblin Abissal","Lobo Astral","Guardião de Cinzas","Cavaleiro Perdido","Mago do Vazio","Predador Lunar","Colosso Mecânico"];
+const ITEMS=[
+["Poção Suprema",100,"common",0,0,0,0],["Espada Sombria",800,"rare",110,0,0,0],["Armadura Abissal",1400,"epic",0,170,250,0],
+["Cajado Astral",2800,"divine",330,0,0,120],["Coroa do Infinito",8500,"supreme",700,450,600,250],["Lâmina Infinita",25000,"infinite",1400,500,800,400]];
+const PETS=[["Lobo Sombrio",700,0.12,0.05],["Fênix Astral",2500,0.2,0.1],["Dragão Ancestral",8000,0.32,0.18]];
+const SKILLS=[
+["Golpe Colossal","Dano físico enorme",1,1.9],["Meteoro Astral","Dano mágico massivo",1,2.5],["Lâmina Fantasma","Alta chance de crítico",1,2.15],
+["Escudo Celestial","Recupera HP e reduz dano",2,0],["Exército Sombrio","Dano + roubo de vida",3,2.2],["Sopro Dracônico","Dano que ignora parte da defesa",3,2.7],["Apocalipse","Ataque extremo",5,3.2]];
+const achievements=["Primeiro combate","Primeiro boss","5 bosses","Nível 150","Derrotar Lucas","10.000 ouro","Dungeon conquistada","NG+ iniciado"];
 
-/* =========================
-   CONFIGURAÇÕES DO RPG
-========================= */
-const races={
-"Humano":{hp:100,mana:100,atk:10,def:10,crit:5},
-"Elfo":{hp:85,mana:130,atk:14,def:8,crit:10},
-"Anão":{hp:135,mana:80,atk:12,def:20,crit:3},
-"Vampiro":{hp:105,mana:110,atk:18,def:9,crit:12},
-"Draconiano":{hp:150,mana:90,atk:20,def:15,crit:7},
-"Demônio":{hp:120,mana:100,atk:25,def:12,crit:9},
-"Celestial":{hp:115,mana:140,atk:22,def:20,crit:8}
-};
-const classes={
-"Guerreiro":{atk:15,def:20,skill:"Golpe Colossal"},
-"Mago":{atk:30,def:8,skill:"Meteoro Astral"},
-"Arqueiro":{atk:24,def:12,skill:"Chuva de Flechas"},
-"Assassino":{atk:35,def:7,skill:"Lâmina Fantasma"},
-"Paladino":{atk:20,def:30,skill:"Martelo Celestial"},
-"Necromante":{atk:32,def:12,skill:"Exército Sombrio"},
-"Cavaleiro Dracônico":{atk:38,def:25,skill:"Sopro Dracônico"},
-"Imperador das Sombras":{atk:50,def:30,skill:"Apocalipse Sombrio"}
-};
-const worlds=[
-{name:"Eldoria",req:1,boss:"Fenrir",color:"🌲"},
-{name:"Vulkar",req:10,boss:"Ignaroth",color:"🔥"},
-{name:"Niflheim",req:20,boss:"Skolgrim",color:"❄️"},
-{name:"Tempestia",req:30,boss:"Nocturnus",color:"⚡"},
-{name:"Reino das Sombras",req:45,boss:"Astrael",color:"🌑"},
-{name:"Universo Astral",req:65,boss:"Nihilus",color:"✨"},
-{name:"Vazio Infinito",req:90,boss:"Julio",color:"☠️"},
-{name:"Abismo Final",req:120,boss:"Gustavo",color:"👑"},
-{name:"Trono do Infinito",req:150,boss:"Lucas",color:"⚔️"}
-];
-const bossBase={
-Fenrir:{hp:2500,atk:95,def:40,phase:2},
-Ignaroth:{hp:8500,atk:190,def:100,phase:2},
-Skolgrim:{hp:20000,atk:370,def:190,phase:3},
-Nocturnus:{hp:45000,atk:700,def:330,phase:3},
-Astrael:{hp:100000,atk:1200,def:550,phase:3},
-Nihilus:{hp:230000,atk:1900,def:950,phase:4},
-Julio:{hp:380000,atk:2900,def:1450,phase:4},
-Gustavo:{hp:650000,atk:4700,def:2300,phase:4},
-Lucas:{hp:1000000,atk:10000,def:5000,phase:4}
-};
-const shop=[
-{id:"potion",name:"🧪 Poção Suprema",price:100,rarity:"common",type:"potion"},
-{id:"blade",name:"⚔️ Espada Sombria",price:700,rarity:"rare",atk:90,type:"gear"},
-{id:"armor",name:"🛡️ Armadura Abissal",price:1200,rarity:"epic",def:140,type:"gear"},
-{id:"staff",name:"🔮 Cajado Astral",price:2500,rarity:"divine",atk:300,mana:80,type:"gear"},
-{id:"crown",name:"👑 Coroa do Infinito",price:8000,rarity:"supreme",atk:650,def:400,hp:500,type:"gear"}
-];
-const pets=[
-{name:"Lobo Sombrio",icon:"🐺",atk:0.12,def:0.03,price:500},
-{name:"Fênix Astral",icon:"🦅",atk:0.18,def:0.08,price:1800},
-{name:"Dragão Ancestral",icon:"🐉",atk:0.30,def:0.12,price:5000}
-];
-const mounts=[
-{name:"Cavalo Lunar",icon:"🏇",gold:1200,energy:15},
-{name:"Lobo de Gelo",icon:"🐺",gold:2500,energy:25},
-{name:"Dragão Celestial",icon:"🐲",gold:8000,energy:40}
-];
-const achievements=[
-{id:"first",name:"Primeiro Sangue",desc:"Derrote seu primeiro inimigo."},
-{id:"boss",name:"Caçador de Bosses",desc:"Derrote um boss."},
-{id:"five",name:"Veterano",desc:"Derrote 5 bosses."},
-{id:"max",name:"O Último Desafio",desc:"Alcance o nível 150."},
-{id:"lucas",name:"Fim do Abismo",desc:"Derrote Lucas."},
-{id:"rich",name:"Mercador",desc:"Tenha 10.000 de ouro."}
-];
-
-let game=null;
-let selectedRace=null;
-let selectedClass=null;
-
-/* =========================
-   UTILIDADES
-========================= */
-function show(id){
- document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
- document.getElementById(id).classList.add("active");
-}
-function openModal(id){
- renderModals();
- document.getElementById(id).classList.add("show");
-}
-function closeModals(){document.querySelectorAll(".modal").forEach(x=>x.classList.remove("show"))}
-function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
-function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-function pct(v,max){return clamp(v/max*100,0,100)}
-function log(msg){
- const el=document.getElementById("log");
- if(!el)return;
- const p=document.createElement("p");
- p.innerHTML=msg;
- el.prepend(p);
- while(el.children.length>100)el.lastChild.remove();
-}
-function freshGame(name,birth,address,email,pass){
- return {
-  profile:{name,birth,address,email,pass},
-  race:null,className:null,level:1,xp:0,xpMax:100,
-  gold:250,world:0,actions:12,maxActions:12,energy:100,maxEnergy:100,
-  hp:100,hpMax:100,mana:100,manaMax:100,
-  attack:10,defense:10,crit:5,
-  potions:3,inventory:[],pet:null,mount:null,
-  defeatedBosses:[],achievements:[],enemy:null,guard:false,
-  wins:0,days:0
- };
-}
-
-/* =========================
-   CADASTRO / CRIAÇÃO
-========================= */
-function createCharacter(){
- const name=document.getElementById("regName").value.trim();
- const birth=document.getElementById("regBirth").value;
- const address=document.getElementById("regAddress").value.trim();
- const email=document.getElementById("regEmail").value.trim();
- const pass=document.getElementById("regPass").value;
- if(name.length<3)return alert("Nome deve ter pelo menos 3 caracteres.");
- if(!email.includes("@"))return alert("Digite um e-mail válido.");
- if(pass.length<4)return alert("Senha deve ter pelo menos 4 caracteres.");
- game=freshGame(name,birth,address,email,pass);
- fillSelects();
- show("raceScreen");
-}
-function fillSelects(){
- const r=document.getElementById("race");
- r.innerHTML=Object.keys(races).map(x=>`<option>${x}</option>`).join("");
- const c=document.getElementById("class");
- c.innerHTML=Object.keys(classes).map(x=>`<option>${x}</option>`).join("");
- updateRaceInfo();updateClassInfo();
- r.onchange=updateRaceInfo;c.onchange=updateClassInfo;
-}
-function updateRaceInfo(){
- const r=races[document.getElementById("race").value];
- document.getElementById("raceInfo").innerHTML=`❤️ ${r.hp} HP base · 🔵 ${r.mana} Mana · ⚔️ ${r.atk} Ataque · 🛡️ ${r.def} Defesa · 🎯 ${r.crit}% crítico`;
-}
-function updateClassInfo(){
- const c=classes[document.getElementById("class").value];
- document.getElementById("classInfo").innerHTML=`⚔️ +${c.atk} Ataque · 🛡️ +${c.def} Defesa · ✨ Habilidade: <b>${c.skill}</b>`;
-}
-function chooseRace(){
- selectedRace=document.getElementById("race").value;
- const r=races[selectedRace];
- game.race=selectedRace;
- game.hpMax=r.hp;game.hp=r.hp;
- game.manaMax=r.mana;game.mana=r.mana;
- game.attack=r.atk;game.defense=r.def;game.crit=r.crit;
- show("classScreen");
-}
-function chooseClass(){
- selectedClass=document.getElementById("class").value;
- const c=classes[selectedClass];
- game.className=selectedClass;
- game.attack+=c.atk;game.defense+=c.def;
- saveGame();
- show("gameScreen");
- log(`🌅 <b>${game.profile.name}</b>, sua jornada começa em <b>Eldoria</b>.`);
- log(`🧬 Raça: ${game.race} · ⚔️ Classe: ${game.className}.`);
- log(`🎯 Objetivo: alcançar o Trono do Infinito e descobrir a verdade sobre Lucas.`);
- updateUI();
-}
-
-/* =========================
-   SAVE
-========================= */
-function saveGame(){
- if(!game)return;
- localStorage.setItem("abismoUltraSave",JSON.stringify(game));
-}
-function loadGame(ask=false){
- const raw=localStorage.getItem("abismoUltraSave");
- if(!raw)return alert("Nenhum save encontrado.");
- try{
-  game=JSON.parse(raw);
-  if(!game.profile)throw new Error();
-  if(ask||game.className){
-   show("gameScreen");updateUI();log("💾 Save carregado com sucesso.");
-  }
- }catch(e){localStorage.removeItem("abismoUltraSave");alert("Save inválido.");}
-}
-function deleteSave(){
- if(confirm("Apagar todo o progresso local?")){
-  localStorage.removeItem("abismoUltraSave");location.reload();
- }
-}
-
-/* =========================
-   UI
-========================= */
-function updateUI(){
- if(!game)return;
- const w=worlds[game.world];
- document.getElementById("heroLine").textContent=`${game.race} · ${game.className}`;
- document.getElementById("worldName").textContent=`${w.color} ${w.name}`;
- document.getElementById("worldReq").textContent=`Boss: ${w.boss} · Nível ${w.req}+`;
- document.getElementById("level").textContent=game.level;
- document.getElementById("attack").textContent=Math.floor(game.attack);
- document.getElementById("defense").textContent=Math.floor(game.defense);
- document.getElementById("gold").textContent=game.gold;
- document.getElementById("actions").textContent=`${game.actions}/${game.maxActions}`;
- document.getElementById("hpText").textContent=`${Math.floor(game.hp)}/${game.hpMax}`;
- document.getElementById("manaText").textContent=`${Math.floor(game.mana)}/${game.manaMax}`;
- document.getElementById("xpText").textContent=`${game.xp}/${game.xpMax}`;
- document.getElementById("stText").textContent=`${Math.floor(game.energy)}/${game.maxEnergy}`;
- document.getElementById("hpFill").style.width=pct(game.hp,game.hpMax)+"%";
- document.getElementById("manaFill").style.width=pct(game.mana,game.manaMax)+"%";
- document.getElementById("xpFill").style.width=pct(game.xp,game.xpMax)+"%";
- document.getElementById("stFill").style.width=pct(game.energy,game.maxEnergy)+"%";
- document.getElementById("bossKills").textContent=game.defeatedBosses.length;
- document.getElementById("achievementCount").textContent=game.achievements.length+"/"+achievements.length;
- document.getElementById("petName").textContent=game.pet||"Nenhum";
- document.getElementById("mountName").textContent=game.mount||"Nenhuma";
- document.getElementById("objective").innerHTML=game.enemy
-  ? `⚔️ Derrote <b>${game.enemy.name}</b>.<br>❤️ ${Math.max(0,Math.floor(game.enemy.hp))}/${game.enemy.maxHp}`
-  : `🗺️ Explore ${w.name} e encontre ${w.boss}.`;
- if(game.enemy)renderCombat();
-}
-function consumeAction(cost=1){
- if(game.actions<cost){log("⏳ Você está sem ações. Use <b>Descansar</b>.");return false}
- game.actions-=cost;return true;
-}
-function consumeEnergy(cost){
- if(game.energy<cost){log("⚡ Energia insuficiente.");return false}
- game.energy-=cost;return true;
-}
-
-/* =========================
-   EXPLORAÇÃO
-========================= */
+let g=null, selectedSkill=0;
+const $=id=>document.getElementById(id), rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)), pct=(x,m)=>clamp(x/m*100,0,100);
+function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(id).classList.add("active")}
+function modal(type){renderModal(type);$("modal").classList.add("show")} function closeModal(){$("modal").classList.remove("show")}
+function log(s){if(!$("log"))return;let p=document.createElement("p");p.innerHTML=s;$("log").prepend(p)}
+function make(n,b,a,e,p){return{profile:{n,b,a,e,p},race:null,className:null,level:1,xp:0,xpMax:100,gold:300,rep:0,world:0,
+hp:100,mp:100,energy:100,maxEnergy:100,corruption:0,attack:10,defense:10,agi:10,int:10,luck:8,crit:5,
+potions:4,actions:12,maxActions:12,inventory:[],equipped:{},pet:null,mount:null,skills:[],defeated:[],ach:[],
+enemy:null,guard:false,wins:0,dungeonWins:0,ng:0,abyss:0}}
+function create(){
+let n=$("name").value.trim(),e=$("email").value.trim(),p=$("pass").value;
+if(n.length<3||!e.includes("@")||p.length<4)return alert("Preencha nome, e-mail e senha corretamente.");
+g=make(n,$("birth").value,$("address").value,e,p);fill();show("race")}
+function fill(){$("raceSel").innerHTML=Object.keys(R).map(x=>`<option>${x}</option>`).join("");$("classSel").innerHTML=Object.keys(C).map(x=>`<option>${x}</option>`).join("");raceInfo();classInfo()}
+function raceInfo(){let x=R[$("raceSel").value];$("raceDesc").innerHTML=`❤️ ${x.hp} HP · 🔵 ${x.mp} Mana · ⚔️ ${x.atk} ATK · 🛡️ ${x.def} DEF · 🏃 ${x.agi} AGI · 🧠 ${x.int} INT · 🍀 ${x.luck} LUCK`}
+function classInfo(){let x=C[$("classSel").value];$("classDesc").innerHTML=`+${x.atk} ATK · +${x.def} DEF · +${x.agi} AGI · +${x.int} INT · ✨ ${x.skill}`}
+function pickRace(){let k=$("raceSel").value,x=R[k];g.race=k;g.hpMax=x.hp;g.hp=x.hp;g.mpMax=x.mp;g.mp=x.mp;g.attack=x.atk;g.defense=x.def;g.agi=x.agi;g.int=x.int;g.luck=x.luck;show("class")}
+function pickClass(){let k=$("classSel").value,x=C[k];g.className=k;g.attack+=x.atk;g.defense+=x.def;g.agi+=x.agi;g.int+=x.int;g.skills=[x.skill,"Poção de Emergência"];show("game");log(`🌅 <b>${g.profile.n}</b> começou a jornada como ${g.className}.`);log(`🎯 Encontre ${W[0][2]} e descubra por que os selos estão ruindo.`);update();save()}
+function save(){if(g)localStorage.setItem("abismoUltra2",JSON.stringify(g))}
+function load(){let s=localStorage.getItem("abismoUltra2");if(!s)return alert("Nenhum save encontrado.");try{g=JSON.parse(s);show("game");update();log("💾 Save carregado.")}catch(e){alert("Save inválido.")}}
+function needAction(n=1){if(g.actions<n){log("⏳ Sem ações. Descanse.");return false}g.actions-=n;return true}
+function needEnergy(n){if(g.energy<n){log("⚡ Energia insuficiente.");return false}g.energy-=n;return true}
 function explore(){
- if(game.enemy)return log("⚔️ Termine o combate atual antes de explorar.");
- if(!consumeAction(1)||!consumeEnergy(8))return;
- const roll=Math.random();
- if(roll<0.16){
-  startBoss();
- }else if(roll<0.62){
-  startEnemy();
- }else if(roll<0.82){
-  const gold=rnd(40,90)+game.level*8;
-  game.gold+=gold;log(`💰 Você encontrou <b>${gold}</b> ouro.`);
- }else if(roll<0.94){
-  const xp=rnd(20,50)+game.level*7;
-  gainXP(xp);log(`✨ Uma relíquia antiga concedeu <b>${xp} XP</b>.`);
- }else{
-  game.potions++;log("🧪 Você encontrou uma Poção Suprema.");
- }
- updateUI();saveGame();checkAchievements();
+if(g.enemy)return log("⚔️ Termine o combate.");if(!needAction()||!needEnergy(8))return;
+let r=Math.random();
+if(r<.13)boss();else if(r<.52)enemy();else if(r<.68)loot();else if(r<.84)eventRoll();else if(r<.94){let x=rnd(30,90)+g.level*7;g.gold+=x;log(`💰 Encontrou ${x} ouro.`)}else dungeon();
+update();save()
 }
-function startEnemy(){
- const scale=1+game.level*.12;
- const names=["Goblin Abissal","Lobo Astral","Guardião de Cinzas","Cavaleiro Perdido","Mago do Vazio","Predador Lunar"];
- const name=names[rnd(0,names.length-1)];
- const max=Math.floor((180+game.level*75)*scale);
- game.enemy={name,hp:max,maxHp:max,atk:Math.floor((25+game.level*17)*scale),def:Math.floor((8+game.level*8)*scale),crit:8};
- log(`👹 <b>${name}</b> apareceu com ${max} HP!`);
- renderCombat();
+function enemy(){
+let s=(1+g.level*.15)*(1+g.ng*.35)*(1+g.abyss*.08),max=Math.floor((220+g.level*80)*s),name=EN[rnd(0,EN.length-1)];
+g.enemy={name,max,hp:max,atk:Math.floor((30+g.level*18)*s),def:Math.floor((12+g.level*9)*s),agi:8+g.level*.2,phase:1,boss:false,stun:0};
+log(`👹 <b>${name}</b> apareceu!`);renderCombat()
 }
-function startBoss(){
- const w=worlds[game.world], base=bossBase[w.boss];
- if(game.level<base.phase*20 && game.level<w.req){
-  log(`⚠️ O boss <b>${w.boss}</b> ainda está além do seu nível.`);
-  return;
- }
- const multiplier=1+Math.max(0,game.level-base.phase*20)*.04;
- game.enemy={name:w.boss,hp:Math.floor(base.hp*multiplier),maxHp:Math.floor(base.hp*multiplier),atk:Math.floor(base.atk*multiplier),def:Math.floor(base.def*multiplier),crit:12,boss:true,phase:1};
- log(`☠️ <b>${w.boss}</b> desceu ao campo. A batalha será dividida em fases.`);
- renderCombat();
+function boss(){
+let [name,req,bossName]=W[g.world],base=B[bossName];if(g.level<req)return log(`⚠️ ${bossName} exige nível ${req}.`);
+let s=(1+g.ng*.35)*(1+g.abyss*.12),max=Math.floor(base[0]*s);
+g.enemy={name:bossName,max,hp:max,atk:Math.floor(base[1]*s),def:Math.floor(base[2]*s),agi:18,phase:1,maxPhase:base[3],boss:true,stun:0};
+log(`☠️ <b>${bossName}</b> surgiu. Fases: ${base[3]}.`);renderCombat()
 }
 function renderCombat(){
- const box=document.getElementById("combatPanel");
- if(!game.enemy){box.style.display="none";return}
- box.style.display="block";
- const e=game.enemy;
- const percent=pct(e.hp,e.maxHp);
- box.innerHTML=`
- <div class="panel enemy">
- <h2>${e.boss?"☠️":"👹"} ${e.name}</h2>
- <div class="bar"><div class="fill hp" style="width:${percent}%"></div></div>
- <p>❤️ ${Math.max(0,Math.floor(e.hp))}/${e.maxHp} · ⚔️ ${e.atk} · 🛡️ ${e.def}</p>
- ${e.boss?`<p class="bossPhase">Fase ${e.phase} · ${bossBase[e.name].phase} fases</p>`:""}
- <button onclick="flee()">🏃 Fugir</button>
- </div>`;
+let e=g.enemy;if(!e){$("combat").style.display="none";return}$("combat").style.display="block";
+$("combat").innerHTML=`<h2 class="enemyTitle">${e.boss?"☠️":"👹"} ${e.name}</h2>
+<div class="bar"><div class="fill hp" style="width:${pct(e.hp,e.max)}%"></div></div>
+<p>❤️ ${Math.max(0,Math.floor(e.hp))}/${e.max} · ⚔️ ${Math.floor(e.atk)} · 🛡️ ${Math.floor(e.def)} · Fase ${e.phase}</p>
+<button onclick="attack()">⚔️ Ataque</button><button onclick="skill()">✨ Habilidade</button><button onclick="defend()">🛡️ Defender</button><button onclick="flee()">🏃 Fugir</button>`
 }
-
-/* =========================
-   COMBATE
-========================= */
-function playerDamage(mult=1){
- let base=game.attack*mult;
- let dmg=Math.max(1,Math.floor(base-rnd(0,Math.max(2,game.attack*.25))));
- if(Math.random()*100<game.crit){dmg*=2;log("💥 <b>CRÍTICO!</b>");}
- return dmg;
+function damage(mult=1,ignore=0){
+let d=Math.max(1,Math.floor(g.attack*mult-rnd(0,g.attack*.2)-(g.enemy.def*(1-ignore))));
+let critChance=g.crit+g.agi*.12+g.luck*.25;if(Math.random()*100<critChance){d*=2;log("💥 <b>CRÍTICO!</b>")}return d
 }
-function attackEnemy(){
- if(!game.enemy)return log("🗺️ Explore para encontrar um inimigo.");
- if(!consumeAction(1)||!consumeEnergy(10))return;
- const dmg=Math.max(1,playerDamage(1)-game.enemy.def);
- game.enemy.hp-=dmg;
- log(`⚔️ Você causou <b>${dmg}</b> de dano.`);
- if(resolveEnemy())return;
- enemyTurn();updateUI();saveGame();
+function attack(){
+if(!g.enemy)return explore();if(!needAction()||!needEnergy(9))return;
+let d=damage();g.enemy.hp-=d;log(`⚔️ Você causou <b>${d}</b>.`);afterPlayer()
 }
-function useSkill(){
- if(!game.enemy)return log("Não há alvo.");
- if(!consumeAction(2)||!consumeEnergy(18))return;
- const cost=35;
- if(game.mana<cost){log("🔵 Mana insuficiente.");game.actions+=2;game.energy+=18;return}
- game.mana-=cost;
- const dmg=Math.max(1,playerDamage(2.15)-Math.floor(game.enemy.def*.5));
- game.enemy.hp-=dmg;
- log(`✨ <b>${classes[game.className].skill}</b> causou ${dmg} de dano.`);
- if(resolveEnemy())return;
- enemyTurn();updateUI();saveGame();
+function skill(){
+if(!g.enemy)return log("Não há alvo.");if(!needAction(2)||!needEnergy(18))return;
+if(g.mp<35){g.actions+=2;g.energy+=18;return log("🔵 Mana insuficiente.")}
+g.mp-=35;let s=C[g.className].skill, mult=2.2,ignore=.15;
+if(g.className==="Paladino"){g.hp=Math.min(g.hpMax,g.hp+Math.floor(g.hpMax*.18));g.guard=true}
+if(g.className==="Mago"||g.className==="Necromante")mult=2.65;
+if(g.className==="Cavaleiro Dracônico")ignore=.45;
+if(g.className==="Assassino")mult=2.4;
+if(g.className==="Imperador das Sombras")mult=3.15;
+let d=damage(mult,ignore);g.enemy.hp-=d;log(`✨ <b>${s}</b> causou ${d}.`);if(g.className==="Necromante")g.hp=Math.min(g.hpMax,g.hp+Math.floor(d*.18));afterPlayer()
 }
-function defend(){
- if(!game.enemy)return log("Não há inimigo.");
- if(!consumeAction(1)||!consumeEnergy(6))return;
- game.guard=true;
- log("🛡️ Você entrou em posição defensiva. O próximo dano será reduzido.");
- enemyTurn();updateUI();saveGame();
+function defend(){if(!g.enemy||!needAction()||!needEnergy(5))return;g.guard=true;log("🛡️ Defesa preparada.");enemyTurn();update();save()}
+function afterPlayer(){if(resolve())return;enemyTurn();update();save()}
+function resolve(){
+let e=g.enemy;if(e.hp>0){phaseCheck();return false}
+g.enemy=null;let xp=e.boss?Math.floor(e.max*.22):rnd(50,90)+g.level*12,gold=e.boss?Math.floor(e.max/18):rnd(30,85)+g.level*8;
+g.gold+=gold;g.rep+=e.boss?50:3;gain(xp);g.wins++;if(e.boss){g.defeated.push(e.name);log(`👑 <b>${e.name} caiu!</b> +${xp} XP +${gold} ouro.`);if(g.world<W.length-1)g.world++;}else log(`🏆 ${e.name} derrotado. +${xp} XP +${gold} ouro.`);
+lootChance(e.boss);ach();update();save();return true
+}
+function phaseCheck(){
+let e=g.enemy;if(!e.boss)return;
+let p=1;if(e.hp/e.max<=.8)p=2;if(e.hp/e.max<=.6)p=3;if(e.hp/e.max<=.4)p=4;if(e.hp/e.max<=.2)p=e.maxPhase;
+p=Math.min(p,e.maxPhase);
+if(p>e.phase){e.phase=p;e.atk=Math.floor(e.atk*(1+.18*p));e.def=Math.floor(e.def*(1+.08*p));e.agi+=6;
+log(`🔥 <b>${e.name}</b> entrou na FASE ${p}. Seus padrões mudaram.`);if(p>=3)g.corruption=Math.min(100,g.corruption+8)}
 }
 function enemyTurn(){
- const e=game.enemy;
- let damage=Math.max(1,e.atk-game.defense);
- damage=Math.floor(damage*(.75+Math.random()*.55));
- if(e.boss && Math.random()*100<e.crit){damage*=2;log("☠️ <b>Golpe crítico do boss!</b>")}
- if(game.guard){damage=Math.floor(damage*.4);game.guard=false}
- game.hp-=damage;
- log(`👹 ${e.name} causou <b>${damage}</b> de dano.`);
- if(game.hp<=0)playerDeath();
+let e=g.enemy;if(!e)return;
+if(e.stun>0){e.stun--;log(`💫 ${e.name} perdeu o turno.`);return}
+let d=Math.max(1,Math.floor(e.atk-g.defense)),special=Math.random();
+if(e.boss&&special<.18){d=Math.floor(d*1.8);log(`☠️ ${e.name} usou um ataque devastador!`)}
+else if(special<.32){g.mp=Math.max(0,g.mp-rnd(8,20));log(`🌑 ${e.name} drenou sua mana.`)}
+else if(special<.45){e.def+=Math.floor(e.def*.08);log(`🛡️ ${e.name} reforçou a defesa.`)}
+d=Math.floor(d*(.75+Math.random()*.55));if(g.guard){d=Math.floor(d*.38);g.guard=false}g.hp-=d;log(`👹 ${e.name} causou <b>${d}</b>.`);
+if(g.hp<=0)death()
 }
-function resolveEnemy(){
- if(game.enemy.hp>0){
-  if(game.enemy.boss)updateBossPhase();
-  return false;
- }
- const defeated=game.enemy;
- game.enemy=null;
- if(defeated.boss)bossVictory(defeated.name);
- else{
-  const xp=rnd(35,65)+game.level*12;
-  const gold=rnd(25,70)+game.level*9;
-  game.wins++;game.gold+=gold;gainXP(xp);
-  log(`🏆 Inimigo derrotado! +${xp} XP e +${gold} ouro.`);
-  unlock("first");
- }
- updateUI();saveGame();checkAchievements();
- return true;
+function flee(){if(!g.enemy)return;if(!needAction())return;if(Math.random()<.55+g.agi/300){log("🏃 Você fugiu.");g.enemy=null}else{log("❌ Fuga falhou.");enemyTurn()}update();save()}
+function death(){log("☠️ Você caiu. O Abismo cobra seu preço.");g.gold=Math.floor(g.gold*.88);g.corruption=Math.min(100,g.corruption+10);g.hp=Math.floor(g.hpMax*.35);g.mp=Math.floor(g.mpMax*.35);g.actions=Math.floor(g.maxActions*.5);g.enemy=null}
+function gain(x){g.xp+=Math.floor(x);while(g.xp>=g.xpMax){g.xp-=g.xpMax;g.level++;g.xpMax=Math.floor(g.xpMax*1.43+35);g.hpMax+=35+g.level*4;g.mpMax+=13+g.level*2;g.attack+=13+g.level*2;g.defense+=8+g.level;g.agi+=2;g.int+=2;g.luck++;g.hp=g.hpMax;g.mp=g.mpMax;g.actions=Math.min(20,g.maxActions+1);g.maxActions=Math.min(20,g.maxActions+1);log(`🔥 <b>NÍVEL ${g.level}!</b> Seus atributos aumentaram.`)}ach()}
+function potion(){if(!g.potions)return log("🧪 Sem poções.");if(g.hp>=g.hpMax)return log("❤️ HP cheio.");g.potions--;let h=Math.floor(g.hpMax*.5);g.hp=Math.min(g.hpMax,g.hp+h);log(`🧪 +${h} HP.`);update();save()}
+function rest(){if(g.enemy)return log("⚔️ Não pode descansar em combate.");g.actions=g.maxActions;g.energy=g.maxEnergy;g.mp=Math.min(g.mpMax,g.mp+Math.floor(g.mpMax*.45));g.hp=Math.min(g.hpMax,g.hp+Math.floor(g.hpMax*.35));g.corruption=Math.max(0,g.corruption-8);log("🔥 Você descansou.");update();save()}
+function loot(){let i=ITEMS[rnd(1,ITEMS.length-1)];g.inventory.push(i[0]);log(`💎 Encontrou <b class="${i[2]}">${i[0]}</b>!`);if(Math.random()<.35)equip(i);update()}
+function lootChance(boss){if(Math.random()<.75){let i=ITEMS[Math.min(ITEMS.length-1,rnd(boss?2:1,ITEMS.length-1))];g.inventory.push(i[0]);log(`💎 Loot: <b class="${i[2]}">${i[0]}</b>.`);equip(i)}}
+function equip(i){g.equipped.weapon=i[0];g.attack+=i[3];g.defense+=i[4];g.hpMax+=i[5];g.mpMax+=i[6];g.hp=g.hpMax;g.mp=g.mpMax;log(`⚔️ Equipamento ${i[0]} equipado.`)}
+function eventRoll(){
+if(!needAction())return;let r=rnd(1,6);
+if(r===1){g.gold+=rnd(100,500);log("🎲 Evento: caravana perdida. Você ganhou ouro.")}
+if(r===2){gain(rnd(100,400));log("🎲 Evento: biblioteca astral. XP concedido.")}
+if(r===3){g.hp=Math.min(g.hpMax,g.hp+rnd(100,500));log("🎲 Evento: fonte antiga restaurou sua vida.")}
+if(r===4){g.corruption=Math.min(100,g.corruption+15);g.attack+=40;log("🎲 Evento sombrio: poder proibido! +40 ATK, mas corrupção aumentou.")}
+if(r===5){g.inventory.push("Relíquia Misteriosa");g.rep+=25;log("🎲 Evento: você ganhou uma relíquia e reputação.")}
+if(r===6){enemy();return}update();save()
 }
-function updateBossPhase(){
- const e=game.enemy,b=bossBase[e.name],hpPercent=e.hp/e.maxHp;
- const phaseCount=b.phase;
- let newPhase=hpPercent>.75?1:hpPercent>.5?2:hpPercent>.25?3:4;
- newPhase=Math.min(newPhase,phaseCount);
- if(newPhase>e.phase){
-  e.phase=newPhase;
-  e.atk=Math.floor(e.atk*(1+.18*newPhase));
-  e.def=Math.floor(e.def*(1+.10*newPhase));
-  log(`🔥 <b>${e.name}</b> entrou na FASE ${newPhase}! Seus atributos aumentaram.`);
- }
+function dungeon(){
+if(g.enemy)return;if(!needAction(2)||!needEnergy(20))return;
+let tier=Math.max(1,Math.floor(g.level/15)+g.ng+g.abyss),max=Math.floor((1200+g.level*240)*tier),name=["Cripta dos Reis","Templo Astral","Labirinto do Vazio","Fortaleza Sem Sol"][rnd(0,3)];
+g.enemy={name,max,hp:max,atk:Math.floor(max*.12),def:Math.floor(max*.055),agi:20,boss:true,phase:1,maxPhase:4,stun:0};
+log(`🏰 Dungeon: <b>${name}</b>. Guardião da camada ${tier}.`);renderCombat();update()
 }
-function bossVictory(name){
- game.defeatedBosses.push(name);
- game.wins++;
- const base=bossBase[name];
- const xp=base.hp>500000?150000:base.hp>200000?70000:base.hp>50000?25000:base.hp/5;
- const gold=Math.floor(base.hp/20);
- game.gold+=gold;gainXP(Math.floor(xp));
- log(`👑 <b>${name} foi derrotado!</b> +${Math.floor(xp)} XP · +${gold} ouro.`);
- if(name==="Lucas"){
-  unlock("lucas");
-  log("🌌 <b>O Vazio Infinito se abriu.</b> Você descobriu o segredo final.");
- }else{
-  const next=game.world+1;
-  if(next<worlds.length){
-   game.world=next;
-   log(`🌍 Novo mundo desbloqueado: <b>${worlds[next].name}</b>.`);
-  }
- }
- updateUI();saveGame();checkAchievements();
+function newGamePlus(){
+if(g.level<150)return log("♾️ NG+ exige nível 150.");
+if(!confirm("Iniciar New Game+? Seu nível será reiniciado, mas ouro, equipamentos e parte dos bônus serão mantidos."))return;
+g.ng++;g.level=1;g.xp=0;g.xpMax=100;g.world=0;g.hpMax=R[g.race].hp+g.ng*80;g.mpMax=R[g.race].mp+g.ng*30;g.hp=g.hpMax;g.mp=g.mpMax;
+g.attack=Math.floor(g.attack*.55)+g.ng*35;g.defense=Math.floor(g.defense*.55)+g.ng*25;g.abyss=0;g.enemy=null;log(`♾️ <b>NEW GAME+ ${g.ng}</b> iniciado. Os inimigos ficaram mais fortes.`);save();update()
 }
-function flee(){
- if(!game.enemy)return;
- if(!consumeAction(1))return;
- if(Math.random()<.55){log("🏃 Você conseguiu fugir.");game.enemy=null}
- else{log("❌ A fuga falhou.");enemyTurn()}
- updateUI();saveGame();
+function openPets(){modal("pets")}
+function buyPet(i){let p=PETS[i];if(g.gold<p[1])return log("💰 Ouro insuficiente.");g.gold-=p[1];g.pet=p[0];g.attack=Math.floor(g.attack*(1+p[2]));g.defense=Math.floor(g.defense*(1+p[3]));log(`🐉 Pet equipado: ${p[0]}.`);update();save()}
+function skillTree(){modal("skills")}
+function useSkillTree(i){if(g.skills.includes(SKILLS[i][0]))return log("✨ Habilidade já aprendida.");let cost=SKILLS[i][2]*g.level*20;if(g.rep<cost)return log(`⭐ Reputação insuficiente: precisa ${cost}.`);g.rep-=cost;g.skills.push(SKILLS[i][0]);g.attack+=SKILLS[i][2]*15;log(`✨ Aprendeu ${SKILLS[i][0]}.`);save();renderModal("skills")}
+function ach(){let list=[];if(g.wins>=1)list.push(0);if(g.defeated.length>=1)list.push(1);if(g.defeated.length>=5)list.push(2);if(g.level>=150)list.push(3);if(g.defeated.includes("Lucas"))list.push(4);if(g.gold>=10000)list.push(5);if(g.dungeonWins>=1)list.push(6);if(g.ng>=1)list.push(7);g.ach=[...new Set(list)]}
+function renderModal(type){
+let b="";
+if(type==="map")b="<h2>🗺️ Mundos</h2>"+W.map((w,i)=>`<div class="item ${i<=g.world||g.level>=w[1]?"":"locked"}"><b>${w[0]}</b> · nível ${w[1]} · Boss: ${w[2]}<br>${i<=g.world||g.level>=w[1]?`<button onclick="travel(${i})">Viajar</button>`:"🔒 Bloqueado"}</div>`).join("");
+if(type==="shop")b="<h2>🛒 Loja</h2>"+ITEMS.map((i,n)=>`<div class="item ${i[2]}"><b>${i[0]}</b> · ${i[1]} ouro<br>ATK +${i[3]} · DEF +${i[4]} · HP +${i[5]} · Mana +${i[6]}<button onclick="buy(${n})">Comprar</button></div>`).join("");
+if(type==="bag")b=`<h2>🎒 Inventário</h2><p>🧪 Poções: ${g.potions}</p><p>Arma equipada: ${g.equipped.weapon||"Nenhuma"}</p>`+g.inventory.map(x=>`<div class="item">${x}</div>`).join("");
+if(type==="pets")b="<h2>🐉 Pets</h2>"+PETS.map((p,i)=>`<div class="item epic">${p[0]} · +${p[2]*100}% ATK · +${p[3]*100}% DEF · ${p[1]} ouro<button onclick="buyPet(${i})">Equipar</button></div>`).join("")+
+"<h2>🏇 Montarias</h2><div class='item'>Cavalo Lunar · +20 Energia <button onclick='g.maxEnergy+=20;closeModal();update()'>Equipar</button></div><div class='item'>Dragão Celestial · +50 Energia <button onclick='g.maxEnergy+=50;closeModal();update()'>Equipar</button></div>";
+if(type==="skills")b="<h2>✨ Árvore de Habilidades</h2><p>Use reputação para aprender habilidades passivas.</p>"+SKILLS.map((s,i)=>`<div class="item skill"><b>${s[0]}</b><br>${s[1]}<br>Custo: ${s[2]*g.level*20} reputação <button onclick="useSkillTree(${i})">Aprender</button></div>`).join("");
+$("modalBody").innerHTML=b
 }
-function playerDeath(){
- log("☠️ <b>Você caiu no Abismo.</b>");
- game.hp=Math.max(1,Math.floor(game.hpMax*.35));
- game.mana=Math.floor(game.manaMax*.35);
- game.actions=Math.max(1,Math.floor(game.maxActions/2));
- game.energy=Math.max(1,Math.floor(game.maxEnergy/2));
- game.enemy=null;
- game.gold=Math.floor(game.gold*.9);
- log("💀 Você perdeu 10% do ouro e voltou enfraquecido.");
- updateUI();saveGame();
+function buy(n){let i=ITEMS[n];if(g.gold<i[1])return log("💰 Ouro insuficiente.");g.gold-=i[1];if(n===0)g.potions++;else{g.inventory.push(i[0]);equip(i)}if(g.gold>=10000)ach();update();save();renderModal("shop")}
+function travel(i){if(g.level<W[i][1])return log("⚠️ Nível insuficiente.");g.world=i;closeModal();log(`🌍 Viajou para ${W[i][0]}.`);update();save()}
+function update(){
+if(!g)return;let w=W[g.world];$("hero").textContent=`${g.profile.n} · ${g.race} · ${g.className}`;
+$("world").textContent=w[0];$("bossGoal").textContent=`Boss: ${w[2]} · Nv ${w[1]}`;$("lvl").textContent=g.level;$("atk").textContent=Math.floor(g.attack);$("def").textContent=Math.floor(g.defense);$("gold").textContent=g.gold;$("rep").textContent=g.rep;$("ng").textContent=g.ng;$("abyss").textContent=g.abyss;
+$("hpT").textContent=`${Math.floor(g.hp)}/${g.hpMax}`;$("mpT").textContent=`${Math.floor(g.mp)}/${g.mpMax}`;$("xpT").textContent=`${g.xp}/${g.xpMax}`;$("enT").textContent=`${Math.floor(g.energy)}/${g.maxEnergy}`;$("corT").textContent=`${g.corruption}/100`;
+$("hpF").style.width=pct(g.hp,g.hpMax)+"%";$("mpF").style.width=pct(g.mp,g.mpMax)+"%";$("xpF").style.width=pct(g.xp,g.xpMax)+"%";$("enF").style.width=pct(g.energy,g.maxEnergy)+"%";$("corF").style.width=g.corruption+"%";
+$("objective").innerHTML=g.enemy?`⚔️ Derrote <b>${g.enemy.name}</b><br>❤️ ${Math.floor(g.enemy.hp)}/${g.enemy.max}`:`Explore <b>${w[0]}</b> e encontre <b>${w[2]}</b>.`;
+$("attributes").innerHTML=`Força: ${Math.floor(g.attack)}<br>Resistência: ${Math.floor(g.defense)}<br>Agilidade: ${Math.floor(g.agi)}<br>Inteligência: ${Math.floor(g.int)}<br>Sorte: ${Math.floor(g.luck)}<br>Ações: ${g.actions}/${g.maxActions}`;
+$("equipment").innerHTML=`Arma: ${g.equipped.weapon||"Nenhuma"}<br>Pet: ${g.pet||"Nenhum"}<br>Montaria: ${g.mount||"Nenhuma"}`;
+$("ach").innerHTML=`${g.ach.length}/8 conquistas · ${g.defeated.length}/9 bosses`;
+renderCombat()
 }
-
-/* =========================
-   PROGRESSÃO
-========================= */
-function gainXP(amount){
- game.xp+=Math.floor(amount);
- while(game.xp>=game.xpMax){
-  game.xp-=game.xpMax;
-  game.level++;
-  game.xpMax=Math.floor(game.xpMax*1.42+30);
-  game.hpMax+=25+game.level*4;
-  game.manaMax+=10+game.level*2;
-  game.attack+=12+game.level*2;
-  game.defense+=7+game.level;
-  game.hp=game.hpMax;game.mana=game.manaMax;
-  game.maxActions=Math.min(20,game.maxActions+1);
-  game.actions=game.maxActions;
-  game.maxEnergy=Math.min(180,game.maxEnergy+4);
-  game.energy=game.maxEnergy;
-  log(`🔥 <b>LEVEL UP!</b> Você alcançou o nível ${game.level}.`);
- }
- checkAchievements();
-}
-
-/* =========================
-   RECURSOS
-========================= */
-function usePotion(){
- if(game.potions<=0)return log("🧪 Você não possui poções.");
- if(game.hp>=game.hpMax)return log("❤️ Sua vida já está cheia.");
- game.potions--;
- const heal=Math.floor(game.hpMax*.45);
- game.hp=Math.min(game.hpMax,game.hp+heal);
- log(`🧪 Poção recuperou ${heal} HP.`);
- updateUI();saveGame();
-}
-function rest(){
- if(game.enemy)return log("⚔️ Você não pode descansar durante um combate.");
- game.actions=game.maxActions;
- game.energy=game.maxEnergy;
- game.mana=Math.min(game.manaMax,game.mana+Math.floor(game.manaMax*.4));
- game.hp=Math.min(game.hpMax,game.hp+Math.floor(game.hpMax*.3));
- log("🔥 Você descansou. Seus recursos foram restaurados.");
- updateUI();saveGame();
-}
-
-/* =========================
-   LOJA
-========================= */
-function renderShop(){
- const el=document.getElementById("shopList");
- el.innerHTML=shop.map(i=>`
- <div class="item ${i.rarity}">
- <b>${i.name}</b> — <span class="gold">${i.price} ouro</span>
- <br><small>${i.type==="potion"?"Recupera HP em combate.":`+${i.atk||0} ATK · +${i.def||0} DEF · +${i.hp||0} HP · +${i.mana||0} Mana`}</small>
- <button onclick="buy('${i.id}')">Comprar</button>
- </div>`).join("");
-}
-function buy(id){
- const i=shop.find(x=>x.id===id);
- if(game.gold<i.price)return log("💰 Ouro insuficiente.");
- game.gold-=i.price;
- if(i.type==="potion")game.potions++;
- else{
-  if(i.atk)game.attack+=i.atk;
-  if(i.def)game.defense+=i.def;
-  if(i.hp){game.hpMax+=i.hp;game.hp+=i.hp}
-  if(i.mana){game.manaMax+=i.mana;game.mana+=i.mana}
-  game.inventory.push({name:i.name,rarity:i.rarity});
- }
- log(`🛒 Você comprou <b>${i.name}</b>.`);
- updateUI();saveGame();renderModals();checkAchievements();
-}
-
-/* =========================
-   PETS / MONTARIAS
-========================= */
-function renderPets(){
- const el=document.getElementById("petList");
- el.innerHTML="<h3>🐉 Pets</h3>"+pets.map((p,i)=>`
- <div class="item epic">
- ${p.icon} <b>${p.name}</b><br>
- +${p.atk*100}% Ataque · +${p.def*100}% Defesa · ${p.price} ouro
- <button onclick="buyPet(${i})">${game.pet===p.name?"Equipado":"Comprar / Equipar"}</button>
- </div>`).join("")+
- "<h3>🏇 Montarias</h3>"+
- mounts.map((m,i)=>`
- <div class="item rare">${m.icon} <b>${m.name}</b><br>
- +${m.energy} Energia máxima · ${m.gold} ouro
- <button onclick="buyMount(${i})">${game.mount===m.name?"Equipado":"Comprar / Equipar"}</button>
- </div>`).join("");
-}
-function buyPet(i){
- const p=pets[i];
- if(game.pet===p.name)return;
- if(game.gold<p.price)return log("💰 Ouro insuficiente.");
- game.gold-=p.price;
- game.pet=p.name;
- game.attack=Math.floor(game.attack*(1+p.atk));
- game.defense=Math.floor(game.defense*(1+p.def));
- log(`🐉 <b>${p.name}</b> se juntou à sua jornada.`);
- updateUI();saveGame();renderModals();
-}
-function buyMount(i){
- const m=mounts[i];
- if(game.mount===m.name)return;
- if(game.gold<m.gold)return log("💰 Ouro insuficiente.");
- game.gold-=m.gold;
- game.mount=m.name;
- game.maxEnergy=Math.min(200,game.maxEnergy+m.energy);
- game.energy=game.maxEnergy;
- log(`🏇 Montaria equipada: <b>${m.name}</b>.`);
- updateUI();saveGame();renderModals();
-}
-
-/* =========================
-   INVENTÁRIO / MAPA
-========================= */
-function renderInventory(){
- const el=document.getElementById("inventoryList");
- el.innerHTML=`<div class="item">🧪 Poções: <b>${game.potions}</b></div>`;
- if(!game.inventory.length)el.innerHTML+="<p class='muted'>Nenhum equipamento guardado.</p>";
- game.inventory.forEach(x=>el.innerHTML+=`<div class="item ${x.rarity}">${x.name}</div>`);
-}
-function renderMap(){
- const el=document.getElementById("mapList");
- el.innerHTML=worlds.map((w,i)=>{
-  const unlocked=game.level>=w.req||i<=game.world;
-  return `<div class="item world ${unlocked?"":"bad"}">
-  <b>${w.color} ${w.name}</b><br>
-  Nível ${w.req}+<br>Boss: ${w.boss}<br>
-  ${unlocked?"🟢 Desbloqueado":"🔒 Bloqueado"}
-  ${unlocked?`<button onclick="travel(${i})">Viajar</button>`:""}
-  </div>`;
- }).join("");
-}
-function travel(i){
- if(game.level<worlds[i].req)return log("⚠️ Seu nível é insuficiente.");
- if(game.enemy)return log("⚔️ Termine o combate primeiro.");
- game.world=i;closeModals();updateUI();saveGame();
- log(`🌍 Você viajou para <b>${worlds[i].name}</b>.`);
-}
-
-/* =========================
-   CONQUISTAS
-========================= */
-function unlock(id){
- if(!game.achievements.includes(id)){
-  game.achievements.push(id);
-  const a=achievements.find(x=>x.id===id);
-  if(a)log(`🏆 Conquista desbloqueada: <b>${a.name}</b>`);
- }
-}
-function checkAchievements(){
- if(game.wins>=1)unlock("first");
- if(game.defeatedBosses.length>=1)unlock("boss");
- if(game.defeatedBosses.length>=5)unlock("five");
- if(game.level>=150)unlock("max");
- if(game.defeatedBosses.includes("Lucas"))unlock("lucas");
- if(game.gold>=10000)unlock("rich");
-}
-function renderAchievements(){
- const el=document.getElementById("achievementList");
- el.innerHTML=achievements.map(a=>{
-  const done=game.achievements.includes(a.id);
-  return `<div class="item ${done?"divine":""}">
-  ${done?"🏆":"🔒"} <b>${a.name}</b><br><span class="muted">${a.desc}</span>
-  </div>`;
- }).join("");
-}
-
-/* =========================
-   MODAIS
-========================= */
-function renderModals(){
- if(!game)return;
- document.getElementById("shopGold").textContent=game.gold;
- renderShop();renderInventory();renderPets();renderAchievements();renderMap();
-}
-
-/* =========================
-   AUTOSAVE
-========================= */
-setInterval(()=>{if(game){saveGame();}},10000);
-
-/* =========================
-   REGENERAÇÃO LENTA
-========================= */
-setInterval(()=>{
- if(!game)return;
- if(!document.getElementById("gameScreen").classList.contains("active"))return;
- game.mana=Math.min(game.manaMax,game.mana+3);
- game.energy=Math.min(game.maxEnergy,game.energy+2);
- updateUI();
-},5000);
-
-/* =========================
-   TECLAS
-========================= */
-document.addEventListener("keydown",e=>{
- if(!game)return;
- if(e.key==="1")explore();
- if(e.key==="2")attackEnemy();
- if(e.key==="3")useSkill();
- if(e.key==="4")usePotion();
-});
-
-/* =========================
-   INICIALIZAÇÃO
-========================= */
-fillSelects();
-const existing=localStorage.getItem("abismoUltraSave");
-if(existing){
- setTimeout(()=>{
-  if(confirm("Existe um save local. Deseja carregá-lo?"))loadGame();
- },300);
-}
+setInterval(()=>{if(g){save();if($("game").classList.contains("active")){g.energy=Math.min(g.maxEnergy,g.energy+2);g.mp=Math.min(g.mpMax,g.mp+2);update()} }},7000);
+document.addEventListener("keydown",e=>{if(!g)return;if(e.key==="1")explore();if(e.key==="2")attack();if(e.key==="3")skill();if(e.key==="4")potion()});
+fill();
 </script>
 </body>
 </html>
