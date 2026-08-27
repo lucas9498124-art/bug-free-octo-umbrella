@@ -1,231 +1,230 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Crônicas do Abismo Infinito — ULTRA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crônicas do Abismo Infinito — ULTRA 3.0</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#050712;color:#eef2ff;font-family:Arial,sans-serif}
-#app{max-width:1400px;margin:auto;padding:14px}.top,.box{background:#0e1629;border:1px solid #29375c;border-radius:16px;padding:14px;margin-bottom:12px}
-.stats,nav,.actions{display:flex;flex-wrap:wrap;gap:7px}.stat,button{border:0;border-radius:9px;padding:9px 12px}.stat{background:#18233d}
-button{background:#3152e8;color:#fff;font-weight:bold;cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}
-main{display:grid;grid-template-columns:2fr 1fr;gap:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px}
-.card{background:#131d34;border:1px solid #2c3b64;border-radius:12px;padding:11px}.hidden{display:none!important}
-.hp,.mana,.energy{height:11px;background:#242b3c;border-radius:20px;overflow:hidden}.hp i,.mana i,.energy i{display:block;height:100%;width:50%}.hp i{background:#ee5362}.mana i{background:#527dff}.energy i{background:#ffd34d}
-#log{height:240px;overflow:auto;background:#070b16;padding:9px;border-radius:10px;font-size:13px}.line{padding:4px;border-bottom:1px solid #151d30}
-.rare{color:#65b8ff}.epic{color:#c58cff}.legend{color:#ffb15c}.divine{color:#ffe16b}.abyss{color:#bba8ff}
-.overlay{position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;padding:15px}.modal{max-width:700px;width:100%;background:#111a2e;padding:20px;border-radius:16px}
-@media(max-width:850px){main{grid-template-columns:1fr}}
+*{box-sizing:border-box}body{margin:0;background:#030712;color:#e5e7eb;font:15px Arial,sans-serif}button,input,select{font:inherit}
+button{background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff;border:0;border-radius:10px;padding:11px 14px;cursor:pointer;margin:3px;transition:.2s}button:hover{filter:brightness(1.18);transform:translateY(-1px)}button:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.screen{display:none;min-height:100vh;padding:18px;align-items:center;justify-content:center}.active{display:flex}.card,.panel{background:#0b1220ee;border:1px solid #263449;border-radius:18px;box-shadow:0 0 30px #0008}.card{width:min(1250px,96vw);padding:24px}.form{width:min(560px,96vw)}
+input,select{width:100%;padding:12px;margin:7px 0;background:#020617;color:#fff;border:1px solid #334155;border-radius:10px}.center{text-align:center}.muted{color:#94a3b8}.glow{color:#67e8f9;text-shadow:0 0 16px #22d3ee}.logo{font-size:62px}.story{line-height:1.75;max-height:55vh;overflow:auto}
+.app{width:min(1500px,98vw);margin:auto;padding:10px}.top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(9,1fr);gap:7px;margin:10px 0}.stat{padding:10px;background:#0b1220;border:1px solid #263449;border-radius:12px}.grid{display:grid;grid-template-columns:1.55fr 1fr;gap:10px}.panel{padding:13px;margin-bottom:10px}
+.bars{display:grid;gap:7px}.bar{height:14px;background:#020617;border-radius:20px;overflow:hidden;border:1px solid #1e293b}.fill{height:100%;transition:.25s}.hp{background:#ef4444}.mp{background:#3b82f6}.xp{background:#22c55e}.en{background:#f59e0b}.mor{background:#a855f7}
+.actions{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.log{height:280px;overflow:auto;background:#020617;padding:10px;border-radius:10px}.log p{margin:5px 0}.combat{background:radial-gradient(circle at 50% 0,#3f0d16,#020617 65%);border-color:#7f1d1d}.enemyTitle{color:#f87171}.map{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.item{padding:10px;margin:6px 0;border:1px solid #334155;border-radius:10px;background:#020617}.locked{opacity:.42}.common{border-color:#64748b}.uncommon{border-color:#22c55e}.rare{border-color:#3b82f6}.epic{border-color:#a855f7}.legendary{border-color:#f97316}.mythic{border-color:#ef4444}.divine{border-color:#facc15}.supreme{border-color:#fb7185}.infinite{border-color:#22d3ee}.abyssal{border-color:#a855f7;box-shadow:0 0 18px #7c3aed66}
+.modal{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;padding:15px;z-index:30}.modal.show{display:flex}.modal .card{max-height:92vh;overflow:auto}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.wheel{font-size:44px;text-align:center;padding:24px;border:1px solid #7c3aed;border-radius:18px;background:radial-gradient(circle,#17112e,#020617)}.rareReveal{font-size:28px;text-align:center;padding:20px;border-radius:16px;animation:reveal .8s ease}.chance{color:#facc15}.equipGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.slot{min-height:80px;border:1px dashed #475569;border-radius:12px;padding:9px;background:#020617}.storyChoice{display:grid;gap:8px}.storyChoice button{text-align:left;background:#111827;border:1px solid #475569}.bossPhase{color:#fb7185;font-weight:bold}.cool{color:#fbbf24}.combo{color:#22d3ee;font-weight:bold}
+@keyframes reveal{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+@media(max-width:1100px){.stats{grid-template-columns:repeat(5,1fr)}.grid{grid-template-columns:1fr}}@media(max-width:650px){.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:repeat(2,1fr)}.map,.equipGrid{grid-template-columns:1fr}}
 </style>
-</head>
+\n<style id="ultra32-style">\n:root{--cyan:#22d3ee;--blue:#2563eb;--purple:#7c3aed;--red:#ef4444;--gold:#facc15}\nbody{background:radial-gradient(circle at 50% -10%,#263b86 0,#070b18 42%,#02040a 100%);overflow-x:hidden}\nbody:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(115deg,#22d3ee08,#7c3aed08,#ef444408);z-index:-1}\n.card,.panel{backdrop-filter:blur(8px);transition:.25s}.card:hover,.panel:hover{border-color:#3b82f6;box-shadow:0 0 35px #000b,0 0 18px #2563eb22}\n.story{padding:4px 8px}.story p{border-left:3px solid #475569;padding-left:12px}.ultraChapter{padding:14px;margin:10px 0;border:1px solid #334155;border-radius:12px;background:#07101fee;line-height:1.7}.ultraChapter b{color:#67e8f9}\n.threat{padding:10px;border-radius:10px;background:#210b12;border:1px solid #7f1d1d;color:#fecaca}.bossMeter{height:10px;background:#020617;border-radius:20px;overflow:hidden;border:1px solid #7f1d1d}.bossMeter i{display:block;height:100%;background:linear-gradient(90deg,#ef4444,#f97316);transition:.3s}\n.flash{animation:flash .3s}@keyframes flash{50%{filter:brightness(2)}}\n@media(max-width:650px){.logo{font-size:45px}}\n</style>\n</head>
 <body>
-<div id="app">
-<section class="top">
-<h1>⚔️ Crônicas do Abismo Infinito</h1>
+
+<section id="intro" class="screen active"><div class="card">
+<div class="logo center">⚔️🌑🌌</div>
+<h1 class="center glow">CRÔNICAS DO ABISMO INFINITO</h1>
+<h2 class="center">ULTRA 3.0 — ECLIPSE DO ABISMO</h2>
+<div class="story">
+<p>Antes de Eldoria, Vulkar, Niflheim, Tempestia, o Reino das Sombras, o Universo Astral e o Vazio Infinito, existia apenas um mundo: <b>Origem</b>.</p>
+<p>O Núcleo do Infinito se partiu e criou os sete mundos. Um oitavo fragmento, porém, não criou um mundo. Ele criou um ciclo.</p>
+<p>Os grandes guardiões — Fenrir, Ignaroth, Skolgrim, Nocturnus, Astrael e Nihilus — carregam partes dessa verdade. Julio e Gustavo protegem os últimos selos. No fim do caminho está Lucas, o Imperador do Vazio.</p>
+<p>Mas Lucas não é apenas um inimigo. <b>Ele se lembra das tentativas anteriores.</b> E, durante a batalha, pode aprender os padrões do jogador.</p>
+<p>Você não foi escolhido porque está destinado a vencer. Você foi escolhido porque ainda consegue entrar.</p>
+<p><b>Seu objetivo:</b> sobreviver, aprender, montar sua build, explorar os mundos, descobrir segredos, derrotar os guardiões e descobrir por que o ciclo existe.</p>
+<p><b>O Abismo não recompensa cliques infinitos.</b> Eventos têm limites, recursos importam, inimigos possuem IA e cada vitória precisa ser conquistada.</p>
+</div>
+<button style="width:100%" onclick="show('register')">⚔️ COMEÇAR JORNADA</button>
+<button style="width:100%;background:#1e293b" onclick="load()">💾 CARREGAR SAVE</button>
+</div></section>
+
+<section id="register" class="screen"><div class="card form">
+<h2 class="center">🧙 Criar Aventureiro</h2>
+<input id="name" maxlength="24" placeholder="Nome do aventureiro">
+<input id="email" type="email" placeholder="E-mail">
+<input id="pass" type="password" placeholder="Senha (não é necessária para o save local)">
+<button style="width:100%" onclick="create()">Continuar</button>
+</div></section>
+
+<section id="race" class="screen"><div class="card form">
+<h2 class="center">🎰 Roleta de Raça</h2>
+<p class="center">Você recebe <b>2 giros iniciais</b>. Use-os para tentar conseguir uma raça rara.</p>
+<div id="raceWheel" class="wheel">🎰 PRONTO</div><p id="raceInfo" class="muted center"></p>
+<button id="raceSpin" style="width:100%" onclick="spinRace()">🎰 GIRAR RAÇA</button>
+<button id="raceConfirm" style="width:100%;display:none" onclick="confirmRace()">✅ CONFIRMAR RAÇA</button>
+</div></section>
+
+<section id="class" class="screen"><div class="card form">
+<h2 class="center">🎰 Roleta de Classe</h2>
+<p class="center">Você recebe <b>2 giros iniciais</b>. A classe define seu estilo de combate.</p>
+<div id="classWheel" class="wheel">🎰 PRONTO</div><p id="classInfo" class="muted center"></p>
+<button id="classSpin" style="width:100%" onclick="spinClass()">🎰 GIRAR CLASSE</button>
+<button id="classConfirm" style="width:100%;display:none" onclick="confirmClass()">⚔️ CONFIRMAR CLASSE</button>
+</div></section>
+
+<section id="game" class="screen"><div class="app">
+<div class="top"><div><b class="glow">⚔️ ABISMO INFINITO — ULTRA 4.0</b><div id="hero" class="muted"></div></div>
+<div><select id="difficulty" onchange="setDifficulty(this.value)" style="width:auto;padding:8px;margin:0 4px"><option value="aventura">🟢 Aventura</option><option value="inferno">🔴 Inferno</option><option value="abismo">🟣 Abismo</option><option value="absoluto">⚫ Abismo Absoluto</option></select><button onclick="modal('map')">🗺️</button><button onclick="modal('shop')">🛒</button><button onclick="modal('bag')">🎒</button><button onclick="modal('skills')">✨</button><button onclick="modal('pets')">🐉</button><button onclick="modal('npcs')">🧙</button><button onclick="modal('quests')">📜</button><button onclick="modal('ranking')">🏆</button><button onclick="save()">💾</button></div></div>
 <div class="stats">
-<span class="stat" id="clock"></span><span class="stat" id="weather"></span>
-<span class="stat" id="world"></span><span class="stat" id="level"></span>
-<span class="stat" id="gold"></span><span class="stat" id="deaths"></span>
-<span class="stat">☠️ Abismo Absoluto</span>
+<div class="stat">🌍 Mundo<br><b id="world"></b></div><div class="stat">📈 Nível<br><b id="lvl"></b></div><div class="stat">⚔️ ATK<br><b id="atk"></b></div><div class="stat">🛡️ DEF<br><b id="def"></b></div><div class="stat">💰 Ouro<br><b id="gold"></b></div><div class="stat">⭐ Rep<br><b id="rep"></b></div><div class="stat">🔥 NG+<br><b id="ng"></b></div><div class="stat">☠️ Mortes<br><b id="deaths"></b></div><div class="stat">🎰 Giros<br><b id="spins"></b></div>
 </div>
-<nav>
-<button onclick="panel('explore')">🗺️ Explorar</button><button onclick="panel('fight')">⚔️ Luta</button>
-<button onclick="panel('quests')">📜 Missões</button><button onclick="panel('shop')">🛒 Loja</button>
-<button onclick="panel('inv')">🎒 Inventário</button><button onclick="panel('pets')">🐉 Pets</button>
-<button onclick="panel('mounts')">🏇 Montarias</button><button onclick="panel('npcs')">🧙 NPCs</button>
-<button onclick="panel('story')">📖 História</button><button onclick="ngplus()">♾️ NG+</button>
-</nav>
-</section>
-
-<main>
-<section class="box">
-<div id="explore" class="view">
-<h2>🗺️ Exploração</h2><p id="place"></p>
-<div class="grid" id="worlds"></div>
-<div class="actions"><button onclick="encounter()">🎲 Explorar</button><button onclick="secret()">👁️ Procurar segredo</button></div>
+<div class="timebar"><div id="timeBox" class="timebox"><div class="timebig" id="clock">🌅 06:00</div><div id="period">Amanhecer</div></div><div class="timebox"><div>🌦️ Clima</div><div id="weather" class="weather">Ensolarado</div></div><div class="timebox"><div>🧙 NPCs</div><div id="npcStatus">Cidade ativa</div></div></div>
+<div class="grid"><div>
+<div class="panel"><div class="bars">
+<div>❤️ HP <span id="hpT"></span><div class="bar"><div id="hpF" class="fill hp"></div></div></div>
+<div>🔵 Mana <span id="mpT"></span><div class="bar"><div id="mpF" class="fill mp"></div></div></div>
+<div>🟢 XP <span id="xpT"></span><div class="bar"><div id="xpF" class="fill xp"></div></div></div>
+<div>⚡ Energia <span id="enT"></span><div class="bar"><div id="enF" class="fill en"></div></div></div>
+<div>🌑 Corrupção <span id="corT"></span><div class="bar"><div id="corF" class="fill mor"></div></div></div>
 </div>
+<div class="actions">
+<button onclick="explore()">🗺️ Explorar</button><button onclick="attack()">⚔️ Atacar</button><button onclick="skill()">✨ Habilidade</button><button onclick="defend()">🛡️ Defender</button><button onclick="potion()">🧪 Poção</button>
+<button onclick="rest()">🔥 Descansar</button><button onclick="eventRoll()">🎲 Evento</button><button onclick="dungeon()">🏰 Dungeon</button><button onclick="challengeBoss()">👑 Boss</button><button onclick="newGamePlus()">♾️ NG+</button><button onclick="modal('bag')">🎒 Equipamentos</button>
+</div></div>
+<div id="combat" class="panel combat" style="display:none"></div>
+<div class="panel"><h3>📜 Jornada</h3><div id="log" class="log"></div></div>
+</div><div>
+<div class="panel"><h3>🎯 Objetivo</h3><div id="objective"></div></div>
+<div class="panel"><h3>📊 Atributos</h3><div id="attributes"></div></div>
+<div class="panel"><h3>🎒 Equipamento</h3><div id="equipment"></div></div>
+<div class="panel"><h3>🏆 Conquistas</h3><div id="ach"></div></div>
+</div></div></div></section>
 
-<div id="fight" class="view hidden">
-<h2>⚔️ Combate</h2><div class="card"><h2 id="enemyName">Nenhum inimigo</h2><p id="enemyInfo"></p>
-<div class="hp"><i id="enemyBar"></i></div><p id="enemyHp"></p>
-<div class="actions"><button onclick="attack()">⚔️ Atacar</button><button onclick="spell()">✨ Magia</button>
-<button onclick="guard()">🛡️ Defender</button><button onclick="potion()">🧪 Poção</button><button onclick="flee()">🏃 Fugir</button></div></div>
-<div class="card"><p>❤️ Vida</p><div class="hp"><i id="pHp"></i></div><p id="pHpTxt"></p>
-<p>🔵 Mana</p><div class="mana"><i id="pMana"></i></div><p id="pManaTxt"></p>
-<p>⚡ Energia</p><div class="energy"><i id="pEnergy"></i></div><p id="pEnergyTxt"></p></div>
-</div>
-
-<div id="quests" class="view hidden"><h2>📜 Missões</h2><div id="questList" class="grid"></div></div>
-<div id="shop" class="view hidden"><h2>🛒 Loja do Abismo</h2><div class="actions">
-<button onclick="shop('consumable')">🧪 Consumíveis</button><button onclick="shop('weapon')">⚔️ Armas</button>
-<button onclick="shop('armor')">🛡️ Armaduras</button><button onclick="shop('material')">⛏️ Materiais</button>
-<button onclick="shop('pet')">🐉 Pets</button><button onclick="shop('mount')">🏇 Montarias</button>
-<button onclick="mystery()">❓ Misteriosa</button></div><div id="shopList" class="grid"></div></div>
-<div id="inv" class="view hidden"><h2>🎒 Inventário</h2><p>Somente itens realmente obtidos aparecem aqui.</p><div id="invList" class="grid"></div></div>
-<div id="pets" class="view hidden"><h2>🐉 Pets</h2><p>Comprar/conquistar primeiro; equipar depois. Não ocupam slots de arma/armadura.</p><div id="petList" class="grid"></div></div>
-<div id="mounts" class="view hidden"><h2>🏇 Montarias</h2><p>Montarias são separadas dos equipamentos.</p><div id="mountList" class="grid"></div></div>
-<div id="npcs" class="view hidden"><h2>🧙 NPCs</h2><div id="npcList" class="grid"></div></div>
-<div id="story" class="view hidden"><h2>📖 História</h2>
-<p>Os sete mundos são fragmentos de uma Origem quebrada. Cada boss guarda uma memória. O herói atravessa Eldoria, Vulkar, Niflheim, Tempestia, Reino das Sombras, Universo Astral e Vazio Infinito até descobrir o Mundo 0.</p>
-<p>O Abismo observa padrões. Repetir a mesma estratégia pode fazer inimigos e bosses responderem de maneira diferente. Algumas pessoas lembram de ciclos anteriores.</p>
-<p>Lucas não é apenas um chefe final: ele é o guardião da última memória.</p></div>
-</section>
-
-<aside>
-<div class="box"><h2>📜 Registro</h2><div id="log"></div></div>
-<div class="box"><h2>👤 Personagem</h2><div id="char"></div></div>
-<div class="box"><h2>👑 Bosses</h2><div id="bosses"></div></div>
-</aside>
-</main>
-</div>
-<div id="modal" class="overlay hidden"><div class="modal" id="modalText"></div></div>
+<div id="modal" class="modal"><div class="card"><div id="modalBody"></div><button onclick="closeModal()">Fechar</button></div></div>
+<div id="storyModal" class="modal"><div class="card form"><h2 id="storyTitle" class="glow center"></h2><div id="storyBody" class="story"></div><button style="width:100%" onclick="closeStory()">Continuar</button></div></div>
 
 <script>
 "use strict";
-const clone=o=>JSON.parse(JSON.stringify(o));
-const DEFAULT={name:"Herói",race:"Humano",clazz:"Guerreiro",level:1,xp:0,next:100,gold:100,
-hp:180,maxHp:180,mana:80,maxMana:80,energy:60,maxEnergy:60,atk:24,def:10,magic:18,
-crit:5,world:"Eldoria",place:"Eldoria",hour:8,day:1,weather:"Limpo",deaths:0,ng:0,
-threat:0,corruption:0,inventory:[{id:"iron",qty:1}],weapon:null,armor:null,pets:[],
-activePet:null,mounts:[],activeMount:null,quests:{wolf:0,fenrir:false,secret:false},
-claimed:{},bosses:{},unlocked:["Eldoria"],maps:[],enemy:null,defending:false};
-let S=load();
-function load(){try{return Object.assign(clone(DEFAULT),JSON.parse(localStorage.abismoULTRA||"{}"))}catch(e){return clone(DEFAULT)}}
-function save(){localStorage.abismoULTRA=JSON.stringify(S)}
-function log(t){document.querySelector("#log").innerHTML="<div class=line>"+t+"</div>"+document.querySelector("#log").innerHTML}
-function panel(id){document.querySelectorAll(".view").forEach(x=>x.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");render()}
-function item(id){return ITEMS.find(x=>x.id===id)}
-function has(id){return S.inventory.some(x=>x.id===id&&x.qty>0)}
-function add(id,n=1){let x=S.inventory.find(x=>x.id===id);if(x)x.qty+=n;else S.inventory.push({id,qty:n})}
-function remove(id,n=1){let x=S.inventory.find(x=>x.id===id);if(!x||x.qty<n)return false;x.qty-=n;if(x.qty<=0)S.inventory=S.inventory.filter(y=>y.id!==id);return true}
-function gainXP(n){S.xp+=n;while(S.xp>=S.next){S.xp-=S.next;S.level++;S.next=Math.floor(S.next*1.32);S.maxHp+=25;S.maxMana+=10;S.maxEnergy+=7;S.atk+=5;S.def+=3;S.magic+=3;S.hp=S.maxHp;S.mana=S.maxMana;S.energy=S.maxEnergy;log("⬆️ Nível "+S.level+"!");}}
-function mult(){return 1+(S.level-1)*.035+S.ng*.25+S.threat*.003}
-function night(){return S.hour>=22||S.hour<6}
-function timeName(){return S.hour<6?"🌑 Madrugada":S.hour<12?"🌅 Amanhecer":S.hour<18?"☀️ Dia":S.hour<22?"🌆 Entardecer":"🌙 Noite"}
-function tick(h=1){S.hour+=h;while(S.hour>=24){S.hour-=24;S.day++;S.claimed={};S.threat=Math.max(0,S.threat-10)}if(Math.random()<.15)weather();save()}
-function weather(){S.weather=["Limpo","Chuva","Tempestade","Neblina","Neve"][Math.floor(Math.random()*5)];log("🌦️ Clima: "+S.weather)}
+const R={
+Humano:{chance:30,rarity:"Comum",hp:110,mp:100,atk:12,def:12,agi:10,int:10,luck:8},
+Elfo:{chance:22,rarity:"Incomum",hp:90,mp:135,atk:15,def:8,agi:16,int:14,luck:12},
+Anão:{chance:18,rarity:"Incomum",hp:145,mp:75,atk:14,def:22,agi:6,int:8,luck:6},
+Vampiro:{chance:12,rarity:"Raro",hp:115,mp:115,atk:19,def:10,agi:14,int:13,luck:11},
+Draconiano:{chance:8,rarity:"Divino",hp:155,mp:90,atk:22,def:16,agi:9,int:11,luck:8},
+Demônio:{chance:6,rarity:"Mítico",hp:125,mp:105,atk:27,def:13,agi:12,int:12,luck:10},
+Celestial:{chance:3,rarity:"Supremo",hp:120,mp:145,atk:22,def:21,agi:11,int:17,luck:14},
+"???":{chance:1,rarity:"Infinito",hp:170,mp:170,atk:35,def:30,agi:20,int:25,luck:20}
+};
+const C={
+Guerreiro:{chance:25,rarity:"Comum",atk:18,def:22,agi:5,int:3,skill:"Golpe Colossal"},
+Mago:{chance:20,rarity:"Incomum",atk:32,def:7,agi:7,int:25,skill:"Meteoro Astral"},
+Arqueiro:{chance:17,rarity:"Raro",atk:25,def:11,agi:20,int:8,skill:"Chuva de Flechas"},
+Assassino:{chance:13,rarity:"Épico",atk:37,def:6,agi:25,int:8,skill:"Lâmina Fantasma"},
+Paladino:{chance:10,rarity:"Lendário",atk:21,def:31,agi:4,int:10,skill:"Martelo Celestial"},
+Necromante:{chance:7,rarity:"Mítico",atk:34,def:11,agi:8,int:24,skill:"Exército Sombrio"},
+"Cavaleiro Dracônico":{chance:5,rarity:"Divino",atk:40,def:26,agi:6,int:10,skill:"Sopro Dracônico"},
+"Imperador das Sombras":{chance:2,rarity:"Supremo",atk:52,def:31,agi:15,int:25,skill:"Apocalipse Sombrio"},
+"???":{chance:1,rarity:"Infinito",atk:70,def:40,agi:25,int:35,skill:"Fim da Realidade"}
+};
+const W=[["Eldoria",1,"Fenrir"],["Vulkar",10,"Ignaroth"],["Niflheim",20,"Skolgrim"],["Tempestia",30,"Nocturnus"],["Reino das Sombras",45,"Astrael"],["Universo Astral",65,"Nihilus"],["Vazio Infinito",90,"Julio"],["Abismo Final",120,"Gustavo"],["Trono do Infinito",150,"Lucas"]];
+const B={Fenrir:[2500,95,40,3],Ignaroth:[9000,200,110,3],Skolgrim:[22000,390,200,4],Nocturnus:[48000,730,350,4],Astrael:[110000,1300,600,4],Nihilus:[250000,2050,1050,5],Julio:[420000,3100,1550,5],Gustavo:[700000,5000,2450,5],Lucas:[1000000,10500,5200,6]};
+const EN=["Goblin Abissal","Lobo Astral","Guardião de Cinzas","Cavaleiro Perdido","Mago do Vazio","Predador Lunar","Colosso Mecânico"];
+const RARITY=["Comum","Incomum","Raro","Épico","Lendário","Mítico","Divino","Supremo","Infinito","Abissal"];
+const RCLASS={"Comum":"common","Incomum":"uncommon","Raro":"rare","Épico":"epic","Lendário":"legendary","Mítico":"mythic","Divino":"divine","Supremo":"supreme","Infinito":"infinite","Abissal":"abyssal"};
 const ITEMS=[
-{id:"iron",name:"Fragmento de Ferro",type:"material",rar:"Comum",price:25,desc:"Crafting"},
-{id:"potion",name:"Poção de Vida",type:"consumable",rar:"Comum",price:60,heal:70,desc:"Recupera vida"},
-{id:"mana",name:"Poção de Mana",type:"consumable",rar:"Comum",price:75,mp:45,desc:"Recupera mana"},
-{id:"sword",name:"Espada de Ferro",type:"weapon",rar:"Comum",price:80,atk:8,desc:"Arma inicial"},
-{id:"bow",name:"Arco do Caçador",type:"weapon",rar:"Incomum",price:450,atk:18,desc:"Ataque à distância"},
-{id:"dagger",name:"Adaga Lunar",type:"weapon",rar:"Raro",price:1400,atk:32,crit:8,desc:"Críticos"},
-{id:"abyssBlade",name:"Lâmina do Abismo",type:"weapon",rar:"Épico",price:6500,atk:65,magic:10,desc:"Arma de elite"},
-{id:"dragonSword",name:"Espada do Dragão",type:"weapon",rar:"Lendário",price:22000,atk:110,desc:"Drop raro de boss"},
-{id:"leather",name:"Armadura de Couro",type:"armor",rar:"Comum",price:120,def:7,desc:"Proteção"},
-{id:"steel",name:"Armadura de Aço",type:"armor",rar:"Incomum",price:700,def:20,desc:"Proteção melhor"},
-{id:"frost",name:"Armadura Glacial",type:"armor",rar:"Raro",price:2200,def:42,desc:"Niflheim"},
-{id:"astral",name:"Couraça Astral",type:"armor",rar:"Épico",price:9000,def:80,magic:25,desc:"Universo Astral"},
-{id:"divine",name:"Manto Divino",type:"armor",rar:"Divino",price:50000,def:150,magic:80,desc:"Extremamente raro"},
-{id:"moon",name:"Fragmento Lunar",type:"material",rar:"Raro",price:300,desc:"Noite"},
-{id:"scale",name:"Escama Dracônica",type:"material",rar:"Épico",price:1500,desc:"Dragões"},
-{id:"void",name:"Fragmento do Vazio",type:"material",rar:"Abissal",price:12000,desc:"Endgame"}];
-const PETS=[
-{id:"wolfPet",name:"Lobo de Eldoria",price:1500,rar:"Incomum",pass:"+5% ataque",atk:2},
-{id:"eaglePet",name:"Águia Astral",price:6000,rar:"Raro",pass:"+8% crítico",crit:8},
-{id:"dragonPet",name:"Filhote Dracônico",price:25000,rar:"Lendário",pass:"+15 magia",magic:15},
-{id:"abyssPet",name:"Espírito do Abismo",price:120000,rar:"Abissal",pass:"+20 ataque",atk:20}];
-const MOUNTS=[
-{id:"horse",name:"Cavalo de Eldoria",price:1200,rar:"Comum",speed:10},
-{id:"wolfMount",name:"Lobo Sombrio",price:8000,rar:"Raro",speed:20},
-{id:"griffin",name:"Grifo Astral",price:30000,rar:"Épico",speed:35},
-{id:"dragonMount",name:"Dragão Vulcânico",price:100000,rar:"Lendário",speed:55}];
-const B=[
-["Fenrir","Eldoria",8,850,35,12,3],["Ignaroth","Vulkar",18,2200,75,28,3],
-["Skolgrim","Niflheim",28,4800,105,55,3],["Nocturnus","Reino das Sombras",50,9000,180,80,4],
-["Astrael","Universo Astral",65,16000,280,120,4],["Nihilus","Vazio Infinito",85,30000,400,180,5],
-["Julio","Vazio Infinito",90,42000,520,220,5],["Gustavo","Vazio Infinito",95,60000,650,300,5],
-["Lucas","Mundo 0",100,1000000,950,500,5]];
-const worldReq={Vulkar:10,Niflheim:20,Tempestia:30,"Reino das Sombras":45,"Universo Astral":60,"Vazio Infinito":80,"Mundo 0":100};
-function boss(n){return B.find(x=>x[0]===n)}
-function rarity(c){return {Raro:"rare",Épico:"epic",Lendário:"legend",Divino:"divine",Abissal:"abyss"}[c]||""}
-function unlock(w){if(S.unlocked.includes(w)||S.level<(worldReq[w]||1))return;S.unlocked.push(w);S.world=w;S.place=w;log("🌍 Novo mundo: "+w);save();render()}
-function encounter(){
-tick(1);S.threat=Math.min(100,S.threat+5);let r=Math.random();
-if(S.world==="Mundo 0"&&r<.2){startBoss("Lucas");return}
-if(r<.07){startBoss(["Fenrir","Ignaroth","Skolgrim"][Math.floor(Math.random()*3)]);return}
-if(r<.2){event();return}
-let lv=Math.max(1,S.level+Math.floor(Math.random()*5-2));startEnemy("Guardião da "+S.world,lv,90*lv,18+lv*2,5+lv*.8,false)
-}
-function startEnemy(n,lv,hp,atk,def,isBoss){let m=mult();S.enemy={name:n,level:lv,max:Math.floor(hp*m),hp:Math.floor(hp*m),atk:Math.floor(atk*m),def:Math.floor(def*m),boss:isBoss,turn:0,seen:{}};log("⚠️ "+n+" apareceu!");panel("fight")}
-function startBoss(n){let b=boss(n);if(!b||S.level<b[2]||S.bosses[n]){log("🔒 Boss indisponível.");return}startEnemy(b[0],b[2],b[3],b[4],b[5],true);S.enemy.phases=b[6]}
-function enemyTurn(){
-if(!S.enemy)return;let e=S.enemy;e.turn++;
-let dmg=Math.max(1,Math.floor(e.atk*(night()?1.2:1)*(S.weather==="Tempestade"?1.15:1)-S.def*.22));
-if(S.defending)dmg=Math.floor(dmg*.45),S.defending=false;
-if(e.turn%4===0&&e.boss)dmg=Math.floor(dmg*1.35),log("👑 "+e.name+" usou uma habilidade especial!");
-else if(e.hp<e.max*.3&&Math.random()<.3){e.hp=Math.min(e.max,e.hp+Math.floor(e.max*.04));log("🩸 "+e.name+" recuperou vida!")}
-S.hp-=dmg;log("👹 "+e.name+" atacou: -"+dmg+" HP");
-if(S.hp<=0)death()
-}
-function hit(d,type){
-let e=S.enemy;if(!e)return;
-if(type==="physical"){e.seen.physical=(e.seen.physical||0)+1;if(e.seen.physical>=3)d*=.75}
-if(type==="magic"){e.seen.magic=(e.seen.magic||0)+1;if(e.seen.magic>=3)d*=.7}
-let real=Math.max(1,Math.floor(d-e.def*.35));e.hp-=real;log("⚔️ Dano: "+real);
-if(e.hp<=0)win();else enemyTurn();render()
-}
-function attack(){if(!S.enemy){encounter();return}if(S.energy<8){log("⚡ Energia insuficiente.");return}S.energy-=8;hit(S.atk*(Math.random()<S.crit/100?2:1),"physical")}
-function spell(){if(!S.enemy||S.mana<15){log("🔵 Mana insuficiente ou sem alvo.");return}S.mana-=15;hit(S.magic+25,"magic")}
-function guard(){if(!S.enemy)return;S.defending=true;S.energy=Math.min(S.maxEnergy,S.energy+12);log("🛡️ Defesa preparada.");enemyTurn();render()}
-function potion(){if(!remove("potion")){log("🧪 Sem poção.");return}S.hp=Math.min(S.maxHp,S.hp+70);log("🧪 Vida recuperada.");if(S.enemy)enemyTurn();render()}
-function flee(){if(!S.enemy)return;if(Math.random()<.55){log("🏃 Fuga bem-sucedida.");S.enemy=null}else{log("❌ Fuga falhou.");enemyTurn()}render()}
-function win(){
-let e=S.enemy, gold=e.boss?e.level*180:e.level*25;S.gold+=gold;gainXP(e.boss?e.level*90:e.level*18);S.threat=Math.min(100,S.threat+(e.boss?15:4));log("🏆 Vitória! +"+gold+" ouro");
-if(e.boss){S.bosses[e.name]=true;S.quests.fenrir|=e.name==="Fenrir";let drops={Fenrir:"moon",Ignaroth:"scale",Skolgrim:"frost",Nocturnus:"abyssBlade",Astrael:"astral",Nihilus:"void",Julio:"dagger",Gustavo:"dragonSword"};if(drops[e.name]){add(drops[e.name]);log("✨ Drop de boss: "+item(drops[e.name]).name)}if(e.name==="Fenrir"&&!S.maps.includes("Ruínas de Aether"))S.maps.push("Ruínas de Aether")}
-S.enemy=null;tick(.3);save();render()
-}
-function death(){S.deaths++;S.gold=Math.floor(S.gold*.75);S.hp=Math.floor(S.maxHp*.6);S.mana=Math.floor(S.maxMana*.5);S.energy=Math.floor(S.maxEnergy*.5);S.enemy=null;S.threat=Math.max(0,S.threat-15);log("💀 Você morreu e perdeu 25% do ouro.");save();render()}
-function event(){
-let key=S.day+"-"+S.world+"-"+Math.floor(S.hour);if(S.claimed[key]){log("🔒 Evento já concluído neste ciclo.");return}S.claimed[key]=1;
-let pool=["potion","iron","moon"];let id=pool[Math.floor(Math.random()*pool.length)];add(id,id==="iron"?2:1);S.gold+=100+S.level*15;gainXP(40+S.level*5);log("🎁 Evento concluído. Recompensa controlada.");save();render()
-}
-function secret(){tick(.5);let chance=(night()?.22:.08)+S.corruption*.001;if(Math.random()<chance){S.quests.secret=true;S.corruption=Math.min(100,S.corruption+2);S.maps.push("Segredo "+S.day);log("👁️ Você encontrou uma passagem secreta!");modal("🕳️ <h2>Passagem Secreta</h2><p>Uma parede desapareceu. Você encontrou uma área que não aparece no mapa comum.</p>")}else log("🔎 Nada encontrado.")}
-function modal(t){document.querySelector("#modalText").innerHTML=t+"<br><br><button onclick='document.querySelector("#modal").classList.add("hidden")'>Fechar</button>";document.querySelector("#modal").classList.remove("hidden")}
-function shop(type){
-let a=type==="pet"?PETS:type==="mount"?MOUNTS:ITEMS.filter(x=>x.type===type);
-document.querySelector("#shopList").innerHTML=a.map(x=>{let own=type==="pet"?S.pets.includes(x.id):type==="mount"?S.mounts.includes(x.id):has(x.id);return `<div class=card><h3 class=${rarity(x.rar)}>${x.name}</h3><p>${x.rar} — ${x.desc||x.pass}</p><p>💰 ${x.price}</p><button ${own||S.gold<x.price?"disabled":""} onclick="buy('${type}','${x.id}')">${own?"Possuído":"Comprar"}</button></div>`}).join("")
-}
-function buy(type,id){let x=type==="pet"?PETS.find(x=>x.id===id):type==="mount"?MOUNTS.find(x=>x.id===id):item(id);if(!x||S.gold<x.price)return;S.gold-=x.price;if(type==="pet")S.pets.push(id);else if(type==="mount")S.mounts.push(id);else add(id);log("🛒 Comprado: "+x.name);save();render()}
-function mystery(){if(S.gold<8000){log("❓ Custa 8.000 ouro.");return}S.gold-=8000;let a=ITEMS.filter(x=>["Raro","Épico","Lendário"].includes(x.rar));let x=a[Math.floor(Math.random()*a.length)];add(x.id);log("❓ Loja misteriosa: "+x.name);save();render()}
-function equip(id){if(!has(id)){log("❌ Você não possui esse item.");return}let x=item(id);if(x.type!=="weapon"&&x.type!=="armor"){log("❌ Não é equipamento.");return}if(x.type==="weapon")S.weapon=id;else S.armor=id;log("⚔️ Equipado: "+x.name);save();render()}
-function equipPet(id){if(!S.pets.includes(id)){log("❌ Compre/conquiste primeiro.");return}S.activePet=id;log("🐉 Pet ativo.");save();render()}
-function equipMount(id){if(!S.mounts.includes(id)){log("❌ Compre/conquiste primeiro.");return}S.activeMount=id;log("🏇 Montaria ativa.");save();render()}
-const NPC=[
-{id:"kael",name:"Kael, o Mentor",from:6,to:22,text:["Bem-vindo ao Abismo.","Varie seus ataques: inimigos aprendem padrões.","Não confie em recompensas fáceis."]},
-{id:"mira",name:"Mira, a Mercadora",from:8,to:23,text:["Tenho mercadorias, mas tudo tem preço.","Itens raros exigem economia.","Alguns segredos não estão à venda."]},
-{id:"traveler",name:"O Viajante",from:0,to:4,text:["Você chegou de madrugada.","Eu me lembro de uma jornada que você ainda não viveu.","O Mundo 0 não é o fim."]}];
-function npcHere(n){return n.from<n.to?S.hour>=n.from&&S.hour<n.to:S.hour>=n.from||S.hour<n.to}
-function talk(n){if(!npcHere(n)){log("😴 Esse NPC não está disponível agora.");return}modal("<h2>💬 "+n.name+"</h2>"+n.text.map(x=>"<p>"+x+"</p>").join(""))}
-function questRender(){document.querySelector("#questList").innerHTML=`
-<div class=card><h3>🐺 Caçada</h3><p>Derrote 8 inimigos: ${S.quests.wolf}/8</p><button ${S.quests.wolf<8||S.claimed.qwolf?"disabled":""} onclick="claimWolf()">Receber</button></div>
-<div class=card><h3>👑 A Verdade Sobre Fenrir</h3><p>Derrote Fenrir.</p><button ${!S.quests.fenrir||S.claimed.qfenrir?"disabled":""} onclick="claimFenrir()">Receber</button></div>
-<div class=card><h3>🕳️ Memória do Abismo</h3><p>Encontre um segredo.</p><button ${!S.quests.secret||S.claimed.qsecret?"disabled":""} onclick="claimSecret()">Receber</button></div>`}
-function claimWolf(){S.claimed.qwolf=1;S.gold+=500;gainXP(150);add("moon");save();render()}
-function claimFenrir(){S.claimed.qfenrir=1;S.gold+=2000;gainXP(700);add("moon",3);save();render()}
-function claimSecret(){S.claimed.qsecret=1;S.gold+=5000;gainXP(1000);S.corruption+=10;save();render()}
-function render(){
-document.querySelector("#clock").textContent=timeName()+" "+String(Math.floor(S.hour)).padStart(2,"0")+":"+String(Math.floor(S.hour%1*60)).padStart(2,"0");
-document.querySelector("#weather").textContent="🌦️ "+S.weather;document.querySelector("#world").textContent="🌍 "+S.world;
-document.querySelector("#level").textContent="Nv. "+S.level;document.querySelector("#gold").textContent="💰 "+S.gold;document.querySelector("#deaths").textContent="💀 "+S.deaths;
-document.querySelector("#place").textContent="Você está em "+S.place+" — Dia "+S.day+" — Ameaça "+S.threat+"% — Corrupção "+S.corruption+"%";
-let worlds=["Eldoria","Vulkar","Niflheim","Tempestia","Reino das Sombras","Universo Astral","Vazio Infinito","Mundo 0"];
-document.querySelector("#worlds").innerHTML=worlds.map(w=>`<div class=card><h3>${w}</h3><p>${S.unlocked.includes(w)?"✅ Desbloqueado":"🔒 Nível "+(worldReq[w]||1)}</p><button ${S.unlocked.includes(w)?"":"disabled"} onclick="S.world='${w}';S.place='${w}';save();render()">Viajar</button></div>`).join("");
-let e=S.enemy;document.querySelector("#enemyName").textContent=e?(e.boss?"👑 ":"👹 ")+e.name:"Nenhum inimigo";document.querySelector("#enemyInfo").textContent=e?`Nível ${e.level} • turno ${e.turn} • IA ${e.boss?"adaptativa":"tática"}`:"Explore para encontrar inimigos";document.querySelector("#enemyHp").textContent=e?`${Math.max(0,e.hp).toLocaleString()}/${e.max.toLocaleString()}`:"—";document.querySelector("#enemyBar").style.width=e?Math.max(0,e.hp/e.max*100)+"%":"0%";
-document.querySelector("#pHp").style.width=S.hp/S.maxHp*100+"%";document.querySelector("#pMana").style.width=S.mana/S.maxMana*100+"%";document.querySelector("#pEnergy").style.width=S.energy/S.maxEnergy*100+"%";
-document.querySelector("#pHpTxt").textContent=S.hp+"/"+S.maxHp;document.querySelector("#pManaTxt").textContent=S.mana+"/"+S.maxMana;document.querySelector("#pEnergyTxt").textContent=S.energy+"/"+S.maxEnergy;
-document.querySelector("#char").innerHTML=`<p><b>${S.name}</b> — ${S.race} / ${S.clazz}</p><p>⚔️ ${S.weapon?item(S.weapon).name:"Nenhuma"}<br>🛡️ ${S.armor?item(S.armor).name:"Nenhuma"}<br>🐉 ${S.activePet||"Nenhum"}<br>🏇 ${S.activeMount||"Nenhuma"}</p><p>Ataque ${S.atk} • Defesa ${S.def} • Magia ${S.magic}</p>`;
-document.querySelector("#invList").innerHTML=S.inventory.map(x=>{let i=item(x.id);return `<div class=card><h3 class=${rarity(i.rar)}>${i.name}</h3><p>Qtd. ${x.qty} • ${i.rar}</p>${i.type==="weapon"||i.type==="armor"?`<button onclick="equip('${i.id}')">Equipar</button>`:""}</div>`}).join("");
-document.querySelector("#petList").innerHTML=PETS.map(p=>`<div class=card><h3>${p.name}</h3><p>${p.rar} — ${p.pass}</p><button ${S.pets.includes(p.id)?"":"disabled"} onclick="equipPet('${p.id}')">${S.activePet===p.id?"Ativo":"Equipar"}</button></div>`).join("");
-document.querySelector("#mountList").innerHTML=MOUNTS.map(m=>`<div class=card><h3>${m.name}</h3><p>${m.rar} — +${m.speed}% velocidade</p><button ${S.mounts.includes(m.id)?"":"disabled"} onclick="equipMount('${m.id}')">${S.activeMount===m.id?"Ativa":"Equipar"}</button></div>`).join("");
-document.querySelector("#npcList").innerHTML=NPC.map(n=>`<div class=card><h3>${n.name}</h3><p>${String(n.from).padStart(2,"0")}:00–${String(n.to).padStart(2,"0")}:00</p><button ${npcHere(n)?"":"disabled"} onclick='talk(${JSON.stringify(n)})'>${npcHere(n)?"💬 Falar":"😴 Ausente"}</button></div>`).join("");
-questRender();
-document.querySelector("#bosses").innerHTML=B.map(b=>`<div class=card><b>👑 ${b[0]}</b> — Nv.${b[2]}<br>${S.bosses[b[0]]?"✅ Derrotado":"⚠️ Ativo"}<br><button ${S.level<b[2]||S.bosses[b[0]]?"disabled":""} onclick="startBoss('${b[0]}')">Enfrentar</button></div>`).join("");
-}
-function ngplus(){if(!S.bosses.Lucas){log("🔒 Derrote Lucas antes do NG+.");return}S.ng++;S.level=1;S.xp=0;S.next=100;S.gold=500;S.hp=220;S.maxHp=220;S.mana=90;S.maxMana=90;S.energy=70;S.maxEnergy=70;S.atk=28+S.ng*4;S.def=12+S.ng*2;S.magic=22+S.ng*3;S.bosses={};S.unlocked=["Eldoria"];S.world="Eldoria";S.place="Eldoria";log("♾️ NG+"+S.ng+" iniciado. O Abismo ficou mais forte.");save();render()}
-setInterval(()=>{tick(.1);render()},6000);
-render();log("🌌 O Abismo despertou.");log("☠️ Dificuldade Abismo Absoluto ativada.");
+{name:"Espada Sombria",price:800,rarity:"Raro",level:10,slot:"weapon",atk:110,def:0,hp:0,mp:0,passive:"+5% crítico"},
+{name:"Armadura Abissal",price:1400,rarity:"Épico",level:15,slot:"armor",atk:0,def:170,hp:250,mp:0,passive:"+8% resistência"},
+{name:"Cajado Astral",price:2800,rarity:"Divino",level:30,slot:"weapon",atk:330,def:0,hp:0,mp:120,passive:"+10% magia"},
+{name:"Coroa do Infinito",price:8500,rarity:"Supremo",level:70,slot:"helmet",atk:700,def:450,hp:600,mp:250,passive:"+12% crítico"},
+{name:"Lâmina Infinita",price:25000,rarity:"Infinito",level:100,slot:"weapon",atk:1400,def:500,hp:800,mp:400,passive:"Eclipse Final"},
+{name:"Relíquia da Oitava Porta",price:0,rarity:"Abissal",level:150,slot:"relic",atk:3000,def:1800,hp:5000,mp:1800,passive:"???"}
+];
+const BOSSLOOT={Fenrir:"Presas do Lobo Primordial",Ignaroth:"Núcleo das Chamas Eternas",Skolgrim:"Martelo do Titã de Ferro",Nocturnus:"Manto da Noite Sem Lua",Astrael:"Coroa Astral",Nihilus:"Foice do Nada",Julio:"Lâmina do Caos",Gustavo:"Coroa do Guardião",Lucas:"Espada do Imperador Final"};
+const PETS=[["Lobo Sombrio",700,.12,.05],["Fênix Astral",2500,.20,.10],["Dragão Ancestral",8000,.32,.18]];
+const SKILLS=[["Golpe Colossal","Dano físico enorme",30,1.9],["Meteoro Astral","Dano mágico massivo",45,2.5],["Lâmina Fantasma","Alta chance de crítico",40,2.15],["Martelo Celestial","Cura e defesa",35,0],["Exército Sombrio","Dano + roubo de vida",60,2.2],["Sopro Dracônico","Ignora parte da defesa",70,2.7],["Apocalipse Sombrio","Ataque extremo",100,3.2]];
+const achievements=["Primeiro combate","Primeiro boss","5 bosses","Nível 150","Derrotar Lucas","10.000 ouro","Dungeon conquistada","NG+ iniciado","Raça rara","Classe rara","Equipamento Infinito"];
+let g=null,raceResult=null,classResult=null,spinLock=false,storyTimer=null;
+const $=id=>document.getElementById(id),rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),pct=(x,m)=>clamp(x/m*100,0,100);
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$(id).classList.add('active')}
+function modal(type){renderModal(type);$('modal').classList.add('show')}function closeModal(){$('modal').classList.remove('show')}
+function log(s){if(!$('log'))return;let p=document.createElement('p');p.innerHTML=s;$('log').prepend(p)}
+function story(title,text){$('storyTitle').textContent=title;$('storyBody').innerHTML='<p>'+text+'</p>';$('storyModal').classList.add('show')}
+function closeStory(){$('storyModal').classList.remove('show')}
+function make(n,e,p){return{profile:{n,e},race:null,className:null,level:1,xp:0,xpMax:100,gold:300,rep:0,world:0,hp:100,hpMax:100,mp:100,mpMax:100,energy:100,maxEnergy:100,corruption:0,attack:10,defense:10,agi:10,int:10,luck:8,crit:5,potions:4,inventory:[],equipped:{weapon:null,armor:null,helmet:null,gloves:null,boots:null,ring:null,amulet:null,relic:null},pet:null,mount:null,skills:[],defeated:[],ach:[],enemy:null,guard:false,wins:0,dungeonWins:0,ng:0,abyss:0,deaths:0,kills:0,bossKills:0,combo:0,maxCombo:0,spins:{race:2,class:2},cooldowns:{attack:0,skill:0},storyFlags:{start:false,wall:false,origin:false},lastTick:Date.now(),gameMinutes:360,day:1,weather:'Ensolarado',weatherTimer:0,eventCooldown:0,eventClaimed:{},difficulty:"aventura",adapt:{fire:0,physical:0,magic:0,last:""},weatherSeed:0,npcFlags:{}}}
+const WEATHER=['Ensolarado','Nublado','Chuva','Tempestade','Neblina','Neve'];
+const NPCS=[['Arkan','📚 Arquivista','08:00–22:00','Biblioteca de Eldoria'],['Kael','⚔️ Mestre','06:00–20:00','Campo de treinamento'],['Mira','🛒 Comerciante','08:00–23:00','Mercado'],['Lyra','🐉 Cuidadora de Pets','10:00–21:00','Estábulo'],['Viajante','👁️ Viajante','00:00–04:00','Local secreto']];
+function timeInfo(){if(!g)return {h:6,m:0,period:'Amanhecer',night:false};let total=((g.gameMinutes%1440)+1440)%1440,h=Math.floor(total/60),m=total%60;let period=h>=6&&h<12?'Manhã':h>=12&&h<18?'Tarde':h>=18&&h<22?'Entardecer':h>=22||h<5?'Noite':'Madrugada';return {h,m,period,night:h>=22||h<5};}
+function timeText(){let t=timeInfo();return String(t.h).padStart(2,'0')+':'+String(t.m).padStart(2,'0')}
+function npcOpen(n){let t=timeInfo().h; if(n==='Viajante')return t>=0&&t<5; let x=NPCS.find(v=>v[0]===n);if(!x)return false;let [a,b]=x[2].split('–').map(v=>parseInt(v));return t>=a&&t<b}
+function updateWeather(){if(!g)return;g.weather=WEATHER[rnd(0,WEATHER.length-1)];if(g.world===2&&Math.random()<.5)g.weather='Neve';if(g.world===3&&Math.random()<.45)g.weather='Tempestade';if(g.world===4&&Math.random()<.35)g.weather='Neblina';g.weatherTimer=rnd(6,12);log(`🌦️ O clima mudou: <b>${g.weather}</b>.`);}
+function advanceTime(mins=1){if(!g)return;g.gameMinutes=(g.gameMinutes+mins)%1440;if(g.gameMinutes<mins)g.day++;g.weatherTimer=Math.max(0,(g.weatherTimer||0)-mins);if(g.weatherTimer<=0)updateWeather();}
+function difficultyInfo(){const d={aventura:{enemy:1,damage:.9,loot:1,regen:1.15,name:'Aventura'},inferno:{enemy:1.35,damage:1.12,loot:.92,regen:1,name:'Inferno'},abismo:{enemy:1.8,damage:1.38,loot:.82,regen:.85,name:'Abismo'},absoluto:{enemy:2.45,damage:1.72,loot:.68,regen:.72,name:'Abismo Absoluto'}};return d[g?.difficulty||'aventura']||d.aventura;}
+function setDifficulty(v){if(!g)return;g.difficulty=v;log(`☠️ Dificuldade: <b>${difficultyInfo().name}</b>. O Abismo respondeu.`);save();update()}
+function timeEffects(){let t=timeInfo(),d=difficultyInfo();return {night:t.night,weather:g.weather||'Ensolarado',enemyMult:(t.night?1.18:1)*d.enemy,lootMult:(t.night?1.08:1)*d.loot};}
+
+function create(){let n=$('name').value.trim(),e=$('email').value.trim(),p=$('pass').value;if(n.length<3||!e.includes('@')||p.length<4)return alert('Preencha nome, e-mail e senha corretamente.');g=make(n,e,p);show('race');log('')}
+function weightedPick(obj){let entries=Object.entries(obj),total=entries.reduce((s,[,v])=>s+v.chance,0),r=Math.random()*total;for(let [k,v] of entries){r-=v.chance;if(r<=0)return k}return entries[0][0]}
+function spinRace(){if(spinLock||g.spins.race<=0)return;if(!g)g=make('Aventureiro','','');spinLock=true;g.spins.race--;let keys=Object.keys(R);let i=0,loops=0;$('raceSpin').disabled=true;let timer=setInterval(()=>{let k=keys[i++%keys.length];$('raceWheel').textContent='🎰 '+k;loops++;if(loops>18+rnd(0,10)){clearInterval(timer);raceResult=weightedPick(R);let x=R[raceResult];$('raceWheel').innerHTML=`<div class="rareReveal ${RCLASS[x.rarity]}">🧬 ${raceResult}<br><small>${x.rarity} · <span class="chance">${x.chance}%</span></small></div>`;$('raceInfo').innerHTML=`❤️ ${x.hp} HP · 🔵 ${x.mp} Mana · ⚔️ ${x.atk} ATK · 🛡️ ${x.def} DEF · 🏃 ${x.agi} AGI · 🧠 ${x.int} INT`;$('raceConfirm').style.display='block';$('raceSpin').disabled=false;spinLock=false}},70)}
+function confirmRace(){if(!raceResult)return;g.race=raceResult;let x=R[raceResult];g.hpMax=x.hp;g.hp=x.hp;g.mpMax=x.mp;g.mp=x.mp;g.attack=x.atk;g.defense=x.def;g.agi=x.agi;g.int=x.int;g.luck=x.luck;if(x.rarity!=='Comum'&&x.rarity!=='Incomum')g.ach.push(8);$('raceConfirm').style.display='none';show('class')}
+function spinClass(){if(spinLock||g.spins.class<=0)return;spinLock=true;g.spins.class--;let keys=Object.keys(C),i=0,loops=0;$('classSpin').disabled=true;let timer=setInterval(()=>{let k=keys[i++%keys.length];$('classWheel').textContent='🎰 '+k;loops++;if(loops>18+rnd(0,10)){clearInterval(timer);classResult=weightedPick(C);let x=C[classResult];$('classWheel').innerHTML=`<div class="rareReveal ${RCLASS[x.rarity]}">⚔️ ${classResult}<br><small>${x.rarity} · <span class="chance">${x.chance}%</span></small></div>`;$('classInfo').innerHTML=`+${x.atk} ATK · +${x.def} DEF · +${x.agi} AGI · +${x.int} INT · ✨ ${x.skill}`;$('classConfirm').style.display='block';$('classSpin').disabled=false;spinLock=false}},70)}
+function confirmClass(){if(!classResult)return;g.className=classResult;let x=C[classResult];g.attack+=x.atk;g.defense+=x.def;g.agi+=x.agi;g.int+=x.int;g.skills=[x.skill];if(x.rarity!=='Comum'&&x.rarity!=='Incomum')g.ach.push(9);show('game');log(`🌅 <b>${g.profile.n}</b> começou como <b>${g.className}</b> ${x.rarity}.`);log('🧙 Kael: Aprenda movimento, combate, esquiva, habilidades, equipamentos e gerenciamento de recursos antes de desafiar o Abismo.');story('MESTRE KAEL — PRIMEIRO TREINAMENTO','Ataque com cuidado: seus golpes possuem recarga e gastam Energia. Habilidades gastam Mana. Observe os inimigos, varie sua estratégia e use o ambiente. No Abismo Absoluto, repetir a mesma ação será uma sentença de derrota.');log(`🎯 Eldoria aguarda. O guardião é <b>${W[0][2]}</b>.`);story('A OITAVA PORTA','A roleta não escolheu apenas uma raça e uma classe. Ela abriu a primeira porta. O restante da jornada será conquistado em batalha.');update();save()}
+function save(){if(g)localStorage.setItem('abismoUltra4',JSON.stringify(g));localStorage.setItem('abismoUltra3',JSON.stringify(g))}
+function load(){let s=localStorage.getItem('abismoUltra4')||localStorage.getItem('abismoUltra3')||localStorage.getItem('abismoUltra2');if(!s)return alert('Nenhum save encontrado.');try{g=JSON.parse(s);g.spins=g.spins||{race:0,class:0};g.deaths=g.deaths||0;g.kills=g.kills||0;g.bossKills=g.bossKills||0;g.cooldowns=g.cooldowns||{attack:0,skill:0};g.gameMinutes=Number.isFinite(g.gameMinutes)?g.gameMinutes:360;g.day=g.day||1;g.weather=g.weather||'Ensolarado';g.weatherTimer=g.weatherTimer||6;g.eventCooldown=g.eventCooldown||0;g.eventClaimed=g.eventClaimed||{};g.difficulty=g.difficulty||'aventura';g.adapt=g.adapt||{fire:0,physical:0,magic:0,last:''};show('game');$('difficulty').value=g.difficulty;update();log('💾 Save carregado. O relógio do mundo continua correndo.')}catch(e){alert('Save inválido.')}}
+function cdReady(type){let now=Date.now(),last=g.cooldowns[type]||0,delay=type==='attack'?850:2500;if(now-last<delay){let left=((delay-(now-last))/1000).toFixed(1);log(`⏳ Aguarde ${left}s para usar novamente.`);return false}g.cooldowns[type]=now;return true}
+function needMana(n){if(g.mp<n){log('🔵 Mana insuficiente.');return false}g.mp-=n;return true}function needEnergy(n){if(g.energy<n){log('⚡ Energia insuficiente.');return false}g.energy-=n;return true}
+function explore(){if(g.enemy)return log('⚔️ Você já está em combate.');if(!needEnergy(8))return;advanceTime(rnd(8,18));let r=Math.random();if(r<.48)enemy();else if(r<.70)eventRoll(true);else if(r<.84){let mult=timeEffects().lootMult;g.gold+=Math.floor(rnd(40,180)*mult);log(`💰 Você encontrou uma bolsa de ouro ${timeEffects().night?'sob a luz da lua':''}.`)}else{g.rep+=rnd(5,20);log('⭐ Você ajudou viajantes e ganhou reputação.')}update();save()}
+function enemy(){let w=W[g.world],fx=timeEffects(),d=difficultyInfo(),base=Math.floor((180+g.level*65)*(1+g.ng*.22+g.abyss*.35)*fx.enemyMult),pool=EN.slice();if(fx.night)pool.push('Lobo da Lua','Caçador Noturno');if(fx.weather==='Tempestade')pool.push('Elemental da Tempestade');if(fx.weather==='Neblina')pool.push('Espectro da Névoa');let name=pool[rnd(0,pool.length-1)],max=base,atk=Math.floor(base*.085*d.damage*(fx.night?1.05:1)),def=Math.floor(base*.035*d.enemy);g.enemy={name,max,hp:max,atk,def,agi:15+g.level/4,boss:false,phase:1,maxPhase:1,stun:0,ai:rnd(1,4)};log(`👹 <b>${name}</b> apareceu em ${w[0]} — ${timeText()} (${fx.weather}).`);if(d.enemy>1.5)log('🧠 IA avançada: o inimigo vai reagir às suas escolhas.');renderCombat();update()}
+function boss(){advanceTime(25);let name=W[g.world][2],b=B[name],d=difficultyInfo(),scale=(1+g.ng*.35+g.abyss*.55)*d.enemy,max=Math.floor(b[0]*scale);g.enemy={name,max,hp:max,atk:Math.floor(b[1]*scale*d.damage),def:Math.floor(b[2]*scale),agi:25+g.level/3,boss:true,phase:1,maxPhase:b[3],stun:0,ai:3,adapt:{fire:0,physical:0,magic:0,last:''}};log(`👑 <b>${name}</b> surgiu. ${b[3]} fases · dificuldade <b>${d.name}</b>.`);renderCombat();update()}
+function attack(){if(!g.enemy)return log('Procure um inimigo primeiro.');if(!cdReady('attack'))return;if(!needEnergy(4))return;let crit=Math.random()<(g.crit+g.agi*.1)/100,d=Math.max(1,Math.floor(g.attack*(.9+Math.random()*.35)-g.enemy.def*.35));g.adapt=g.adapt||{fire:0,physical:0,magic:0,last:''};g.adapt.physical=(g.adapt.physical||0)+1;g.adapt.last='physical';if(g.enemy.boss&&g.adapt.physical>=3){g.enemy.def=Math.floor(g.enemy.def*1.06);log('👑 Lucas analisou seus ataques físicos e reforçou a defesa.');g.adapt.physical=0}if(crit)d=Math.floor(d*2.1);g.combo++;g.maxCombo=Math.max(g.maxCombo,g.combo);if(g.combo>=3)d=Math.floor(d*(1+Math.min(.5,g.combo*.04)));g.enemy.hp-=d;g.kills+=g.enemy.hp<=0?1:0;log(`⚔️ Você causou <b>${d}</b>${crit?' 💥 CRÍTICO!':''} · <span class="combo">Combo ${g.combo}</span>`);afterPlayer()}
+function skill(){if(!g.enemy)return log('Nenhum inimigo.');if(!cdReady('skill'))return;let s=g.skills[0]||'Golpe Colossal',data=SKILLS.find(x=>x[0]===s)||SKILLS[0];let cost=data[2]+g.level;if(!needMana(cost))return;let d=data[3]?Math.max(1,Math.floor(g.attack*data[3]-g.enemy.def*.2)):0;g.adapt=g.adapt||{fire:0,physical:0,magic:0,last:''};g.adapt.magic=(g.adapt.magic||0)+1;g.adapt.last='magic';if(g.enemy.boss&&g.adapt.magic>=3){d=Math.floor(d*.82);log('👑 O boss percebeu sua repetição mágica e reduziu o dano.');g.adapt.magic=0}if(s==='Martelo Celestial'){g.hp=Math.min(g.hpMax,g.hp+Math.floor(g.hpMax*.25));g.guard=true;log('✨ Cura celestial e defesa ativadas.')}else{g.enemy.hp-=d;log(`✨ <b>${s}</b> causou ${d} de dano.`);if(s==='Exército Sombrio')g.hp=Math.min(g.hpMax,g.hp+Math.floor(d*.18));if(Math.random()<.18){g.enemy.stun=1;log('💫 Inimigo atordoado!')}}afterPlayer()}
+function defend(){if(!g.enemy)return;g.guard=true;g.combo=0;log('🛡️ Defesa preparada. O próximo golpe será reduzido.');enemyTurn();update();save()}
+function potion(){if(!g.potions)return log('🧪 Sem poções.');if(g.hp>=g.hpMax)return log('❤️ HP cheio.');g.potions--;let h=Math.floor(g.hpMax*.5);g.hp=Math.min(g.hpMax,g.hp+h);log(`🧪 +${h} HP.`);update();save()}
+function afterPlayer(){if(resolve())return;enemyTurn();update();save()}
+function resolve(){let e=g.enemy;if(e.hp>0){phaseCheck();return false}g.enemy=null;let xp=e.boss?Math.floor(e.max*.22):rnd(50,90)+g.level*12,gold=e.boss?Math.floor(e.max/18):rnd(30,85)+g.level*8;g.gold+=gold;g.rep+=e.boss?50:3;gain(xp);g.wins++;if(e.boss){g.bossKills++;g.defeated.push(e.name);log(`👑 <b>${e.name} caiu!</b> +${xp} XP +${gold} ouro.`);bossLoot(e.name);if(g.world<W.length-1)g.world++}else log(`🏆 ${e.name} derrotado. +${xp} XP +${gold} ouro.`);lootChance(e.boss);ach();update();save();return true}
+function phaseCheck(){let e=g.enemy;if(!e.boss)return;let p=1;if(e.hp/e.max<=.8)p=2;if(e.hp/e.max<=.6)p=3;if(e.hp/e.max<=.4)p=4;if(e.hp/e.max<=.2)p=e.maxPhase;p=Math.min(p,e.maxPhase);if(p>e.phase){e.phase=p;e.atk=Math.floor(e.atk*(1+.18*p));e.def=Math.floor(e.def*(1+.08*p));e.agi+=6;log(`🔥 <b>${e.name}</b> entrou na <span class="bossPhase">FASE ${p}</span>.`);if(p>=3)g.corruption=Math.min(100,g.corruption+8)}}
+function enemyTurn(){let e=g.enemy;if(!e)return;if(e.stun>0){e.stun--;log(`💫 ${e.name} perdeu a vez.`);return}let d=difficultyInfo(),base=Math.max(1,Math.floor(e.atk-g.defense*.55)),special=Math.random(),behavior=e.ai||1;if(e.boss&&g.adapt){if(g.adapt.physical>=2){e.def+=Math.max(1,Math.floor(e.def*.02));}if(g.adapt.magic>=2){base=Math.floor(base*1.08);}}if(!e.boss&&g.hp<g.hpMax*.3&&behavior===4){log(`🧠 ${e.name} tentou recuar, mas ainda está encurralado.`);base=Math.floor(base*.8)}if(e.boss&&special<.18){base=Math.floor(base*(1.55+e.phase*.08));log(`☠️ ${e.name} usou um ataque devastador!`)}else if(special<.34){g.mp=Math.max(0,g.mp-rnd(8,20));log(`🌑 ${e.name} drenou sua mana.`)}else if(special<.50){e.def+=Math.max(1,Math.floor(e.def*.06));log(`🛡️ ${e.name} reforçou a defesa.`)}else if(special<.64&&e.agi>20){g.energy=Math.max(0,g.energy-rnd(5,15));log(`💨 ${e.name} pressionou sua energia.`)}base=Math.floor(base*(.75+Math.random()*.55)*d.damage);if(g.guard){base=Math.floor(base*.38);g.guard=false}g.hp-=base;g.damageTaken=(g.damageTaken||0)+base;log(`👹 ${e.name} causou <b>${base}</b>.`);if(g.hp<=0)death()}
+function flee(){if(!g.enemy)return;if(Math.random()<.55+g.agi/300){log('🏃 Você fugiu.');g.enemy=null;g.combo=0}else{log('❌ Fuga falhou.');enemyTurn()}update();save()}
+function death(){g.deaths++;let d=difficultyInfo();let loss=d.name==='Abismo Absoluto'?.16:d.name==='Abismo'?.13:d.name==='Inferno'?.10:.07;g.gold=Math.floor(g.gold*(1-loss));g.corruption=Math.min(100,g.corruption+(d.name==='Abismo Absoluto'?15:10));g.hp=Math.floor(g.hpMax*.35);g.mp=Math.floor(g.mpMax*.35);g.energy=Math.floor(g.maxEnergy*.5);g.enemy=null;g.combo=0;log(`☠️ Você caiu. Mortes: <b>${g.deaths}</b>. Perda de ouro: ${Math.round(loss*100)}%.`);if(g.deaths>=3&&!g.storyFlags.wall){g.storyFlags.wall=true;story('O ABISMO LEMBRA','Você já esteve diante desta derrota antes. O mundo percebeu sua fraqueza. Prepare sua build, estude os inimigos e tente novamente.')}update();save()}
+function gain(x){g.xp+=Math.floor(x);while(g.xp>=g.xpMax){g.xp-=g.xpMax;g.level++;g.xpMax=Math.floor(g.xpMax*1.43+35);g.hpMax+=35+g.level*4;g.mpMax+=13+g.level*2;g.attack+=13+g.level*2;g.defense+=8+g.level;g.agi+=2;g.int+=2;g.luck++;g.hp=g.hpMax;g.mp=g.mpMax;g.energy=g.maxEnergy;log(`🔥 <b>NÍVEL ${g.level}!</b> Seus atributos aumentaram.`)}ach()}
+function rest(){if(g.enemy)return log('⚔️ Não pode descansar em combate.');g.energy=g.maxEnergy;g.mp=Math.min(g.mpMax,g.mp+Math.floor(g.mpMax*.45));g.hp=Math.min(g.hpMax,g.hp+Math.floor(g.hpMax*.35));g.corruption=Math.max(0,g.corruption-8);log('🔥 Você descansou.');update();save()}
+function eventRoll(fromExplore=false){if(!g)return;if(g.eventCooldown>0)return log(`⏳ Evento em recarga: ${g.eventCooldown}s.`);let t=timeInfo(),key=`${g.day}-${g.world}-${Math.floor(g.gameMinutes/60)}-${g.weather}`;if(g.eventClaimed[key])return log('🔒 Este evento já foi concluído neste período.');g.eventCooldown=25;g.eventClaimed[key]=true;advanceTime(3);let d=difficultyInfo(),r=rnd(1,6);if(r===1){let gold=Math.floor(rnd(80,280)*d.lootMult);g.gold+=gold;log(`🎲 Caravana perdida: +${gold} ouro.`)}else if(r===2){let xp=Math.floor(rnd(80,260)*d.lootMult);gain(xp);log(`📚 Biblioteca Astral: +${xp} XP.`)}else if(r===3){let h=Math.floor(g.hpMax*.35);g.hp=Math.min(g.hpMax,g.hp+h);log(`💧 Fonte antiga: +${h} HP.`)}else if(r===4){if(g.corruption>=85){log('🕳️ O poder proibido recusou você: corrupção alta demais.')}else{g.corruption=Math.min(100,g.corruption+12);g.attack+=25+g.level;log('🌑 Evento sombrio: poder proibido concedido, mas com custo.')}}else if(r===5){let i=ITEMS[rnd(0,ITEMS.length-1)];g.inventory.push({...i,price:0});g.rep+=10;log(`💎 Relíquia encontrada: <b>${i.name}</b>.`)}else{enemy();return}update();save()}
+function challengeBoss(){if(g.enemy)return log('⚔️ Você já está em combate.');if(g.level<W[g.world][1])return log(`📈 Requer nível ${W[g.world][1]}.`);boss()}
+function dungeon(){if(g.enemy)return;if(!needEnergy(20))return;let tier=Math.max(1,Math.floor(g.level/15)+g.ng+g.abyss),max=Math.floor((1200+g.level*240)*tier),name=['Cripta dos Reis','Templo Astral','Labirinto do Vazio','Fortaleza Sem Sol'][rnd(0,3)];g.enemy={name,max,hp:max,atk:Math.floor(max*.12),def:Math.floor(max*.055),agi:20,boss:true,phase:1,maxPhase:4,stun:0};log(`🏰 Dungeon: <b>${name}</b> · Camada ${tier}.`);renderCombat();update()}
+function newGamePlus(){if(g.level<150)return log('♾️ NG+ exige nível 150.');if(!confirm('Iniciar New Game+? Equipamentos, pet e parte do poder serão mantidos.'))return;g.ng++;g.level=1;g.xp=0;g.xpMax=100;g.world=0;g.hpMax=R[g.race].hp+g.ng*80;g.mpMax=R[g.race].mp+g.ng*30;g.hp=g.hpMax;g.mp=g.mpMax;g.energy=g.maxEnergy;g.attack=Math.floor(g.attack*.55)+g.ng*35;g.defense=Math.floor(g.defense*.55)+g.ng*25;g.enemy=null;g.ach.push(7);log(`♾️ <b>NEW GAME+ ${g.ng}</b> iniciado. Os inimigos ficaram mais fortes.`);save();update()}
+function bossLoot(name){let special=BOSSLOOT[name];if(!special)return;let rarity=name==='Lucas'?'Infinito':name==='Gustavo'?'Supremo':name==='Julio'?'Mítico':'Lendário';let item={name:special,price:0,rarity,level:g.level,slot:'relic',atk:Math.floor(g.level*12),def:Math.floor(g.level*6),hp:Math.floor(g.level*8),mp:Math.floor(g.level*4),passive:'Relíquia exclusiva do boss'};g.inventory.push(item);log(`👑 <b>DROP EXCLUSIVO:</b> ${special} · ${rarity}`);showLoot(item)}
+function lootChance(bossFight){if(Math.random()<.72){let candidates=ITEMS.filter(i=>i.level<=Math.max(10,g.level+20));let i=candidates[rnd(0,candidates.length-1)];g.inventory.push({...i});log(`💎 Loot: <b class="${RCLASS[i.rarity]}">${i.name}</b> · Nv ${i.level}`);if(Math.random()<.45)equip(i)}}
+function showLoot(i){story('✨ EQUIPAMENTO ESPECIAL',`<div class="rareReveal ${RCLASS[i.rarity]}"><b>${i.rarity}</b><br>⚔️ ${i.name}<br>Nível ${i.level}<br>ATK +${i.atk} · DEF +${i.def}<br><small>${i.passive}</small></div>`)}
+function equip(i){if(!i||!i.slot)return;let old=g.equipped[i.slot];if(old){g.attack-=old.atk||0;g.defense-=old.def||0;g.hpMax-=old.hp||0;g.mpMax-=old.mp||0}g.equipped[i.slot]=i;g.attack+=i.atk||0;g.defense+=i.def||0;g.hpMax+=i.hp||0;g.mpMax+=i.mp||0;g.hp=g.hpMax;g.mp=g.mpMax;log(`⚔️ Equipado: <b>${i.name}</b>.`);update();save()}
+function equipByIndex(i){let item=g.inventory[i];if(item&&typeof item==='object')equip(item);else log('Este item antigo não possui dados completos.')}
+function buy(n){let i=ITEMS[n];if(g.level<i.level)return log(`📈 Requer nível ${i.level}.`);if(g.gold<i.price)return log('💰 Ouro insuficiente.');g.gold-=i.price;g.inventory.push({...i});log(`🛒 Comprado: ${i.name}.`);update();save();renderModal('shop')}
+function buyPet(i){let p=PETS[i];if(g.gold<p[1])return log('💰 Ouro insuficiente.');g.gold-=p[1];g.pet=p[0];g.attack=Math.floor(g.attack*(1+p[2]));g.defense=Math.floor(g.defense*(1+p[3]));log(`🐉 Pet equipado: ${p[0]}.`);update();save();renderModal('pets')}
+function useSkillTree(i){let s=SKILLS[i];if(g.skills.includes(s[0]))return log('✨ Habilidade já aprendida.');if(g.rep<s[2])return log(`⭐ Reputação insuficiente: precisa ${s[2]}.`);g.rep-=s[2];g.skills.push(s[0]);log(`✨ Aprendeu ${s[0]}.`);save();renderModal('skills')}
+function travel(i){if(g.level<W[i][1])return log(`📈 Requer nível ${W[i][1]}.`);g.world=i;closeModal();log(`🌍 Viajou para ${W[i][0]}.`);update();save()}
+function ach(){let a=[];if(g.wins>=1)a.push(0);if(g.defeated.length>=1)a.push(1);if(g.defeated.length>=5)a.push(2);if(g.level>=150)a.push(3);if(g.defeated.includes('Lucas'))a.push(4);if(g.gold>=10000)a.push(5);if(g.dungeonWins>=1)a.push(6);if(g.ng>=1)a.push(7);if(g.race&&R[g.race].rarity!=='Comum'&&R[g.race].rarity!=='Incomum')a.push(8);if(g.className&&C[g.className].rarity!=='Comum'&&C[g.className].rarity!=='Incomum')a.push(9);if(Object.values(g.equipped).some(x=>x&&x.rarity==='Infinito'))a.push(10);g.ach=[...new Set(a)]}
+function renderModal(type){let b='';if(type==='map')b='<h2>🗺️ Mundos</h2>'+W.map((w,i)=>`<div class="item ${i<=g.world?'':'locked'}"><b>${w[0]}</b> · nível ${w[1]} · Boss: ${w[2]}<br>${i<=g.world?`<button onclick="travel(${i})">Viajar</button>`:'🔒 Bloqueado'}</div>`).join('');
+if(type==='shop')b='<h2>🛒 Loja</h2>'+ITEMS.filter(i=>i.price>0).map((i,n)=>`<div class="item ${RCLASS[i.rarity]}"><b>${i.name}</b> · ${i.rarity} · Nv ${i.level}<br>⚔️ +${i.atk} · 🛡️ +${i.def} · ❤️ +${i.hp} · 🔵 +${i.mp}<br>💰 ${i.price}<button onclick="buy(${ITEMS.indexOf(i)})">Comprar</button></div>`).join('');
+if(type==='bag')b='<h2>🎒 Inventário e Equipamentos</h2><div class="equipGrid">'+Object.entries(g.equipped).map(([slot,i])=>`<div class="slot"><b>${slot}</b><br>${i?`<span class="${RCLASS[i.rarity]}">${i.name}</span><br>Nv ${i.level}`:'Vazio'}</div>`).join('')+'</div><h3>Itens</h3>'+g.inventory.map((i,n)=>typeof i==='string'?`<div class="item">${i}</div>`:`<div class="item ${RCLASS[i.rarity]}"><b>${i.name}</b> · ${i.rarity} · Nv ${i.level}<br>⚔️ +${i.atk} · 🛡️ +${i.def} · ❤️ +${i.hp} · 🔵 +${i.mp}<br><button onclick="equipByIndex(${n})">⚔️ Equipar</button></div>`).join('');
+if(type==='pets')b='<h2>🐉 Pets e 🏇 Montarias</h2>'+PETS.map((p,i)=>`<div class="item epic"><b>${p[0]}</b> · +${p[2]*100}% ATK · +${p[3]*100}% DEF · ${p[1]} ouro <button onclick="buyPet(${i})">Equipar</button></div>`).join('')+`<div class="item"><b>🏇 Cavalo Lunar</b> · +20 Energia <button onclick="g.mount='Cavalo Lunar';g.maxEnergy+=20;update();save();closeModal()">Equipar</button></div><div class="item"><b>🐉 Dragão Celestial</b> · +50 Energia <button onclick="g.mount='Dragão Celestial';g.maxEnergy+=50;update();save();closeModal()">Equipar</button></div>`;
+if(type==='skills')b='<h2>✨ Habilidades</h2>'+SKILLS.map((s,i)=>`<div class="item"><b>${s[0]}</b><br>${s[1]}<br>Custo: ${s[2]} reputação <button onclick="useSkillTree(${i})">Aprender</button></div>`).join('');
+if(type==='npcs'){let t=timeInfo();b=`<h2>🧙 NPCs de Eldoria</h2><p>Horários mudam conforme o relógio do mundo. Alguns personagens só aparecem em momentos específicos.</p>`+NPCS.map(n=>`<div class="item"><b>${n[1]} ${n[0]}</b><br>🕐 ${n[2]} · ${n[3]}<br><span class="${npcOpen(n[0])?'good':'muted'}">${npcOpen(n[0])?'● Disponível agora':'○ Indisponível agora'}</span></div>`).join('')+`<div class="item"><b>🌙 Horário atual</b><br>Dia ${g.day} · ${timeText()} · ${t.period}<br>Clima: ${g.weather}</div>`}
+if(type==='quests')b=`<h2>📜 Objetivos</h2><div class="item">Derrote os 9 bosses principais.<br>Progresso: ${g.defeated.length}/9</div><div class="item">Alcance nível 150 e desbloqueie NG+.</div><div class="item">Descubra o Mundo 0 através de um segredo futuro.</div>`;
+if(type==='ranking'){let rank=JSON.parse(localStorage.getItem('abismoRanking')||'[]');rank=rank.filter(x=>x.name!==g.profile.n);rank.push({name:g.profile.n,level:g.level,boss:g.bossKills,ng:g.ng,deaths:g.deaths,score:g.level*1000+g.bossKills*10000+g.ng*50000-g.deaths*100});rank.sort((a,b)=>b.score-a.score);rank=rank.slice(0,10);localStorage.setItem('abismoRanking',JSON.stringify(rank));b='<h2>🏆 Ranking Local</h2>'+rank.map((r,i)=>`<div class="item"><b>#${i+1} ${r.name}</b> · Nv ${r.level} · Bosses ${r.boss} · NG+ ${r.ng}<br>Score: ${r.score}</div>`).join('')}
+$('modalBody').innerHTML=b}
+function renderCombat(){let e=g.enemy;if(!e){$('combat').style.display='none';return}$('combat').style.display='block';$('combat').innerHTML=`<h2 class="enemyTitle">${e.boss?'👑':'👹'} ${e.name}</h2><p>❤️ ${Math.max(0,Math.floor(e.hp))}/${e.max} · ⚔️ ${e.atk} · 🛡️ ${e.def} ${e.boss?`· <span class="bossPhase">FASE ${e.phase}/${e.maxPhase}</span>`:''}</p><div class="bar"><div class="fill hp" style="width:${pct(e.hp,e.max)}%"></div></div><button onclick="flee()">🏃 Fugir</button>${g.cooldowns.attack&&Date.now()-g.cooldowns.attack<850?'<span class="cool">Ataque recarregando...</span>':''}`}
+function update(){if(!g)return;g.spins=g.spins||{race:0,class:0};g.cooldowns=g.cooldowns||{attack:0,skill:0};g.equipped=g.equipped||{};g.ach=g.ach||[];$('hero').textContent=`${g.profile.n} · ${g.race} · ${g.className} · ☠️ ${difficultyInfo().name}`;$('difficulty').value=g.difficulty;let w=W[g.world],t=timeInfo();$('world').textContent=w[0];$('lvl').textContent=g.level;$('clock').textContent=`${t.night?'🌙':'☀️'} ${timeText()}`;$('period').textContent=`Dia ${g.day} · ${t.period}`;$('weather').textContent=g.weather;$('npcStatus').textContent=NPCS.filter(n=>npcOpen(n[0])).map(n=>n[0]).join(', ')||'Cidade tranquila';$('timeBox').classList.toggle('night',t.night);$('atk').textContent=Math.floor(g.attack);$('def').textContent=Math.floor(g.defense);$('gold').textContent=g.gold;$('rep').textContent=g.rep;$('ng').textContent=g.ng;$('deaths').textContent=g.deaths;$('spins').textContent=`${g.spins.race}/${g.spins.class}`;$('hpT').textContent=`${Math.floor(g.hp)}/${g.hpMax}`;$('mpT').textContent=`${Math.floor(g.mp)}/${g.mpMax}`;$('xpT').textContent=`${g.xp}/${g.xpMax}`;$('enT').textContent=`${Math.floor(g.energy)}/${g.maxEnergy}`;$('corT').textContent=`${g.corruption}/100`;$('hpF').style.width=pct(g.hp,g.hpMax)+'%';$('mpF').style.width=pct(g.mp,g.mpMax)+'%';$('xpF').style.width=pct(g.xp,g.xpMax)+'%';$('enF').style.width=pct(g.energy,g.maxEnergy)+'%';$('corF').style.width=g.corruption+'%';$('objective').innerHTML=g.enemy?`⚔️ Derrote <b>${g.enemy.name}</b>`:`Explore <b>${w[0]}</b> e encontre <b>${w[2]}</b>.`;$('attributes').innerHTML=`Força: ${Math.floor(g.attack)}<br>Resistência: ${Math.floor(g.defense)}<br>Agilidade: ${Math.floor(g.agi)}<br>Inteligência: ${Math.floor(g.int)}<br>Sorte: ${Math.floor(g.luck)}<br>Crítico: ${Math.floor(g.crit)}%<br>⚔️ Combos máximos: ${g.maxCombo}`;$('equipment').innerHTML=Object.entries(g.equipped).map(([s,i])=>`${s}: ${i?`<span class="${RCLASS[i.rarity]}">${i.name}</span>`:'Vazio'}`).join('<br>');$('ach').innerHTML=`${g.ach.length}/${achievements.length} conquistas · ${g.defeated.length}/9 bosses`;renderCombat()}
+setInterval(()=>{if(!g)return;advanceTime(1);if(g.eventCooldown>0)g.eventCooldown--;if($('game').classList.contains('active'))update()},1000);
+setInterval(()=>{if(g){g.energy=Math.min(g.maxEnergy,g.energy+2);g.mp=Math.min(g.mpMax,g.mp+2);save();if($('game').classList.contains('active'))update()}},7000);
+fill=()=>{};
 </script>
+\n<script id="ultra32-engine">\n/* ================================================================\n   CRÔNICAS DO ABISMO INFINITO — ULTRA 3.2\n   Camada de melhoria: dificuldade, anti-spam, IA adaptativa, narrativa,\n   loot controlado, pets/montarias por posse, eventos e proteção de save.\n   ================================================================ */\n\nconst U32={\n  clickLock:0,\n  enemyTimer:null,\n  comboWindow:0,\n  rarityWeight:{Comum:48,Incomum:24,Raro:14,Épico:7,Lendário:4,Mítico:2,Divino:.8,Supremo:.15,Infinito:.05},\n  difficulty:{\n    aventura:{mult:1,damage:1,loot:.9,enemySpeed:1.15,name:'Aventura'},\n    inferno:{mult:1.65,damage:1.45,loot:.82,enemySpeed:.95,name:'Inferno'},\n    abismo:{mult:2.35,damage:1.95,loot:.72,enemySpeed:.75,name:'Abismo'},\n    absoluto:{mult:3.35,damage:2.65,loot:.62,enemySpeed:.58,name:'Abismo Absoluto'}\n  }\n};\n\nfunction uDifficulty(){return U32.difficulty[g?.difficulty]||U32.difficulty.abismo;}\nfunction uMsg(t){if(typeof log==='function')log(t);}\nfunction uSave(){try{if(g){g.version='ULTRA-3.2';save();}}catch(e){console.warn(e)}}\nfunction uCanClick(ms=850){let now=Date.now();if(now<U32.clickLock){uMsg('⏳ <b>O Abismo exige ritmo:</b> aguarde o tempo de recarga.');return false}U32.clickLock=now+ms;return true}\nfunction uInit(){\n if(!g)return;\n g.version='ULTRA-3.2';\n g.deaths=g.deaths||0;g.kills=g.kills||0;g.bossKills=g.bossKills||0;\n g.ownedPets=g.ownedPets||[];g.ownedMounts=g.ownedMounts||[];\n g.storyFlags=g.storyFlags||{};g.aiMemory=g.aiMemory||{physical:0,magic:0,defend:0,total:0};\n g.eventClaimed=g.eventClaimed||{};g.eventCooldown=g.eventCooldown||0;\n g.difficulty=g.difficulty||'inferno';\n}\n\n// ------------------------- HISTÓRIA ------------------------------\nfunction ultraStory(){\n const text=`\n <div class="ultraChapter"><b>CAPÍTULO I — O MUNDO QUE ESQUECEU</b><br>\n Eldoria acorda antes do sol. Os sinos tocam uma vez, embora ninguém os tenha tocado.\n Kael olha para você e diz: <i>“Você chegou de novo.”</i> Você nunca o encontrou antes.</div>\n <div class="ultraChapter"><b>CAPÍTULO II — A FALHA</b><br>\n Os sete mundos deveriam ser independentes. Mas algo está fazendo suas memórias se misturarem.\n NPCs lembram de decisões que você ainda não tomou. Portas mudam de lugar. Certos inimigos reconhecem seu estilo.</div>\n <div class="ultraChapter"><b>CAPÍTULO III — O ABISMO OBSERVA</b><br>\n O sistema não quer impedir você de ficar forte. Ele quer impedir que uma única estratégia resolva tudo.\n Repetição gera resistência. Adaptação gera novas oportunidades.</div>\n <div class="ultraChapter"><b>CAPÍTULO IV — AS MORTES</b><br>\n Sua derrota não é apagada. Cada morte aumenta a <b>Memória da Ruína</b>. Alguns encontros ficam mais agressivos, mas segredos também podem ser revelados.</div>\n <div class="ultraChapter"><b>CAPÍTULO V — O TRONO 0</b><br>\n Depois dos mundos existe o Mundo 0. Lá está Lucas, o Imperador Final. Ele não guarda apenas o último boss. Guarda as versões anteriores da sua jornada.</div>\n <div class="ultraChapter"><b>EPÍLOGO — QUEBRAR O CICLO</b><br>\n Quando as memórias forem reunidas, você terá três caminhos: destruir o ciclo, assumir o trono ou descobrir quem criou o Abismo. Nenhum final exige apenas força.</div>`;\n if(typeof story==='function')story('🌌 A VERDADE DO ABISMO',text);\n}\n\n// ------------------------- IA ------------------------------------\nfunction uRemember(kind){\n if(!g)return;uInit();g.aiMemory[kind]=(g.aiMemory[kind]||0)+1;g.aiMemory.total++;\n if(g.enemy&&g.enemy.boss){\n   if(kind==='physical' && g.aiMemory.physical>=2){g.enemy.def=Math.min(g.enemy.def+Math.ceil(g.enemy.def*.055),Math.floor(g.enemy.max*.35));uMsg('🧠 <b>O boss aprendeu:</b> seus ataques físicos estão sendo previstos.');g.aiMemory.physical=0;}\n   if(kind==='magic' && g.aiMemory.magic>=2){g.enemy.magicRes=Math.min((g.enemy.magicRes||0)+.08,.55);uMsg('🧠 <b>O boss aprendeu:</b> sua magia perdeu eficiência.');g.aiMemory.magic=0;}\n   if(kind==='defend' && g.aiMemory.defend>=2){g.enemy.antiGuard=true;uMsg('🧠 <b>O boss percebeu:</b> defender repetidamente será punido.');g.aiMemory.defend=0;}\n }\n}\n\n// ------------------------- COMBATE --------------------------------\nconst oldAttack=window.attack;\nwindow.attack=function(){\n if(!g||!g.enemy)return uMsg('⚔️ Encontre um inimigo antes de atacar.');\n if(!uCanClick(850))return;\n if(!needEnergy(5))return;\n const e=g.enemy,d=uDifficulty();\n let base=Math.max(1,Math.floor(g.attack*(.72+Math.random()*.24)-e.def*.42));\n const crit=Math.random()<((g.crit||5)+(g.agi||0)*.08)/100;\n if(e.physicalRes)base=Math.floor(base*(1-e.physicalRes));\n if(crit)base=Math.floor(base*1.85);\n e.hp-=base;g.combo=(g.combo||0)+1;g.maxCombo=Math.max(g.maxCombo||0,g.combo);\n uRemember('physical');\n uMsg(`⚔️ <b>${base}</b> de dano${crit?' 💥 CRÍTICO':''}. Combo ${g.combo}.`);\n if(e.hp<=0){return typeof afterPlayer==='function'?afterPlayer():null;}\n if(e.boss&&e.hp<e.max*.75&&!e.phaseChanged){e.phaseChanged=true;e.phase=Math.min(e.maxPhase||4,(e.phase||1)+1);e.atk=Math.floor(e.atk*1.18);e.agi=(e.agi||20)+8;uMsg(`👑 <span class="bossPhase">FASE ${e.phase}</span>: ${e.name} mudou seu padrão de ataque!`);}\n if(typeof enemyTurn==='function')setTimeout(enemyTurn,Math.max(300,Math.floor(900*d.enemySpeed)));\n update();uSave();\n};\n\nconst oldSkill=window.skill;\nwindow.skill=function(){\n if(!g||!g.enemy)return uMsg('✨ Nenhum inimigo para atingir.');\n if(!uCanClick(1200))return;\n const e=g.enemy,s=(g.skills&&g.skills[0])||'Golpe Colossal';\n let cost=12+g.level*1.4;if(!needMana(cost))return;\n let raw=Math.floor(g.attack*(s==='Meteoro Astral'?1.65:1.25)-e.def*.22);\n raw=Math.max(1,raw);raw=Math.floor(raw*(1-(e.magicRes||0)));e.hp-=raw;uRemember('magic');\n uMsg(`✨ <b>${s}</b> causou ${raw} de dano.`);\n if(e.hp<=0){if(typeof afterPlayer==='function')afterPlayer();return;}\n setTimeout(enemyTurn,Math.max(350,Math.floor(1050*uDifficulty().enemySpeed)));update();uSave();\n};\n\nconst oldDefend=window.defend;\nwindow.defend=function(){\n if(!g?.enemy)return;\n if(!uCanClick(700))return;\n g.guard=true;g.combo=0;uRemember('defend');uMsg('🛡️ Defesa preparada.');\n if(g.enemy.antiGuard)uMsg('⚠️ O inimigo estava esperando sua defesa.');\n setTimeout(enemyTurn,Math.max(250,Math.floor(650*uDifficulty().enemySpeed)));update();uSave();\n};\n\n// ------------------------- EVENTOS --------------------------------\nconst oldEvent=window.eventRoll;\nwindow.eventRoll=function(fromExplore=false){\n if(!g)return;uInit();\n if(g.eventCooldown>0)return uMsg(`⏳ Evento bloqueado por ${g.eventCooldown}s.`);\n const key=`${g.day}-${g.world}-${Math.floor(g.gameMinutes/60)}-${g.weather}`;\n if(g.eventClaimed[key])return uMsg('🔒 Este evento já foi resolvido neste horário.');\n g.eventClaimed[key]=true;g.eventCooldown=35;advanceTime(4);\n const r=Math.random(),d=uDifficulty();\n if(r<.28){let xp=Math.floor((80+g.level*8)*d.mult);gain(xp);uMsg(`📚 Memória encontrada: +${xp} XP.`);}\n else if(r<.48){let gold=Math.floor((60+g.level*12)*d.loot);g.gold+=gold;uMsg(`💰 Caravana: +${gold} ouro.`);}\n else if(r<.64){g.corruption=Math.max(0,g.corruption-8);g.hp=Math.min(g.hpMax,g.hp+Math.floor(g.hpMax*.22));uMsg('💧 Fonte antiga restaurou parte de sua força.');}\n else if(r<.80){if(g.corruption>80)return uMsg('🌑 O Abismo recusou o pacto: corrupção alta demais.');g.corruption=Math.min(100,g.corruption+10);g.attack+=Math.max(8,g.level*.8);uMsg('🌑 Poder proibido: você ficou mais forte, mas a corrupção aumentou.');}\n else if(r<.93){let i=ITEMS[rnd(0,ITEMS.length-1)];if(i.level<=g.level+8){g.inventory.push({...i,price:0});uMsg(`🎁 Relíquia encontrada: <b>${i.name}</b>.`)}else uMsg('🗝️ Você encontrou uma porta antiga, mas ainda não consegue abri-la.');}\n else {enemy();uMsg('👁️ O evento era uma armadilha.');return;}\n update();uSave();\n};\n\n// ------------------------- PETS E MONTARIAS -----------------------\nconst U32_MOUNTS=[['Cavalo Lunar',5000,20],['Grifo Astral',18000,40],['Dragão Celestial',60000,70],['Leviatã do Vazio',150000,110]];\nwindow.buyPet=function(i){\n uInit();let p=PETS[i];if(!p)return;if(g.ownedPets.includes(p[0]))return activatePet(i);if(g.gold<p[1])return uMsg('💰 Ouro insuficiente.');g.gold-=p[1];g.ownedPets.push(p[0]);uMsg(`🐉 <b>Pet obtido:</b> ${p[0]}. Agora ele pode ser ativado.`);activatePet(i);uSave();renderModal('pets');update();\n};\nwindow.activatePet=function(i){\n uInit();let p=PETS[i];if(!p||!g.ownedPets.includes(p[0]))return uMsg('❌ Você precisa possuir esse pet.');g.pet=p[0];uMsg(`🐉 Pet ativo: ${p[0]}.`);uSave();update();renderModal('pets');\n};\nwindow.buyMount=function(i){\n uInit();let m=U32_MOUNTS[i];if(!m)return;if(g.ownedMounts.includes(m[0]))return activateMount(i);if(g.gold<m[1])return uMsg('💰 Ouro insuficiente.');g.gold-=m[1];g.ownedMounts.push(m[0]);uMsg(`🏇 <b>Montaria obtida:</b> ${m[0]}.`);activateMount(i);uSave();renderModal('pets');update();\n};\nwindow.activateMount=function(i){\n uInit();let m=U32_MOUNTS[i];if(!m||!g.ownedMounts.includes(m[0]))return uMsg('❌ Você precisa possuir essa montaria.');if(g.mount===m[0])return uMsg('🏇 Essa montaria já está ativa.');g.mount=m[0];g.maxEnergy=(g.maxEnergy||100)+m[2];g.energy=g.maxEnergy;uMsg(`🏇 Montaria ativa: ${m[0]}.`);uSave();update();renderModal('pets');\n};\n\n// ------------------------- INTERFACE DE PETS ---------------------
+const oldRenderModal=window.renderModal;
+window.renderModal=function(type){
+ if(type!=='pets')return oldRenderModal(type);
+ uInit();
+ let html='<h2>🐉 Pets e 🏇 Montarias</h2><p class="muted">Nada é equipado de graça. Primeiro compre ou conquiste; depois ative.</p>';
+ html+='<h3>🐉 Pets</h3>';
+ html+=(PETS||[]).map((p,i)=>{
+   const owned=g.ownedPets.includes(p[0]);
+   return `<div class="item epic"><b>${p[0]}</b><br>ATK +${Math.round(p[2]*100)}% · DEF +${Math.round(p[3]*100)}% · 💰 ${p[1]}<br>${owned?`<button onclick="activatePet(${i})">${g.pet===p[0]?'✅ ATIVO':'Ativar'}</button>`:`<button onclick="buyPet(${i})">💰 Comprar</button>`}</div>`;
+ }).join('');
+ html+='<h3>🏇 Montarias</h3>';
+ html+=U32_MOUNTS.map((m,i)=>{
+   const owned=g.ownedMounts.includes(m[0]);
+   return `<div class="item legendary"><b>${m[0]}</b><br>⚡ +${m[2]} Energia · 💰 ${m[1]}<br>${owned?`<button onclick="activateMount(${i})">${g.mount===m[0]?'✅ ATIVA':'Ativar'}</button>`:`<button onclick="buyMount(${i})">💰 Comprar</button>`}</div>`;
+ }).join('');
+ $('modalBody').innerHTML=html;
+ $('modal').classList.add('show');
+};
+
+// ------------------------- DIFICULDADE ----------------------------\nwindow.setDifficulty=function(v){uInit();g.difficulty=v;uMsg(`☠️ Dificuldade alterada para <b>${uDifficulty().name}</b>.`);if(v==='absoluto')uMsg('⚠️ <span class="threat">ABISMO ABSOLUTO: inimigos recebem grande vantagem e o loot é escasso.</span>');uSave();update();};\n\n// ------------------------- LOOT CONTROLADO ------------------------\nwindow.lootChance=function(bossFight){\n if(!g)return;uInit();let d=uDifficulty();let chance=bossFight?.52:.18;if(Math.random()>chance)return;\n let candidates=ITEMS.filter(i=>i.level<=g.level+3);if(!candidates.length)return;\n let i=candidates[rnd(0,candidates.length-1)];\n // evita duplicação excessiva do mesmo equipamento\n let duplicates=g.inventory.filter(x=>x&&typeof x==='object'&&x.name===i.name).length;\n if(duplicates>=2&&Math.random()<.75)return;\n g.inventory.push({...i});uMsg(`💎 Loot conquistado: <b>${i.name}</b> · ${i.rarity}.`);\n};\n\n// ------------------------- NPCS / SEGREDOS ------------------------\nfunction npcHint(){\n if(!g)return;let t=timeInfo();\n if(t.night&&g.gameMinutes>=0&&g.gameMinutes<240)uMsg('👁️ Um viajante pode aparecer em algum lugar escondido durante a madrugada.');\n if(g.deaths>=3&&!g.storyFlags.deathMemory){g.storyFlags.deathMemory=true;uMsg('📖 Uma memória surgiu após sua terceira derrota. O Abismo percebeu que você está aprendendo.');}\n if(g.level>=30&&!g.storyFlags.secret30){g.storyFlags.secret30=true;uMsg('🗝️ Segredo descoberto: uma passagem antiga foi registrada em seu diário.');}\n}\n\n// ------------------------- PROTEÇÃO DE SAVE ----------------------\nconst oldSave=window.save;\nwindow.save=function(){\n try{uInit();g.savedAt=Date.now();g.saveChecksum=(g.level||0)+(g.gold||0)+(g.deaths||0)+(g.bossKills||0);localStorage.setItem('abismoUltra4',JSON.stringify(g));localStorage.setItem('abismoUltra3',JSON.stringify(g));uMsg('💾 Progresso salvo.');}\n catch(e){console.error(e);uMsg('❌ Não foi possível salvar.');}\n};\n\n// ------------------------- CICLO DO MUNDO -------------------------\nsetInterval(()=>{\n if(!g)return;\n uInit();npcHint();\n if(g.eventCooldown>0)g.eventCooldown--;\n if(g.enemy&&g.enemy.boss){\n   let e=g.enemy;\n   e.threat=(e.threat||0)+.15;\n   if(e.threat>10){e.threat=0;e.atk+=Math.max(1,Math.floor(e.atk*.025));uMsg('🧠 O inimigo refinou sua postura de combate.');}\n }\n if(typeof update==='function')update();\n},1000);\n\n// História acessível pelo teclado: H abre o capítulo atual.\ndocument.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='h'&&g)ultraStory();});\n\nsetTimeout(()=>{if(g){uInit();uMsg('🌌 <b>ULTRA 3.2 carregado.</b> O Abismo agora observa suas escolhas.');update();}},250);\n</script>\n<div id="ultra32-note" style="position:fixed;left:10px;bottom:10px;z-index:8;opacity:.72;font-size:11px;color:#94a3b8">ULTRA 3.2 • Pressione H para consultar a história</div>
 </body>
 </html>
