@@ -17,7 +17,7 @@ input,select{width:100%;padding:12px;margin:7px 0;background:#020617;color:#fff;
 @keyframes reveal{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
 @media(max-width:1100px){.stats{grid-template-columns:repeat(5,1fr)}.grid{grid-template-columns:1fr}}@media(max-width:650px){.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:repeat(2,1fr)}.map,.equipGrid{grid-template-columns:1fr}}
 </style>
-\n<style id="ultra32-style">\n:root{--cyan:#22d3ee;--blue:#2563eb;--purple:#7c3aed;--red:#ef4444;--gold:#facc15}\nbody{background:radial-gradient(circle at 50% -10%,#263b86 0,#070b18 42%,#02040a 100%);overflow-x:hidden}\nbody:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(115deg,#22d3ee08,#7c3aed08,#ef444408);z-index:-1}\n.card,.panel{backdrop-filter:blur(8px);transition:.25s}.card:hover,.panel:hover{border-color:#3b82f6;box-shadow:0 0 35px #000b,0 0 18px #2563eb22}\n.story{padding:4px 8px}.story p{border-left:3px solid #475569;padding-left:12px}.ultraChapter{padding:14px;margin:10px 0;border:1px solid #334155;border-radius:12px;background:#07101fee;line-height:1.7}.ultraChapter b{color:#67e8f9}\n.threat{padding:10px;border-radius:10px;background:#210b12;border:1px solid #7f1d1d;color:#fecaca}.bossMeter{height:10px;background:#020617;border-radius:20px;overflow:hidden;border:1px solid #7f1d1d}.bossMeter i{display:block;height:100%;background:linear-gradient(90deg,#ef4444,#f97316);transition:.3s}\n.flash{animation:flash .3s}@keyframes flash{50%{filter:brightness(2)}}\n@media(max-width:650px){.logo{font-size:45px}}\n</style>\n</head>
+</head>
 <body>
 
 <section id="intro" class="screen active"><div class="card">
@@ -205,26 +205,214 @@ setInterval(()=>{if(!g)return;advanceTime(1);if(g.eventCooldown>0)g.eventCooldow
 setInterval(()=>{if(g){g.energy=Math.min(g.maxEnergy,g.energy+2);g.mp=Math.min(g.mpMax,g.mp+2);save();if($('game').classList.contains('active'))update()}},7000);
 fill=()=>{};
 </script>
-\n<script id="ultra32-engine">\n/* ================================================================\n   CRÔNICAS DO ABISMO INFINITO — ULTRA 3.2\n   Camada de melhoria: dificuldade, anti-spam, IA adaptativa, narrativa,\n   loot controlado, pets/montarias por posse, eventos e proteção de save.\n   ================================================================ */\n\nconst U32={\n  clickLock:0,\n  enemyTimer:null,\n  comboWindow:0,\n  rarityWeight:{Comum:48,Incomum:24,Raro:14,Épico:7,Lendário:4,Mítico:2,Divino:.8,Supremo:.15,Infinito:.05},\n  difficulty:{\n    aventura:{mult:1,damage:1,loot:.9,enemySpeed:1.15,name:'Aventura'},\n    inferno:{mult:1.65,damage:1.45,loot:.82,enemySpeed:.95,name:'Inferno'},\n    abismo:{mult:2.35,damage:1.95,loot:.72,enemySpeed:.75,name:'Abismo'},\n    absoluto:{mult:3.35,damage:2.65,loot:.62,enemySpeed:.58,name:'Abismo Absoluto'}\n  }\n};\n\nfunction uDifficulty(){return U32.difficulty[g?.difficulty]||U32.difficulty.abismo;}\nfunction uMsg(t){if(typeof log==='function')log(t);}\nfunction uSave(){try{if(g){g.version='ULTRA-3.2';save();}}catch(e){console.warn(e)}}\nfunction uCanClick(ms=850){let now=Date.now();if(now<U32.clickLock){uMsg('⏳ <b>O Abismo exige ritmo:</b> aguarde o tempo de recarga.');return false}U32.clickLock=now+ms;return true}\nfunction uInit(){\n if(!g)return;\n g.version='ULTRA-3.2';\n g.deaths=g.deaths||0;g.kills=g.kills||0;g.bossKills=g.bossKills||0;\n g.ownedPets=g.ownedPets||[];g.ownedMounts=g.ownedMounts||[];\n g.storyFlags=g.storyFlags||{};g.aiMemory=g.aiMemory||{physical:0,magic:0,defend:0,total:0};\n g.eventClaimed=g.eventClaimed||{};g.eventCooldown=g.eventCooldown||0;\n g.difficulty=g.difficulty||'inferno';\n}\n\n// ------------------------- HISTÓRIA ------------------------------\nfunction ultraStory(){\n const text=`\n <div class="ultraChapter"><b>CAPÍTULO I — O MUNDO QUE ESQUECEU</b><br>\n Eldoria acorda antes do sol. Os sinos tocam uma vez, embora ninguém os tenha tocado.\n Kael olha para você e diz: <i>“Você chegou de novo.”</i> Você nunca o encontrou antes.</div>\n <div class="ultraChapter"><b>CAPÍTULO II — A FALHA</b><br>\n Os sete mundos deveriam ser independentes. Mas algo está fazendo suas memórias se misturarem.\n NPCs lembram de decisões que você ainda não tomou. Portas mudam de lugar. Certos inimigos reconhecem seu estilo.</div>\n <div class="ultraChapter"><b>CAPÍTULO III — O ABISMO OBSERVA</b><br>\n O sistema não quer impedir você de ficar forte. Ele quer impedir que uma única estratégia resolva tudo.\n Repetição gera resistência. Adaptação gera novas oportunidades.</div>\n <div class="ultraChapter"><b>CAPÍTULO IV — AS MORTES</b><br>\n Sua derrota não é apagada. Cada morte aumenta a <b>Memória da Ruína</b>. Alguns encontros ficam mais agressivos, mas segredos também podem ser revelados.</div>\n <div class="ultraChapter"><b>CAPÍTULO V — O TRONO 0</b><br>\n Depois dos mundos existe o Mundo 0. Lá está Lucas, o Imperador Final. Ele não guarda apenas o último boss. Guarda as versões anteriores da sua jornada.</div>\n <div class="ultraChapter"><b>EPÍLOGO — QUEBRAR O CICLO</b><br>\n Quando as memórias forem reunidas, você terá três caminhos: destruir o ciclo, assumir o trono ou descobrir quem criou o Abismo. Nenhum final exige apenas força.</div>`;\n if(typeof story==='function')story('🌌 A VERDADE DO ABISMO',text);\n}\n\n// ------------------------- IA ------------------------------------\nfunction uRemember(kind){\n if(!g)return;uInit();g.aiMemory[kind]=(g.aiMemory[kind]||0)+1;g.aiMemory.total++;\n if(g.enemy&&g.enemy.boss){\n   if(kind==='physical' && g.aiMemory.physical>=2){g.enemy.def=Math.min(g.enemy.def+Math.ceil(g.enemy.def*.055),Math.floor(g.enemy.max*.35));uMsg('🧠 <b>O boss aprendeu:</b> seus ataques físicos estão sendo previstos.');g.aiMemory.physical=0;}\n   if(kind==='magic' && g.aiMemory.magic>=2){g.enemy.magicRes=Math.min((g.enemy.magicRes||0)+.08,.55);uMsg('🧠 <b>O boss aprendeu:</b> sua magia perdeu eficiência.');g.aiMemory.magic=0;}\n   if(kind==='defend' && g.aiMemory.defend>=2){g.enemy.antiGuard=true;uMsg('🧠 <b>O boss percebeu:</b> defender repetidamente será punido.');g.aiMemory.defend=0;}\n }\n}\n\n// ------------------------- COMBATE --------------------------------\nconst oldAttack=window.attack;\nwindow.attack=function(){\n if(!g||!g.enemy)return uMsg('⚔️ Encontre um inimigo antes de atacar.');\n if(!uCanClick(850))return;\n if(!needEnergy(5))return;\n const e=g.enemy,d=uDifficulty();\n let base=Math.max(1,Math.floor(g.attack*(.72+Math.random()*.24)-e.def*.42));\n const crit=Math.random()<((g.crit||5)+(g.agi||0)*.08)/100;\n if(e.physicalRes)base=Math.floor(base*(1-e.physicalRes));\n if(crit)base=Math.floor(base*1.85);\n e.hp-=base;g.combo=(g.combo||0)+1;g.maxCombo=Math.max(g.maxCombo||0,g.combo);\n uRemember('physical');\n uMsg(`⚔️ <b>${base}</b> de dano${crit?' 💥 CRÍTICO':''}. Combo ${g.combo}.`);\n if(e.hp<=0){return typeof afterPlayer==='function'?afterPlayer():null;}\n if(e.boss&&e.hp<e.max*.75&&!e.phaseChanged){e.phaseChanged=true;e.phase=Math.min(e.maxPhase||4,(e.phase||1)+1);e.atk=Math.floor(e.atk*1.18);e.agi=(e.agi||20)+8;uMsg(`👑 <span class="bossPhase">FASE ${e.phase}</span>: ${e.name} mudou seu padrão de ataque!`);}\n if(typeof enemyTurn==='function')setTimeout(enemyTurn,Math.max(300,Math.floor(900*d.enemySpeed)));\n update();uSave();\n};\n\nconst oldSkill=window.skill;\nwindow.skill=function(){\n if(!g||!g.enemy)return uMsg('✨ Nenhum inimigo para atingir.');\n if(!uCanClick(1200))return;\n const e=g.enemy,s=(g.skills&&g.skills[0])||'Golpe Colossal';\n let cost=12+g.level*1.4;if(!needMana(cost))return;\n let raw=Math.floor(g.attack*(s==='Meteoro Astral'?1.65:1.25)-e.def*.22);\n raw=Math.max(1,raw);raw=Math.floor(raw*(1-(e.magicRes||0)));e.hp-=raw;uRemember('magic');\n uMsg(`✨ <b>${s}</b> causou ${raw} de dano.`);\n if(e.hp<=0){if(typeof afterPlayer==='function')afterPlayer();return;}\n setTimeout(enemyTurn,Math.max(350,Math.floor(1050*uDifficulty().enemySpeed)));update();uSave();\n};\n\nconst oldDefend=window.defend;\nwindow.defend=function(){\n if(!g?.enemy)return;\n if(!uCanClick(700))return;\n g.guard=true;g.combo=0;uRemember('defend');uMsg('🛡️ Defesa preparada.');\n if(g.enemy.antiGuard)uMsg('⚠️ O inimigo estava esperando sua defesa.');\n setTimeout(enemyTurn,Math.max(250,Math.floor(650*uDifficulty().enemySpeed)));update();uSave();\n};\n\n// ------------------------- EVENTOS --------------------------------\nconst oldEvent=window.eventRoll;\nwindow.eventRoll=function(fromExplore=false){\n if(!g)return;uInit();\n if(g.eventCooldown>0)return uMsg(`⏳ Evento bloqueado por ${g.eventCooldown}s.`);\n const key=`${g.day}-${g.world}-${Math.floor(g.gameMinutes/60)}-${g.weather}`;\n if(g.eventClaimed[key])return uMsg('🔒 Este evento já foi resolvido neste horário.');\n g.eventClaimed[key]=true;g.eventCooldown=35;advanceTime(4);\n const r=Math.random(),d=uDifficulty();\n if(r<.28){let xp=Math.floor((80+g.level*8)*d.mult);gain(xp);uMsg(`📚 Memória encontrada: +${xp} XP.`);}\n else if(r<.48){let gold=Math.floor((60+g.level*12)*d.loot);g.gold+=gold;uMsg(`💰 Caravana: +${gold} ouro.`);}\n else if(r<.64){g.corruption=Math.max(0,g.corruption-8);g.hp=Math.min(g.hpMax,g.hp+Math.floor(g.hpMax*.22));uMsg('💧 Fonte antiga restaurou parte de sua força.');}\n else if(r<.80){if(g.corruption>80)return uMsg('🌑 O Abismo recusou o pacto: corrupção alta demais.');g.corruption=Math.min(100,g.corruption+10);g.attack+=Math.max(8,g.level*.8);uMsg('🌑 Poder proibido: você ficou mais forte, mas a corrupção aumentou.');}\n else if(r<.93){let i=ITEMS[rnd(0,ITEMS.length-1)];if(i.level<=g.level+8){g.inventory.push({...i,price:0});uMsg(`🎁 Relíquia encontrada: <b>${i.name}</b>.`)}else uMsg('🗝️ Você encontrou uma porta antiga, mas ainda não consegue abri-la.');}\n else {enemy();uMsg('👁️ O evento era uma armadilha.');return;}\n update();uSave();\n};\n\n// ------------------------- PETS E MONTARIAS -----------------------\nconst U32_MOUNTS=[['Cavalo Lunar',5000,20],['Grifo Astral',18000,40],['Dragão Celestial',60000,70],['Leviatã do Vazio',150000,110]];\nwindow.buyPet=function(i){\n uInit();let p=PETS[i];if(!p)return;if(g.ownedPets.includes(p[0]))return activatePet(i);if(g.gold<p[1])return uMsg('💰 Ouro insuficiente.');g.gold-=p[1];g.ownedPets.push(p[0]);uMsg(`🐉 <b>Pet obtido:</b> ${p[0]}. Agora ele pode ser ativado.`);activatePet(i);uSave();renderModal('pets');update();\n};\nwindow.activatePet=function(i){\n uInit();let p=PETS[i];if(!p||!g.ownedPets.includes(p[0]))return uMsg('❌ Você precisa possuir esse pet.');g.pet=p[0];uMsg(`🐉 Pet ativo: ${p[0]}.`);uSave();update();renderModal('pets');\n};\nwindow.buyMount=function(i){\n uInit();let m=U32_MOUNTS[i];if(!m)return;if(g.ownedMounts.includes(m[0]))return activateMount(i);if(g.gold<m[1])return uMsg('💰 Ouro insuficiente.');g.gold-=m[1];g.ownedMounts.push(m[0]);uMsg(`🏇 <b>Montaria obtida:</b> ${m[0]}.`);activateMount(i);uSave();renderModal('pets');update();\n};\nwindow.activateMount=function(i){\n uInit();let m=U32_MOUNTS[i];if(!m||!g.ownedMounts.includes(m[0]))return uMsg('❌ Você precisa possuir essa montaria.');if(g.mount===m[0])return uMsg('🏇 Essa montaria já está ativa.');g.mount=m[0];g.maxEnergy=(g.maxEnergy||100)+m[2];g.energy=g.maxEnergy;uMsg(`🏇 Montaria ativa: ${m[0]}.`);uSave();update();renderModal('pets');\n};\n\n// ------------------------- INTERFACE DE PETS ---------------------
-const oldRenderModal=window.renderModal;
-window.renderModal=function(type){
- if(type!=='pets')return oldRenderModal(type);
- uInit();
- let html='<h2>🐉 Pets e 🏇 Montarias</h2><p class="muted">Nada é equipado de graça. Primeiro compre ou conquiste; depois ative.</p>';
- html+='<h3>🐉 Pets</h3>';
- html+=(PETS||[]).map((p,i)=>{
-   const owned=g.ownedPets.includes(p[0]);
-   return `<div class="item epic"><b>${p[0]}</b><br>ATK +${Math.round(p[2]*100)}% · DEF +${Math.round(p[3]*100)}% · 💰 ${p[1]}<br>${owned?`<button onclick="activatePet(${i})">${g.pet===p[0]?'✅ ATIVO':'Ativar'}</button>`:`<button onclick="buyPet(${i})">💰 Comprar</button>`}</div>`;
- }).join('');
- html+='<h3>🏇 Montarias</h3>';
- html+=U32_MOUNTS.map((m,i)=>{
-   const owned=g.ownedMounts.includes(m[0]);
-   return `<div class="item legendary"><b>${m[0]}</b><br>⚡ +${m[2]} Energia · 💰 ${m[1]}<br>${owned?`<button onclick="activateMount(${i})">${g.mount===m[0]?'✅ ATIVA':'Ativar'}</button>`:`<button onclick="buyMount(${i})">💰 Comprar</button>`}</div>`;
- }).join('');
- $('modalBody').innerHTML=html;
- $('modal').classList.add('show');
-};
 
-// ------------------------- DIFICULDADE ----------------------------\nwindow.setDifficulty=function(v){uInit();g.difficulty=v;uMsg(`☠️ Dificuldade alterada para <b>${uDifficulty().name}</b>.`);if(v==='absoluto')uMsg('⚠️ <span class="threat">ABISMO ABSOLUTO: inimigos recebem grande vantagem e o loot é escasso.</span>');uSave();update();};\n\n// ------------------------- LOOT CONTROLADO ------------------------\nwindow.lootChance=function(bossFight){\n if(!g)return;uInit();let d=uDifficulty();let chance=bossFight?.52:.18;if(Math.random()>chance)return;\n let candidates=ITEMS.filter(i=>i.level<=g.level+3);if(!candidates.length)return;\n let i=candidates[rnd(0,candidates.length-1)];\n // evita duplicação excessiva do mesmo equipamento\n let duplicates=g.inventory.filter(x=>x&&typeof x==='object'&&x.name===i.name).length;\n if(duplicates>=2&&Math.random()<.75)return;\n g.inventory.push({...i});uMsg(`💎 Loot conquistado: <b>${i.name}</b> · ${i.rarity}.`);\n};\n\n// ------------------------- NPCS / SEGREDOS ------------------------\nfunction npcHint(){\n if(!g)return;let t=timeInfo();\n if(t.night&&g.gameMinutes>=0&&g.gameMinutes<240)uMsg('👁️ Um viajante pode aparecer em algum lugar escondido durante a madrugada.');\n if(g.deaths>=3&&!g.storyFlags.deathMemory){g.storyFlags.deathMemory=true;uMsg('📖 Uma memória surgiu após sua terceira derrota. O Abismo percebeu que você está aprendendo.');}\n if(g.level>=30&&!g.storyFlags.secret30){g.storyFlags.secret30=true;uMsg('🗝️ Segredo descoberto: uma passagem antiga foi registrada em seu diário.');}\n}\n\n// ------------------------- PROTEÇÃO DE SAVE ----------------------\nconst oldSave=window.save;\nwindow.save=function(){\n try{uInit();g.savedAt=Date.now();g.saveChecksum=(g.level||0)+(g.gold||0)+(g.deaths||0)+(g.bossKills||0);localStorage.setItem('abismoUltra4',JSON.stringify(g));localStorage.setItem('abismoUltra3',JSON.stringify(g));uMsg('💾 Progresso salvo.');}\n catch(e){console.error(e);uMsg('❌ Não foi possível salvar.');}\n};\n\n// ------------------------- CICLO DO MUNDO -------------------------\nsetInterval(()=>{\n if(!g)return;\n uInit();npcHint();\n if(g.eventCooldown>0)g.eventCooldown--;\n if(g.enemy&&g.enemy.boss){\n   let e=g.enemy;\n   e.threat=(e.threat||0)+.15;\n   if(e.threat>10){e.threat=0;e.atk+=Math.max(1,Math.floor(e.atk*.025));uMsg('🧠 O inimigo refinou sua postura de combate.');}\n }\n if(typeof update==='function')update();\n},1000);\n\n// História acessível pelo teclado: H abre o capítulo atual.\ndocument.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='h'&&g)ultraStory();});\n\nsetTimeout(()=>{if(g){uInit();uMsg('🌌 <b>ULTRA 3.2 carregado.</b> O Abismo agora observa suas escolhas.');update();}},250);\n</script>\n<div id="ultra32-note" style="position:fixed;left:10px;bottom:10px;z-index:8;opacity:.72;font-size:11px;color:#94a3b8">ULTRA 3.2 • Pressione H para consultar a história</div>
+<style>
+#craftPanel{display:none;position:fixed;inset:0;background:#02040bcc;z-index:9999;align-items:center;justify-content:center;padding:18px}
+#craftPanel.show{display:flex}.craftBox{max-width:850px;width:100%;max-height:88vh;overflow:auto;background:#0a1020;border:1px solid #4c66a5;border-radius:20px;padding:22px;box-shadow:0 0 60px #3157e855}
+.craftGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.recipe{padding:14px;border:1px solid #33466f;border-radius:14px;background:#10182b}.recipe button{width:100%;margin-top:8px}
+.xpBig{font-weight:800;color:#ffd166}.danger{color:#ff7b8b}.rare{color:#bca7ff}
+</style>
+<div id="craftPanel"><div class="craftBox">
+<h2>🔨 Forja do Abismo</h2><p>Crie equipamentos usando materiais conquistados. Itens não aparecem de graça.</p>
+<div id="craftList" class="craftGrid"></div><button onclick="closeCraft()">Fechar</button></div></div>
+<script>
+/* ULTRA 4.0 — Progressão e crafting */
+const CRAFT=[
+ {name:"Lâmina de Cinzas",rar:"Incomum",mat:{cinzas:5,ferro:3},atk:18,def:0},
+ {name:"Armadura do Guardião",rar:"Raro",mat:{cinzas:8,ferro:7,cristal:2},atk:0,def:25},
+ {name:"Arco Astral",rar:"Épico",mat:{cristal:8,essencia:4,ferro:5},atk:42,def:0},
+ {name:"Coroa do Vazio",rar:"Lendário",mat:{cristal:15,essencia:12,nucleo:1},atk:35,def:30},
+ {name:"Relíquia do Infinito",rar:"Mítico",mat:{essencia:25,nucleo:3,memoria:1},atk:65,def:55}
+];
+function mats(){g.materials=g.materials||{cinzas:0,ferro:0,cristal:0,essencia:0,nucleo:0,memoria:0};return g.materials}
+function openCraft(){mats();$('craftPanel').classList.add('show');renderCraft()}
+function closeCraft(){$('craftPanel').classList.remove('show')}
+function canCraft(r){return Object.entries(r.mat).every(([k,v])=>(mats()[k]||0)>=v)}
+function craft(i){
+ const r=CRAFT[i]; if(!canCraft(r))return log('❌ Materiais insuficientes para '+r.name+'.');
+ for(const [k,v] of Object.entries(r.mat))mats()[k]-=v;
+ g.inventory=g.inventory||[];g.inventory.push({name:r.name,rarity:r.rar,atk:r.atk,def:r.def,crafted:true});
+ log('🔨 Criado: <b>'+r.name+'</b> ['+r.rar+']');
+ save();update();renderCraft();
+}
+function renderCraft(){
+ const m=mats();
+ $('craftList').innerHTML=CRAFT.map((r,i)=>{
+  let req=Object.entries(r.mat).map(([k,v])=>k+': '+v+' (você '+(m[k]||0)+')').join('<br>');
+  return `<div class="recipe"><b>${r.name}</b><br><span class="rare">${r.rar}</span><br>⚔️ +${r.atk} · 🛡️ +${r.def}<hr>${req}<button onclick="craft(${i})">🔨 Criar</button></div>`;
+ }).join('');
+}
+/* XP: corrige progressão travada e exige evolução real */
+function ultraAwardXP(amount,source='batalha'){
+ amount=Math.max(1,Math.floor(amount*(1+((g.level||1)-1)*0.015)));
+ g.xp=(g.xp||0)+amount;
+ log(`✨ +${amount} XP — ${source}`);
+ while(g.xp>=g.xpMax){
+  g.xp-=g.xpMax; g.level=(g.level||1)+1;
+  g.xpMax=Math.floor(100*Math.pow(1.28,g.level-1));
+  g.hpMax+=10;g.mpMax+=7;g.maxEnergy+=2;
+  g.hp=g.hpMax;g.mp=g.mpMax;g.energy=g.maxEnergy;
+  g.attack+=3;g.defense+=2;g.agi+=1;
+  log(`<span class="xpBig">⬆️ NÍVEL ${g.level}! O Abismo ficou mais perigoso.</span>`);
+  if(g.level%5===0){g.abyss=(g.abyss||0)+1;log('🌑 Seu avanço despertou uma camada adicional do Abismo.');}
+ }
+ save();update();
+}
+/* Materiais só vêm de ações reais: vitória, boss, missão. */
+function ultraMaterials(victory,boss=false){
+ const m=mats(); const n=boss?2:1;
+ if(!victory)return;
+ m.ferro+=(rnd(0,2)+n); m.cinzas+=rnd(1,3)+n;
+ if(Math.random()<.35)m.cristal+=n;
+ if(Math.random()<.16)m.essencia+=1;
+ if(boss){m.nucleo+=1;if(Math.random()<.35)m.memoria+=1}
+}
+/* Dificuldade dinâmica: inimigos escalam mais agressivamente e recebem resistência a spam. */
+function ultraScaleEnemy(e){
+ if(!e)return e;
+ const L=Math.max(1,g.level||1), D={aventura:1.0,inferno:1.55,abismo:2.35,'abismo-absoluto':3.5}[g.difficulty]||1;
+ const ng=1+((g.ng||0)*.45);
+ const tier=1+Math.max(0,L-1)*.075;
+ e.maxHp=Math.floor(e.maxHp*D*ng*tier);
+ e.hp=e.maxHp;e.atk=Math.floor((e.atk||10)*(D*.75+.25)*ng*(1+L*.035));
+ e.def=Math.floor((e.def||5)*(1+(L*.045))*D);
+ return e;
+}
+function ultraBattleReward(boss=false){
+ const base=boss?Math.floor(90+g.level*22):Math.floor(20+g.level*8);
+ ultraAwardXP(base,boss?'boss':'inimigo');
+ ultraMaterials(true,boss);
+}
+/* Injeta botão da forja em menus existentes. */
+(function(){
+ const hook=document.querySelector('#game')||document.body;
+ const b=document.createElement('button');b.textContent='🔨 Forja';b.onclick=openCraft;
+ b.style.cssText='position:fixed;right:14px;bottom:14px;z-index:1000;width:auto;padding:10px 14px';
+ hook.appendChild(b);
+ const oldSave=window.save;
+ if(oldSave)window.save=function(){mats();return oldSave.apply(this,arguments)}
+})();
+</script>
+
+<script>
+setTimeout(()=>{
+ if(typeof log==='function')log('🌑 <b>ULTRA 4.0:</b> o Abismo agora exige evolução, criação e estratégia. XP e materiais vêm de conquistas reais.');
+},400);
+</script>
+
+<style>
+.ultra50{position:fixed;right:14px;bottom:110px;z-index:1000;width:auto!important;padding:10px 14px}
+#huntPanel{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;padding:18px;background:#02030acc}
+#huntPanel.show{display:flex}.huntBox{width:min(900px,100%);max-height:88vh;overflow:auto;background:#0a1020;border:1px solid #536da8;border-radius:22px;padding:22px}
+.huntGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.huntCard{background:#10182b;border:1px solid #33466f;border-radius:15px;padding:15px}.huntCard button{width:100%;margin-top:8px}
+.loot{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);z-index:10003;background:#111a30;border:1px solid #7186bd;border-radius:12px;padding:10px 15px;display:none}.loot.show{display:block}
+</style>
+<div id="huntPanel"><div class="huntBox"><h2>🐉 Central de Caçadas</h2><p>Estude o inimigo, escolha sua estratégia e conquiste materiais para a forja.</p><div id="huntList" class="huntGrid"></div><button onclick="closeHunts()">Fechar</button></div></div><div id="lootToast" class="loot"></div>
+<script>
+const HUNTS=[
+['Fenrir','Floresta Congelada',900,38,'fogo',180,{ferro:6,cristal:2,essencia:1}],
+['Ignaroth','Vulkar',1400,54,'gelo',300,{cinzas:10,ferro:5,essencia:2}],
+['Skolgrim','Niflheim',2200,70,'raio',500,{cristal:7,essencia:3,nucleo:1}],
+['Nocturnus','Reino das Sombras',3300,88,'luz',750,{cristal:10,essencia:5,nucleo:1}],
+['Astrael','Universo Astral',5000,115,'trevas',1100,{cristal:15,essencia:8,nucleo:2,memoria:1}],
+['Nihilus','Vazio Infinito',7500,150,'fisico',1700,{essencia:15,nucleo:3,memoria:2}],
+['Lucas — Imperador Final','Mundo 0',12000,220,'estrategia',3000,{nucleo:5,memoria:4,cristal:20}]
+];
+const DIFF={aventura:1,inferno:1.65,abismo:2.5,'abismo-absoluto':3.8};
+function openHunts(){document.getElementById('huntPanel').classList.add('show');renderHunts()}
+function closeHunts(){document.getElementById('huntPanel').classList.remove('show')}
+function renderHunts(){
+ let d=DIFF[g.difficulty]||1,ng=1+(g.ng||0)*.45;
+ document.getElementById('huntList').innerHTML=HUNTS.map((b,i)=>{
+  let need=i?i*5+2:1,ok=(g.level||1)>=need;
+  let hp=Math.floor(b[2]*d*ng*(1+(g.level||1)*.05)),atk=Math.floor(b[3]*d*ng*(1+(g.level||1)*.035));
+  return `<div class="huntCard"><h3>👑 ${b[0]}</h3><small>📍 ${b[1]}</small><p>❤️ ${hp.toLocaleString()} HP<br>⚔️ ${atk} dano<br>🎯 Fraqueza: ${b[4]}<br>🔒 Nível ${need}</p><button ${ok?'':'disabled'} onclick="startHunt(${i})">${ok?'⚔️ Caçar':'Bloqueado'}</button></div>`;
+ }).join('');
+}
+function startHunt(i){
+ let b=HUNTS[i],d=DIFF[g.difficulty]||1,ng=1+(g.ng||0)*.45;
+ g.hunt={boss:b[0],weak:b[4],patterns:{},turn:0,drop:b[6],reward:b[5]};
+ g.enemy={name:b[0],maxHp:Math.floor(b[2]*d*ng*(1+(g.level||1)*.05)),hp:0,atk:Math.floor(b[3]*d*ng*(1+(g.level||1)*.035))};g.enemy.hp=g.enemy.maxHp;
+ closeHunts();if(typeof show==='function')show('game');log('👑 <b>'+b[0]+'</b> apareceu. Repetir a mesma estratégia será punido.');
+ update();
+}
+function huntAttack(base,element,action){
+ if(!g.enemy||!g.hunt)return;
+ let p=g.hunt.patterns;p[action]=(p[action]||0)+1;let total=Object.values(p).reduce((a,b)=>a+b,0),rep=p[action]/total;
+ let mult=element===g.hunt.weak?1.75:1;if(rep>.65)mult*=.75;
+ let dmg=Math.max(1,Math.floor(base*mult));g.enemy.hp=Math.max(0,g.enemy.hp-dmg);
+ log('⚔️ Você causou <b>'+dmg+'</b> de dano.');
+ if(g.enemy.hp<=0)return huntWin();
+ g.hunt.turn++;
+ let adapt=1+(rep>.6?.35:0)+(rep>.8?.35:0)+(g.hunt.turn%4===0?.2:0);
+ let ed=Math.max(1,Math.floor(g.enemy.atk*adapt-(g.defense||0)*.35));
+ if(g.enemy.hp<g.enemy.maxHp*.5)ed=Math.floor(ed*1.3);
+ if(typeof ultraTakeDamage==='function')ultraTakeDamage(ed);else g.hp=Math.max(0,g.hp-ed);
+ log('🧠 '+g.enemy.name+' adaptou-se e causou <b>'+ed+'</b> de dano.');
+ update();save();
+}
+function huntWin(){
+ let m=g.materials=g.materials||{};
+ Object.entries(g.hunt.drop).forEach(([k,v])=>m[k]=(m[k]||0)+v);
+ g.gold=(g.gold||0)+g.hunt.reward;
+ if(typeof ultraAwardXP==='function')ultraAwardXP(Math.floor(g.hunt.reward*.9),'boss');
+ g.bossesDefeated=(g.bossesDefeated||0)+1;
+ toast('🏆 Boss derrotado! Materiais raros e '+g.hunt.reward+' ouro conquistados.');
+ log('🏆 '+g.hunt.boss+' foi derrotado. Use os materiais na Forja.');
+ g.enemy=null;g.hunt=null;save();update();
+}
+function toast(t){let x=document.getElementById('lootToast');x.textContent=t;x.classList.remove('show');void x.offsetWidth;x.classList.add('show')}
+function enhanceItem(i){
+ let it=(g.inventory||[])[i];if(!it)return;let lv=it.upgrade||0;if(lv>=10)return log('🔒 Limite +10 atingido.');
+ let cost=50*(lv+1);if((g.gold||0)<cost)return log('💰 Ouro insuficiente.');
+ g.gold-=cost;it.upgrade=lv+1;it.atk=Math.floor((it.atk||0)*1.12+2);it.def=Math.floor((it.def||0)*1.12+2);
+ log('✨ '+it.name+' aprimorado para <b>+'+it.upgrade+'</b>.');save();update();
+}
+setTimeout(()=>{if(!document.getElementById('huntButton')){let b=document.createElement('button');b.id='huntButton';b.className='ultra50';b.textContent='🐉 Caçadas';b.onclick=openHunts;document.body.appendChild(b)}},500);
+window.ultraHuntAttack=huntAttack;
+</script>
+
+<style id="ultra60">
+#worldState{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:7px;margin:8px 0}.ws{background:#0b1220;border:1px solid #334155;border-radius:10px;padding:8px}.ws b{display:block}.memory{color:#a5b4fc}
+</style>
+<script>
+/* ULTRA 6.0 — Mundo Reativo: o mundo observa, lembra e responde. */
+const WorldAI={
+ init(){
+  if(!g)return; g.world=g.world||{actions:{},regions:{},reputation:{},flags:{},threat:0};
+  g.world.actions=g.world.actions||{};g.world.regions=g.world.regions||{};g.world.reputation=g.world.reputation||{};g.world.flags=g.world.flags||{};
+ },
+ act(type){this.init();let a=g.world.actions;a[type]=(a[type]||0)+1;g.world.threat=Math.min(100,(g.world.threat||0)+(['rest','potion'].includes(type)?0:0.12));this.react(type)},
+ react(type){
+  this.init();let a=g.world.actions;
+  if((a.attack||0)>=8&&!g.world.flags.hunters){g.world.flags.hunters=true;log('👁️ O mundo percebeu seu estilo agressivo. Caçadores começaram a procurar você.') }
+  if((a.magic||0)>=8&&!g.world.flags.mages){g.world.flags.mages=true;log('🔮 Alguns inimigos aprenderam a preparar resistência contra sua magia favorita.') }
+  if((a.defend||0)>=10&&!g.world.flags.breakers){g.world.flags.breakers=true;log('🛡️ Inimigos começaram a usar técnicas para quebrar sua defesa.') }
+  if((g.deaths||0)>=5&&!g.world.flags.death){g.world.flags.death=true;log('💀 O Abismo reconhece suas mortes. Um evento oculto foi desbloqueado.') }
+ },
+ difficulty(){this.init();let t=g.world.threat||0;return 1+t/300+(g.ng||0)*.12},
+ tick(){this.init();if(Math.random()<.018){g.world.threat=Math.min(100,g.world.threat+1);this.randomEvent()}},
+ randomEvent(){
+  let events=['🌒 Uma caravana perdida apareceu na estrada.','🐺 Criaturas estão migrando para uma região próxima.','🕯️ Um NPC misterioso surgiu durante a noite.','⚔️ Um grupo de caçadores está seguindo seus rastros.'];
+  let e=events[Math.floor(Math.random()*events.length)];log('<span class="memory">'+e+'</span>');
+ }
+};
+function worldMemory(type){WorldAI.act(type);save()}
+function renderWorldState(){
+ WorldAI.init();let a=g.world.actions||{},w=document.getElementById('worldState');if(!w)return;
+ w.innerHTML=`<div class="ws">🧠 <b>Adaptação</b>${Math.min(100,Math.floor((a.attack||0)*4+(a.magic||0)*4+(a.defend||0)*3))}%</div><div class="ws">🌑 <b>Ameaça</b>${Math.floor(g.world.threat||0)}%</div><div class="ws">💀 <b>Mortes</b>${g.deaths||0}</div><div class="ws">♻️ <b>NG+</b>${g.ng||0}</div>`;
+}
+function worldDifficultyMultiplier(){return WorldAI.difficulty()}
+const _oldUpdate=window.update;window.update=function(){if(typeof _oldUpdate==='function')_oldUpdate();renderWorldState()};
+const _oldSave=window.save;window.save=function(){WorldAI.init();if(typeof _oldSave==='function')_oldSave()};
+setInterval(()=>{if(g){WorldAI.tick();renderWorldState()}},5000);
+setTimeout(()=>{
+ WorldAI.init();
+ if(!document.getElementById('worldState')){let el=document.createElement('div');el.id='worldState';let target=document.querySelector('.app')||document.body;target.prepend(el)}
+ renderWorldState();
+},1000);
+/* Integração segura: chamadas podem ser feitas pelo combate sem substituir a lógica existente. */
+window.WorldAI=WorldAI;
+</script>
 </body>
 </html>
