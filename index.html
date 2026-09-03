@@ -414,5 +414,69 @@ setTimeout(()=>{
 /* Integração segura: chamadas podem ser feitas pelo combate sem substituir a lógica existente. */
 window.WorldAI=WorldAI;
 </script>
+
+<style id="fix61">
+#combat .enemyHpBox{margin:10px 0}
+#combat .enemyHpText{display:flex;justify-content:space-between;font-weight:800}
+#combat .enemyBar{height:15px;background:#1b2233;border-radius:10px;overflow:hidden;border:1px solid #3c4d72}
+#combat .enemyFill{height:100%;transition:width .2s}
+#combat .combatStats{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0;font-size:13px}
+</style>
+<script>
+(function(){
+function fixSave(){
+ if(!window.g)return;
+ g.hpMax=Number(g.hpMax)||100; g.hp=Number.isFinite(g.hp)?g.hp:g.hpMax;
+ g.mpMax=Number(g.mpMax)||100; g.mp=Number.isFinite(g.mp)?g.mp:g.mpMax;
+ g.energy=Number.isFinite(g.energy)?g.energy:100; g.maxEnergy=Number(g.maxEnergy)||100;
+ g.attack=Number(g.attack)||10; g.defense=Number(g.defense)||10; g.level=Number(g.level)||1;
+ g.difficulty=g.difficulty||'aventura';
+}
+window.renderCombat=function(){
+ fixSave(); const box=document.getElementById('combat'); if(!box)return;
+ const e=g.enemy;
+ if(!e){box.style.display='none';box.innerHTML='';return}
+ const max=Math.max(1,Number(e.max)||1),hp=Math.max(0,Math.min(max,Number(e.hp)||0));
+ const pct=Math.max(0,Math.min(100,hp/max*100));
+ box.style.display='block';
+ box.innerHTML='<h2 class="enemyTitle">'+(e.boss?'👑':'👹')+' '+e.name+'</h2>'+
+ '<div class="enemyHpBox"><div class="enemyHpText"><span>❤️ Vida do inimigo</span><span>'+Math.floor(hp)+' / '+Math.floor(max)+'</span></div>'+
+ '<div class="enemyBar"><div class="enemyFill hp" style="width:'+pct+'%"></div></div></div>'+
+ '<div class="combatStats"><span>⚔️ Dano: '+Math.floor(e.atk||0)+'</span><span>🛡️ Defesa: '+Math.floor(e.def||0)+'</span>'+
+ (e.boss?'<span>🔥 Fase '+(e.phase||1)+'/'+(e.maxPhase||1)+'</span>':'')+'</div>'+
+ '<button onclick="flee()">🏃 Fugir</button>';
+};
+const oldUpdate=window.update;
+window.update=function(){
+ if(typeof oldUpdate==='function')oldUpdate();
+ fixSave();
+ [['hpT',g.hp,g.hpMax],['mpT',g.mp,g.mpMax],['xpT',g.xp,g.xpMax],['enT',g.energy,g.maxEnergy]].forEach(([id,v,m])=>{
+  const el=document.getElementById(id);if(el)el.textContent=Math.floor(v)+'/'+Math.floor(m);
+ });
+ [['hpF',g.hp,g.hpMax],['mpF',g.mp,g.mpMax],['xpF',g.xp,g.xpMax],['enF',g.energy,g.maxEnergy]].forEach(([id,v,m])=>{
+  const el=document.getElementById(id);if(el)el.style.width=Math.max(0,Math.min(100,v/m*100))+'%';
+ });
+ renderCombat();
+};
+function removeEarlyHunt(){
+ const b=document.getElementById('huntButton'); if(b)b.remove();
+ if(!document.getElementById('game')?.classList.contains('active')){
+  document.querySelectorAll('button').forEach(x=>{if((x.textContent||'').trim()==='🐉 Caçadas')x.remove()});
+ }
+}
+function addHunt(){
+ const game=document.getElementById('game');
+ if(!game?.classList.contains('active')||document.getElementById('huntButton')||typeof openHunts!=='function')return;
+ const b=document.createElement('button');b.id='huntButton';b.textContent='🐉 Caçadas';b.onclick=openHunts;
+ b.style.cssText='position:fixed;right:14px;bottom:60px;z-index:1000;width:auto;padding:10px 14px';
+ document.body.appendChild(b);
+}
+setInterval(()=>{removeEarlyHunt();addHunt()},1200);
+setTimeout(()=>{fixSave();if(document.getElementById('game')?.classList.contains('active'))window.update()},500);
+})();
+</script>
+<style id="rpg70">
+#rpg70Panel{background:linear-gradient(180deg,#080b14,#0e1424);border:1px solid #3b4b73;border-radius:18px;padding:14px;margin:12px 0}.r70grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px}.r70card{background:#111a2d;border:1px solid #33466f;border-radius:13px;padding:10px;margin:6px 0}.r70card b{display:block;margin-bottom:4px}.r70bar{height:9px;background:#202a40;border-radius:8px;overflow:hidden;margin-top:5px}.r70fill{height:100%;transition:width .2s}.r70btn{width:100%;margin-top:6px!important}#rpg70Skills,#rpg70Craft,#rpg70Maps{display:none;margin-top:10px}#rpg70Toast{position:fixed;left:50%;top:18%;transform:translateX(-50%);z-index:20000;background:#101a31;border:1px solid #7186bd;border-radius:14px;padding:12px 18px;display:none;max-width:90%;text-align:center}#rpg70Toast.show{display:block}.r70boss{box-shadow:0 0 18px #7c3aed33}</style>
+<script>(function(){'use strict';function S(){return(typeof g!=='undefined'&&g)?g:null}function T(t){let x=document.getElementById('rpg70Toast');if(!x){x=document.createElement('div');x.id='rpg70Toast';document.body.appendChild(x)}x.innerHTML=t;x.classList.remove('show');void x.offsetWidth;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2200)}function init(){const s=S();if(!s)return;s.level=Math.max(1,+s.level||1);s.xp=Math.max(0,+s.xp||0);s.xpMax=Math.max(100,+s.xpMax||100);s.hpMax=Math.max(100,+s.hpMax||100);s.hp=Math.max(0,Math.min(s.hpMax,+s.hp||s.hpMax));s.mpMax=Math.max(50,+s.mpMax||100);s.mp=Math.max(0,Math.min(s.mpMax,+s.mp||s.mpMax));s.maxEnergy=Math.max(100,+s.maxEnergy||100);s.energy=Math.max(0,Math.min(s.maxEnergy,+s.energy||s.maxEnergy));s.attack=Math.max(1,+s.attack||10);s.defense=Math.max(0,+s.defense||10);s.gold=Math.max(0,+s.gold||0);s.skillPoints=Math.max(0,+s.skillPoints||0);s.skills=s.skills||{};s.materials=s.materials||{};s.crafting=s.crafting||{};s.combatStyle=s.combatStyle||'equilibrado';s.combo=+s.combo||0;s.luck=Math.max(0,+s.luck||0)}function save70(){try{if(typeof save==='function')save();localStorage.setItem('abismo_rpg_supremo_70',JSON.stringify(S()))}catch(e){}}function xpNeed(l){return Math.floor(100*Math.pow(1.16,Math.max(0,l-1)))}function xp(n){const s=S();if(!s)return;init();s.xp+=Math.max(0,Math.floor(n||0));let u=0;while(s.xp>=s.xpMax&&s.level<999){s.xp-=s.xpMax;s.level++;u++;s.xpMax=xpNeed(s.level);s.hpMax+=24;s.mpMax+=12;s.attack+=4;s.defense+=3;s.maxEnergy=Math.min(180,s.maxEnergy+2);s.hp=s.hpMax;s.mp=s.mpMax;s.energy=s.maxEnergy;s.skillPoints++}if(u)T('⬆️ <b>LEVEL UP!</b> Nível '+s.level+' · +1 ponto de habilidade');save70();render()}function panel(){const game=document.getElementById('game');if(!game||document.getElementById('rpg70Panel'))return;const p=document.createElement('div');p.id='rpg70Panel';p.innerHTML='<h2>⚔️ RPG SUPREMO</h2><div class="r70grid"><div class="r70card"><b>⭐ Nível</b><span id="r70lv"></span><div class="r70bar"><div id="r70xpf" class="r70fill"></div></div><small id="r70xp"></small></div><div class="r70card"><b>⚔️ Ataque</b><span id="r70atk"></span></div><div class="r70card"><b>🛡️ Defesa</b><span id="r70def"></span></div><div class="r70card"><b>⚡ Energia</b><span id="r70en"></span></div><div class="r70card"><b>💰 Ouro</b><span id="r70gold"></span></div><div class="r70card"><b>🎯 Estratégia</b><span id="r70style"></span></div></div><div class="r70grid"><button class="r70btn" onclick="RPG70.aba(\'skills\')">🌳 Habilidades</button><button class="r70btn" onclick="RPG70.aba(\'craft\')">🔨 Criação</button><button class="r70btn" onclick="RPG70.aba(\'maps\')">🗺️ Mundos</button><button class="r70btn" onclick="RPG70.mudarEstrategia()">🎯 Estratégia</button></div><div id="rpg70Skills"></div><div id="rpg70Craft"></div><div id="rpg70Maps"></div>';game.prepend(p);render()}function render(){const s=S();if(!s)return;init();let q=(id,v)=>{let e=document.getElementById(id);if(e)e.textContent=v};q('r70lv',s.level+' · Pontos: '+s.skillPoints);q('r70xp',Math.floor(s.xp)+' / '+Math.floor(s.xpMax)+' XP');q('r70atk',s.attack);q('r70def',s.defense);q('r70en',Math.floor(s.energy)+'/'+s.maxEnergy);q('r70gold',s.gold);q('r70style',s.combatStyle);let f=document.getElementById('r70xpf');if(f)f.style.width=Math.min(100,s.xp/s.xpMax*100)+'%')}const H=[['forca','💥 Força Abissal','+6 ataque'],['barreira','🛡️ Barreira','+5 defesa'],['arcano','🔮 Arcano','+15 mana'],['vigor','⚡ Vigor','+8 energia'],['fortuna','🍀 Fortuna','+4 sorte']];function skill(k){const s=S(),h=H.find(x=>x[0]===k);if(!s||!h)return;init();let l=s.skills[k]||0,c=l+1;if(s.skillPoints<c)return T('❌ Pontos insuficientes');s.skillPoints-=c;s.skills[k]=l+1;if(k==='forca')s.attack+=6;if(k==='barreira')s.defense+=5;if(k==='arcano'){s.mpMax+=15;s.mp=s.mpMax}if(k==='vigor'){s.maxEnergy=Math.min(180,s.maxEnergy+8);s.energy=s.maxEnergy}if(k==='fortuna')s.luck+=4;T('🌳 Habilidade evoluída!');save70();skills();render()}function skills(){const s=S(),b=document.getElementById('rpg70Skills');if(!s||!b)return;init();b.style.display='block';b.innerHTML='<h3>🌳 Árvore de Habilidades</h3>'+H.map(h=>{let l=s.skills[h[0]]||0;return '<div class="r70card"><b>'+h[1]+' — Nv.'+l+'</b><small>'+h[2]+' por nível</small><button class="r70btn" onclick="RPG70.skill(\''+h[0]+'\')">Evoluir ('+(l+1)+' ponto)</button></div>'}).join('')}const R=[['Poção Maior',{essencia:2,cristal:1},'cura'],['Elixir Astral',{essencia:4,nucleo:1},'mana'],['Pedra de Ataque',{ferro:5,cristal:3},'ataque'],['Núcleo Abissal',{nucleo:2,memoria:1},'reliquia']];function craft(i){const s=S(),r=R[i];if(!s||!r)return;init();for(const[k,v]of Object.entries(r[1]))if((s.materials[k]||0)<v)return T('❌ Materiais insuficientes');for(const[k,v]of Object.entries(r[1]))s.materials[k]-=v;if(r[2]==='ataque')s.attack+=18;if(r[2]==='mana'){s.mpMax+=45;s.mp=s.mpMax}if(r[2]==='cura')s.hp=Math.min(s.hpMax,s.hp+Math.floor(s.hpMax*.65));s.crafting[r[0]]=(s.crafting[r[0]]||0)+1;T('🔨 '+r[0]+' criado!');save70();craftUI();render()}function craftUI(){const s=S(),b=document.getElementById('rpg70Craft');if(!s||!b)return;init();b.style.display='block';b.innerHTML='<h3>🔨 Oficina do Abismo</h3><p>Materiais: '+Object.entries(s.materials).map(x=>x[0]+': '+x[1]).join(' · ')+'</p>'+R.map((r,i)=>'<div class="r70card"><b>'+r[0]+'</b><small>'+Object.entries(r[1]).map(x=>x[0]+' ×'+x[1]).join(' · ')+'</small><button class="r70btn" onclick="RPG70.craft('+i+')">🔨 Criar</button></div>').join('')}const M=[['Eldoria',1,'Fenrir'],['Vulkar',10,'Ignaroth'],['Niflheim',20,'Skolgrim'],['Tempestia',30,'Nocturnus'],['Reino das Sombras',45,'Astrael'],['Universo Astral',65,'Nihilus'],['Vazio Infinito',90,'Julio'],['Abismo Final',120,'Gustavo'],['Trono do Infinito',150,'Lucas']];function map(i){const s=S(),m=M[i];if(!s||!m)return;init();if(s.level<m[1])return T('🔒 Requer nível '+m[1]);s.currentWorld=m[0];save70();T('🗺️ Mundo selecionado: <b>'+m[0]+'</b>');maps()}function maps(){const s=S(),b=document.getElementById('rpg70Maps');if(!s||!b)return;init();b.style.display='block';b.innerHTML='<h3>🗺️ Mapa dos Mundos</h3>'+M.map((m,i)=>{let ok=s.level>=m[1],sel=s.currentWorld===m[0];return '<div class="r70card '+(sel?'r70boss':'')+'"><b>'+ (sel?'📍 ':'')+m[0]+'</b><small>Nível '+m[1]+' · 👑 '+m[2]+'</small><button class="r70btn" '+(ok?'':'disabled')+' onclick="RPG70.map('+i+')">'+(ok?'🗺️ Entrar':'🔒 Bloqueado')+'</button></div>'}).join('')}function strategy(){const s=S(),a=['equilibrado','ofensivo','defensivo','tatico','arcano'];if(!s)return;init();s.combatStyle=a[(a.indexOf(s.combatStyle)+1)%a.length];T('🎯 Estratégia: <b>'+s.combatStyle+'</b>');save70();render()}function aba(n){['Skills','Craft','Maps'].forEach(x=>{let e=document.getElementById('rpg70'+x);if(e)e.style.display='none'});if(n==='skills'){skills();return}if(n==='craft'){craftUI();return}if(n==='maps'){maps();return}}window.RPG70={skill,craft,map,aba,mudarEstrategia:strategy,ganharXP:xp};const old=window.update;window.update=function(){if(typeof old==='function')old.apply(this,arguments);try{init();if(document.getElementById('game')?.classList.contains('active')){panel();render()}}catch(e){}};setTimeout(()=>{try{init();panel();render()}catch(e){}},800);setInterval(()=>{try{if(document.getElementById('game')?.classList.contains('active')){panel();render()}}catch(e){}},1500)})();</script>
 </body>
 </html>
