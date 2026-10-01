@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -738,6 +738,25 @@ setTimeout(()=>{make();relocate()},300);
 setInterval(()=>{try{make();relocate()}catch(e){}},2200);
 })();
 </script>
+
+<style id="story90-style">
+.story90-overlay{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;background:radial-gradient(circle at 50% 20%,rgba(75,55,140,.35),rgba(3,5,18,.97) 65%);backdrop-filter:blur(10px)}
+.story90-overlay.show{display:flex;animation:s90in .6s ease}.story90-card{width:min(920px,96vw);max-height:88vh;overflow:auto;border:1px solid rgba(190,170,255,.25);border-radius:26px;padding:42px;background:linear-gradient(145deg,rgba(20,18,43,.96),rgba(7,10,25,.98));box-shadow:0 30px 100px rgba(0,0,0,.7);text-align:center}.story90-kicker{letter-spacing:5px;text-transform:uppercase;font-size:12px;opacity:.65}.story90-card h1{font-size:clamp(30px,6vw,64px);margin:12px 0;background:linear-gradient(90deg,#fff,#c8b8ff,#fff);-webkit-background-clip:text;color:transparent}.story90-card h2{font-size:22px;margin:8px 0 22px}.story90-card p{font-size:16px;line-height:1.9;color:#d9d7e8;max-width:760px;margin:14px auto}.story90-quote{margin:28px auto;padding:20px;border-left:3px solid #a78bfa;background:rgba(167,139,250,.07);font-style:italic;max-width:720px}.story90-btn{margin-top:22px;padding:14px 28px;border:0;border-radius:14px;cursor:pointer;font-weight:800}.story90-chapter{display:inline-block;margin:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.07);font-size:12px}@keyframes s90in{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+</style>
+
+<script id="story90-engine">
+(()=>{
+'use strict';
+const chapters=[
+{tag:'PRÓLOGO · O ÚLTIMO FAROL',title:'Antes que a noite esquecesse',sub:'Uma história sobre coragem, memória e a promessa de voltar para casa.',p:['Dizem que o Abismo nasceu antes das estrelas. Mas as antigas canções contam outra versão: no princípio, havia apenas um mundo, e nele uma pequena luz que ninguém conseguia apagar.','Durante séculos, essa luz guiou viajantes, reis e criaturas perdidas. Até a noite em que o céu se partiu e nove mundos começaram a se afastar uns dos outros.','Você desperta nas ruínas de uma estrada esquecida. Não sabe por que sobreviveu. Só encontra uma antiga espada, uma marca brilhando em sua mão e uma frase gravada na pedra: “Quando todos perderem o caminho, encontre aquilo que ainda vale a pena salvar.”'],quote:'“Nem toda jornada começa com uma escolha. Algumas começam com uma promessa que você ainda não se lembra de ter feito.”'},
+{tag:'CAPÍTULO I · ELDORIA',title:'A floresta que ainda sonha',sub:'O primeiro reino guarda a primeira resposta.',p:['Eldoria não é apenas uma floresta. É uma memória viva. As árvores reconhecem nomes esquecidos, os rios carregam vozes antigas e as ruínas parecem esperar por alguém.','Ali, o herói descobre que os monstros não surgiram do nada. Eles são ecos de mundos que estão desaparecendo. Fenrir, o guardião da fronteira, não protege um tesouro: protege uma passagem.','Antes do confronto, uma velha guardiã revela que a espada encontrada pelo herói pertenceu ao primeiro viajante que tentou unir os mundos. E esse viajante desapareceu no mesmo lugar onde o Abismo começou.'],quote:'“Se você atravessar essa porta, não poderá salvar todos. Mas talvez possa salvar o suficiente.”'},
+{tag:'CAPÍTULO II · A FRATURA',title:'Quando os mundos começaram a morrer',sub:'Cada reino perdido revela uma parte do passado.',p:['A jornada atravessa desertos de cinzas, mares sem lua, cidades mortas e dimensões onde o tempo corre para trás. Em cada mundo, existe um guardião e uma escolha.','Alguns pedem para ser derrotados. Outros pedem para ser compreendidos. E alguns descobriram uma verdade terrível: o Abismo não está tentando destruir os mundos. Está tentando fugir deles.','Enquanto os bosses caem, uma pergunta permanece: quem criou a prisão que chama de Abismo?'],quote:'“O maior inimigo nem sempre é aquilo que está diante de você. Às vezes é aquilo que você acreditou durante toda a vida.”'},
+{tag:'CAPÍTULO FINAL · ALÉM DO INFINITO',title:'A última luz',sub:'O fim da jornada será decidido pelo que você escolheu proteger.',p:['No fim, você encontra o lugar onde todas as estradas terminam. Não existe exército. Não existe reino. Apenas uma porta branca diante de um céu sem estrelas.','Do outro lado está a verdade: os mundos não foram separados para serem destruídos, mas para impedir que uma antiga força apagasse todas as histórias de uma vez. E a espada que você carregou não era uma arma. Era uma chave.','Agora, pela primeira vez, você pode escolher: fechar a porta e preservar os mundos como são; quebrar a porta e unir tudo novamente; ou entrar sozinho no Abismo e carregar para si aquilo que ameaçou todos os outros.'],quote:'“Talvez o herói não seja quem vence o fim. Talvez seja quem encontra uma razão para continuar depois dele.”'}];
+function add(){if(document.getElementById('story90'))return;const o=document.createElement('div');o.id='story90';o.className='story90-overlay';o.innerHTML='<div class="story90-card"><div class="story90-kicker" id="s90tag"></div><h1 id="s90title"></h1><h2 id="s90sub"></h2><div id="s90chap"></div><div id="s90body"></div><div class="story90-quote" id="s90quote"></div><button class="story90-btn" id="s90next">Continuar ✦</button></div>';document.body.appendChild(o);let i=0;function render(){let c=chapters[i];s90tag.textContent=c.tag;s90title.textContent=c.title;s90sub.textContent=c.sub;s90chap.innerHTML=chapters.map((x,n)=>'<span class="story90-chapter" style="opacity:'+(n===i?1:.4)+'">'+(n+1)+'</span>').join('');s90body.innerHTML=c.p.map(x=>'<p>'+x+'</p>').join('');s90quote.textContent=c.quote;s90next.textContent=i===chapters.length-1?'Entrar no mundo ✦':'Continuar ✦'}function open(){i=0;render();o.classList.add('show')}function close(){o.classList.remove('show')}s90next.onclick=()=>{if(i<chapters.length-1){i++;render()}else close()};window.openStory90=open;
+}
+add();setTimeout(()=>{if(document.body&&!sessionStorage.getItem('story90seen')){window.openStory90();sessionStorage.setItem('story90seen','1')}},1800);
+})();
+</script>
 </body>
 </html>
 <style id="rpg80">
@@ -930,5 +949,72 @@ function secret(i){let s=S();if(!s)return;s.r86=s.r86||{};s.r86.secrets=s.r86.se
 function render(){if(!active()||!S())return;let app=document.querySelector('#game .app')||$('game');if(!app)return;let p=$('r86');if(!p){p=document.createElement('section');p.id='r86';p.className='r86';app.appendChild(p)}let s=S(),disc=s.r86?.discovered||[],sec=s.r86?.secrets||[];p.innerHTML=`<h2>🌌 RPG 8.6 — CRÔNICAS ALÉM DO INFINITO</h2><div class="r86sub">A campanha continua depois do Trono do Infinito. Explore novos reinos, masmorras, segredos e guardiões.</div><div class="r86quest"><b>📜 Capítulo atual:</b> A Fratura do Infinito<br><span>As portas antigas começaram a se abrir novamente. Cada guardião conhece uma parte da origem do Abismo.</span></div><h3>🗺️ Reinos Extraordinários</h3><div class="r86grid">${REALMS.map((r,i)=>`<article class="r86card ${unlock(r)?'':'lock'}"><h3>${r.name}</h3><span class="r86tag">Nível ${r.min}+</span><span class="r86tag">${disc.includes(i)?'Descoberto':'Desconhecido'}</span><p>${r.lore}</p><button onclick="RPG86.travel(${i})">🧭 Viajar</button><button onclick="RPG86.mini(${i},0)">👹 Mini-Boss 1</button><button onclick="RPG86.mini(${i},1)">👹 Mini-Boss 2</button><button onclick="RPG86.boss(${i})">👑 ${r.boss}</button></article>`).join('')}</div><h3>🏚️ Masmorras</h3><div class="r86grid">${DUNGEONS.map((x,i)=>`<article class="r86card"><h3>${x[0]}</h3><span class="r86tag">${x[1]}</span><p>Guardião: <b class="r86boss">${x[2]}</b></p><button onclick="RPG86.dungeon(${i})">⚔️ Entrar na masmorra</button></article>`).join('')}</div><h3>🔮 Segredos da Campanha</h3><div class="r86grid">${SECRET.map((x,i)=>`<article class="r86card"><h3>❔ ${x[0]}</h3><p>${sec.includes(i)?x[1]:'A localização deste segredo ainda não foi compreendida.'}</p><button onclick="RPG86.secret(${i})">🔎 Investigar</button></article>`).join('')}</div><div class="r86quest"><b>🏆 Progresso 8.6:</b> ${disc.length}/${REALMS.length} reinos descobertos · ${s.r86?.bosses||0} guardiões enfrentados · ${sec.length}/${SECRET.length} segredos encontrados · ${s.r86?.dungeons?Object.values(s.r86.dungeons).reduce((a,b)=>a+b,0):0} expedições.</div>`}
 window.RPG86={travel,mini,boss:realmBoss,dungeon,secret,render};
 setTimeout(render,900);setInterval(()=>{try{render()}catch(e){}},2500);
+})();
+</script>
+
+
+<style id="rpg89-polish">
+/* RPG 8.9 — interface limpa, silenciosa e organizada */
+.rpg89-mini{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;margin:8px 0 12px;background:rgba(7,15,30,.78);border:1px solid rgba(125,211,252,.14);border-radius:14px}
+.rpg89-mini b{font-size:12px}.rpg89-mini span{font-size:11px;color:#94a3b8}
+#rpg88Home>.rpg89-mini{order:-2}
+#rpg88Home .timebar{display:none!important}
+#rpg88Home .rpg88-sub{margin-bottom:8px}
+#rpg88Home .panel{box-shadow:none}
+#log{max-height:180px;overflow:auto;scrollbar-width:thin}
+#log p{margin:5px 0;padding:7px 9px;border-radius:9px;background:rgba(255,255,255,.025);font-size:12px}
+#rpg80toast{display:none!important}
+#r80toast{display:none!important}
+.rpg89-panel-tools{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0 12px}
+.rpg89-panel-tools button{margin:0!important;padding:8px 11px!important;font-size:12px!important}
+#r86.r86-collapsed .r86grid,#r86.r86-collapsed>.r86quest{display:none}
+#r86 .r86grid{margin-bottom:16px}
+#r86 .r86card button{font-size:11px;padding:7px 8px}
+.rpg89-note{padding:11px 13px;border:1px dashed rgba(125,211,252,.2);border-radius:12px;color:#94a3b8;font-size:12px;margin:8px 0}
+@media(max-width:700px){#rpg88Tabs{gap:5px}.rpg88-tab{padding:9px 9px!important;font-size:12px!important}.stats .stat:nth-child(n+6){display:none!important}}
+</style>
+<script id="rpg89-polish-engine">
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+let cleanStarted=false,lastWrite=0,pending=false;
+function gameActive(){return $('game')?.classList.contains('active')}
+function trimLog(){const l=$('log');if(!l)return;while(l.children.length>8)l.removeChild(l.lastElementChild)}
+function compactHome(){const home=$('rpg88Home');if(!home||$('rpg89Mini'))return;
+ const bar=document.createElement('div');bar.id='rpg89Mini';bar.className='rpg89-mini';
+ bar.innerHTML='<b>⚔️ Jornada</b><span>Combate e exploração</span><span>•</span><span>💾 salvamento automático silencioso</span>';
+ home.insertBefore(bar,home.firstChild);
+ const tools=document.createElement('div');tools.className='rpg89-panel-tools';
+ tools.innerHTML='<button onclick="RPG88.switchTab(\'character\')">🧙 Personagem</button><button onclick="RPG88.switchTab(\'world\')">🗺️ Mundo</button><button onclick="RPG88.switchTab(\'systems\')">⚙️ Sistemas</button>';
+ const title=home.querySelector('.rpg88-title');if(title)title.after(tools);
+}
+function cleanLegacy(){
+ ['u83Hud','u83Quest'].forEach(id=>{const e=$(id);if(e)e.style.setProperty('display','none','important')});
+ const status=$('r80status');if(status)status.textContent='Sistema ativo · save automático silencioso';
+ const saveLabels=document.querySelectorAll('[title*="Salvar"],button');
+ saveLabels.forEach(b=>{if((b.textContent||'').trim()==='💾'&&b.closest('#game'))b.setAttribute('title','Salvar manualmente');});
+}
+function patchSave(){
+ if(typeof window.save!=='function'||window.__rpg89Save)return;
+ const original=window.save;window.__rpg89Save=original;
+ window.save=function(){
+   const now=Date.now();
+   if(now-lastWrite>=20000){lastWrite=now;try{return original.apply(this,arguments)}catch(e){}}
+   if(!pending){pending=true;setTimeout(()=>{pending=false;if(window.g&&Date.now()-lastWrite>=5000){lastWrite=Date.now();try{original.apply(this,arguments)}catch(e){}}},20000)}
+ };
+}
+function addWorldControls(){const w=$('rpg88World');if(!w||$('rpg89WorldNote'))return;
+ const n=document.createElement('div');n.id='rpg89WorldNote';n.className='rpg89-note';
+ n.innerHTML='<b>🗺️ Mapa organizado</b><br>Escolha uma categoria e explore. Os detalhes ficam ocultos até você abrir esta área.';
+ w.insertBefore(n,w.children[1]||null);
+}
+function start(){if(!gameActive())return;compactHome();cleanLegacy();addWorldControls();patchSave();trimLog();
+ if(!cleanStarted){cleanStarted=true;const l=$('log');if(l)l.innerHTML='';}
+}
+const oldLog=window.log;
+if(typeof oldLog==='function'&&!window.__rpg89Log){window.__rpg89Log=oldLog;window.log=function(t){oldLog.call(this,t);trimLog()}}
+setTimeout(start,1200);
+setInterval(()=>{try{start()}catch(e){}},3000);
+window.addEventListener('beforeunload',()=>{try{if(window.g&&typeof window.__rpg89Save==='function')window.__rpg89Save()}catch(e){}});
 })();
 </script>
