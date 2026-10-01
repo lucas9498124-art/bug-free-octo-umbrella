@@ -669,7 +669,76 @@ const oldExplore85=window.explore;window.explore=function(){init();let s=S();if(
 setTimeout(init,300);
 })();
 </script>
-\n<style id="rpg87-clean-ui">\n/* RPG 8.7 — entrada limpa: sistemas avançados só aparecem quando solicitados */\n#rpg70Panel,#rpg80,#r81,#r82panel,#r86,#u83Hud,#worldState,#regen73,#rpg72Menu,#rpg71Notice,#u83Quest{display:none!important}\n.rpg87-menu{position:fixed;inset:0;background:rgba(2,6,23,.82);backdrop-filter:blur(12px);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px}\n.rpg87-menu.show{display:flex}\n.rpg87-card{width:min(720px,96vw);max-height:88vh;overflow:auto;background:linear-gradient(145deg,#07101f,#111b31);border:1px solid #334d78;border-radius:24px;box-shadow:0 25px 90px #000b;padding:24px}\n.rpg87-card h2{margin:0 0 6px;font-size:26px}.rpg87-sub{color:#94a3b8;margin-bottom:18px}\n.rpg87-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.rpg87-grid button{min-height:58px;border:1px solid #334155;background:#0b1425;border-radius:14px;color:#e2e8f0;cursor:pointer;font-weight:700}.rpg87-grid button:hover{border-color:#7dd3fc;transform:translateY(-1px)}\n.rpg87-close{width:100%;margin-top:16px;background:#172033;border:1px solid #475569}\n.menuMainBtn{font-weight:800!important}.secondaryAction{border-color:#334d78!important}\n@media(max-width:700px){.rpg87-grid{grid-template-columns:repeat(2,1fr)}.rpg87-card{padding:16px}}\n</style>\n<div id="rpg87Menu" class="rpg87-menu" onclick="if(event.target.id==='rpg87Menu')closeRPGMenu()">\n <div class="rpg87-card">\n  <h2>☰ Menu do Abismo</h2>\n  <div class="rpg87-sub">A interface foi simplificada. Escolha apenas o sistema que deseja abrir.</div>\n  <div class="rpg87-grid">\n   <button onclick="modal('map')">🗺️ Mapa</button><button onclick="modal('shop')">🛒 Loja</button><button onclick="modal('bag')">🎒 Inventário</button>\n   <button onclick="modal('skills')">✨ Habilidades</button><button onclick="modal('pets')">🐉 Pets/Montarias</button><button onclick="modal('npcs')">🧙 NPCs</button>\n   <button onclick="modal('quests')">📜 Missões</button><button onclick="modal('ranking')">🏆 Ranking</button><button onclick="RPG87.toggle('r86')">🌌 Mundos 8.6</button>\n   <button onclick="RPG87.toggle('r82panel')">🧬 Raça & Classe</button><button onclick="RPG87.toggle('rpg80')">⚔️ Núcleo RPG</button><button onclick="RPG87.toggle('rpg70Panel')">📊 Progressão</button>\n  </div>\n  <button class="rpg87-close" onclick="closeRPGMenu()">Fechar menu</button>\n </div>\n</div>\n<script id="rpg87-clean-engine">\n(()=>{\n const hidden=['rpg70Panel','rpg80','r81','r82panel','r86','u83Hud','worldState','regen73','rpg72Menu','rpg71Notice','u83Quest'];\n window.openRPGMenu=()=>document.getElementById('rpg87Menu')?.classList.add('show');\n window.closeRPGMenu=()=>document.getElementById('rpg87Menu')?.classList.remove('show');\n function toggle(id){const e=document.getElementById(id);if(!e)return;const showing=e.dataset.rpg87==='open';e.dataset.rpg87=showing?'closed':'open';e.style.setProperty('display',showing?'none':'block','important');if(!showing)e.scrollIntoView({behavior:'smooth',block:'start'});}\n window.RPG87={toggle};\n document.addEventListener('keydown',e=>{if(e.key==='Escape')closeRPGMenu()});\n setInterval(()=>{if(!document.getElementById('game')?.classList.contains('active'))return;hidden.forEach(id=>{const e=document.getElementById(id);if(e&&e.dataset.rpg87!=='open')e.style.setProperty('display','none','important')});},1200);\n})();\n</script>\n</body>
+\n<style id="rpg87-clean-ui">\n/* RPG 8.7 — entrada limpa: sistemas avançados só aparecem quando solicitados */\n#rpg70Panel,#rpg80,#r81,#r82panel,#r86,#u83Hud,#worldState,#regen73,#rpg72Menu,#rpg71Notice,#u83Quest{display:none!important}\n.rpg87-menu{position:fixed;inset:0;background:rgba(2,6,23,.82);backdrop-filter:blur(12px);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px}\n.rpg87-menu.show{display:flex}\n.rpg87-card{width:min(720px,96vw);max-height:88vh;overflow:auto;background:linear-gradient(145deg,#07101f,#111b31);border:1px solid #334d78;border-radius:24px;box-shadow:0 25px 90px #000b;padding:24px}\n.rpg87-card h2{margin:0 0 6px;font-size:26px}.rpg87-sub{color:#94a3b8;margin-bottom:18px}\n.rpg87-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.rpg87-grid button{min-height:58px;border:1px solid #334155;background:#0b1425;border-radius:14px;color:#e2e8f0;cursor:pointer;font-weight:700}.rpg87-grid button:hover{border-color:#7dd3fc;transform:translateY(-1px)}\n.rpg87-close{width:100%;margin-top:16px;background:#172033;border:1px solid #475569}\n.menuMainBtn{font-weight:800!important}.secondaryAction{border-color:#334d78!important}\n@media(max-width:700px){.rpg87-grid{grid-template-columns:repeat(2,1fr)}.rpg87-card{padding:16px}}\n</style>\n<div id="rpg87Menu" class="rpg87-menu" onclick="if(event.target.id==='rpg87Menu')closeRPGMenu()">\n <div class="rpg87-card">\n  <h2>☰ Menu do Abismo</h2>\n  <div class="rpg87-sub">A interface foi simplificada. Escolha apenas o sistema que deseja abrir.</div>\n  <div class="rpg87-grid">\n   <button onclick="modal('map')">🗺️ Mapa</button><button onclick="modal('shop')">🛒 Loja</button><button onclick="modal('bag')">🎒 Inventário</button>\n   <button onclick="modal('skills')">✨ Habilidades</button><button onclick="modal('pets')">🐉 Pets/Montarias</button><button onclick="modal('npcs')">🧙 NPCs</button>\n   <button onclick="modal('quests')">📜 Missões</button><button onclick="modal('ranking')">🏆 Ranking</button><button onclick="RPG87.toggle('r86')">🌌 Mundos 8.6</button>\n   <button onclick="RPG87.toggle('r82panel')">🧬 Raça & Classe</button><button onclick="RPG87.toggle('rpg80')">⚔️ Núcleo RPG</button><button onclick="RPG87.toggle('rpg70Panel')">📊 Progressão</button>\n  </div>\n  <button class="rpg87-close" onclick="closeRPGMenu()">Fechar menu</button>\n </div>\n</div>\n<script id="rpg87-clean-engine">\n(()=>{\n const hidden=['rpg70Panel','rpg80','r81','r82panel','r86','u83Hud','worldState','regen73','rpg72Menu','rpg71Notice','u83Quest'];\n window.openRPGMenu=()=>document.getElementById('rpg87Menu')?.classList.add('show');\n window.closeRPGMenu=()=>document.getElementById('rpg87Menu')?.classList.remove('show');\n function toggle(id){const e=document.getElementById(id);if(!e)return;const showing=e.dataset.rpg87==='open';e.dataset.rpg87=showing?'closed':'open';e.style.setProperty('display',showing?'none':'block','important');if(!showing)e.scrollIntoView({behavior:'smooth',block:'start'});}\n window.RPG87={toggle};\n document.addEventListener('keydown',e=>{if(e.key==='Escape')closeRPGMenu()});\n setInterval(()=>{if(!document.getElementById('game')?.classList.contains('active'))return;hidden.forEach(id=>{const e=document.getElementById(id);if(e&&e.dataset.rpg87!=='open')e.style.setProperty('display','none','important')});},1200);\n})();\n</script>\n
+<style id="rpg88-organization">
+/* RPG 8.8 — interface por abas */
+#game .app.rpg88-app{padding-bottom:90px}
+.rpg88-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;padding:8px;background:rgba(7,15,30,.9);border:1px solid #263958;border-radius:16px;position:sticky;top:8px;z-index:1000;backdrop-filter:blur(12px)}
+.rpg88-tab{border:1px solid #334155!important;background:#0b1425!important;color:#cbd5e1!important;border-radius:11px!important;padding:10px 14px!important;cursor:pointer;font-weight:800!important;margin:0!important}
+.rpg88-tab.active{border-color:#7dd3fc!important;background:#10233c!important;color:#fff!important;box-shadow:0 0 18px rgba(56,189,248,.16)}
+.rpg88-page{display:none!important}.rpg88-page.active{display:block!important}
+#rpg88Home .rpg88-main-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(250px,.8fr);gap:14px}
+#rpg88Home .rpg88-side{display:flex;flex-direction:column;gap:12px}
+#rpg88Home .rpg88-side .panel{margin:0}
+#rpg88Home .rpg88-combat{margin-top:12px}
+#rpg88Character .panel,#rpg88World .panel,#rpg88Systems .panel{margin-bottom:12px}
+.rpg88-title{font-size:22px;margin:4px 0 12px}.rpg88-sub{color:#94a3b8;margin-bottom:12px}
+.rpg88-empty{padding:22px;text-align:center;color:#94a3b8;border:1px dashed #334155;border-radius:14px}
+/* Hide legacy/generated blocks until their tab is selected */
+#game .app > #r86,#game .app > #r80,#game .app > #rpg80,#game .app > #r81,#game .app > #r82panel,#game .app > #rpg70Panel,#game .app > #rpg72Menu,#game .app > #worldState,#game .app > #u83Hud,#game .app > #u83Quest{display:none!important}
+#rpg88World.open-legacy #r86,#rpg88World.open-legacy #worldState,#rpg88Systems.open-legacy #r80,#rpg88Systems.open-legacy #rpg80,#rpg88Systems.open-legacy #r81,#rpg88Systems.open-legacy #r82panel,#rpg88Systems.open-legacy #rpg70Panel{display:block!important}
+#rpg88World.open-legacy,#rpg88Systems.open-legacy{min-height:100px}
+.rpg88-legacy-slot{min-height:60px}
+#u83Save{display:none!important}
+@media(max-width:800px){#rpg88Home .rpg88-main-grid{grid-template-columns:1fr}.rpg88-tabs{position:relative;top:auto}.rpg88-tab{flex:1 1 30%}}
+</style>
+<script id="rpg88-organization-engine">
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+let current='home';
+function base(){const game=$('game');if(!game)return null;const app=game.querySelector('.app');if(!app)return null;app.classList.add('rpg88-app');return app}
+function make(){
+ const app=base(); if(!app||$('rpg88Tabs'))return;
+ const grid=app.querySelector(':scope > .grid');
+ const pages={home:document.createElement('section'),character:document.createElement('section'),world:document.createElement('section'),systems:document.createElement('section')};
+ Object.entries(pages).forEach(([k,e])=>{e.id='rpg88'+k[0].toUpperCase()+k.slice(1);e.className='rpg88-page '+(k==='home'?'active':'')});
+ // Move the existing main gameplay grid into the Home tab.
+ if(grid){pages.home.appendChild(grid);grid.classList.add('rpg88-main-grid');const cols=grid.children;if(cols[1]){cols[1].classList.add('rpg88-side')}}
+ // Character gets the right-hand information panels when possible.
+ if(grid&&grid.children[1]){const side=grid.children[1];while(side.firstChild)pages.character.appendChild(side.firstChild)}
+ pages.home.insertAdjacentHTML('afterbegin','<h2 class="rpg88-title">⚔️ Jornada</h2><div class="rpg88-sub">Tudo que acontece no combate fica nesta aba.</div>');
+ pages.character.insertAdjacentHTML('afterbegin','<h2 class="rpg88-title">🧙 Personagem</h2><div class="rpg88-sub">Atributos, equipamento, objetivo e conquistas.</div>');
+ pages.world.innerHTML='<h2 class="rpg88-title">🗺️ Mundo</h2><div class="rpg88-sub">Explore regiões, masmorras, mini-bosses e bosses sem poluir a tela principal.</div><div class="rpg88-legacy-slot"></div>';
+ pages.systems.innerHTML='<h2 class="rpg88-title">⚙️ Sistemas</h2><div class="rpg88-sub">Sistemas avançados ficam aqui e não aparecem automaticamente durante a partida.</div><div class="rpg88-legacy-slot"></div>';
+ const tabs=document.createElement('nav');tabs.id='rpg88Tabs';tabs.className='rpg88-tabs';
+ const defs=[['home','⚔️ Jogo'],['character','🧙 Personagem'],['world','🗺️ Mundo'],['systems','⚙️ Sistemas']];
+ defs.forEach(([id,label])=>{const b=document.createElement('button');b.className='rpg88-tab '+(id==='home'?'active':'');b.textContent=label;b.onclick=()=>switchTab(id);tabs.appendChild(b)});
+ app.insertBefore(tabs,app.children[1]||null);
+ Object.values(pages).forEach(e=>app.appendChild(e));
+ // relocate legacy systems into their own page after they exist
+ window.rpg88Pages=pages;
+}
+function relocate(){const p=window.rpg88Pages;if(!p)return;
+ const worldIds=['r86','worldState'];const systemIds=['r80','rpg80','r81','r82panel','rpg70Panel','rpg72Menu'];
+ worldIds.forEach(id=>{const e=$(id);if(e&&!p.world.contains(e))p.world.appendChild(e)});
+ systemIds.forEach(id=>{const e=$(id);if(e&&!p.systems.contains(e))p.systems.appendChild(e)});
+ // Remove duplicated checkpoint panel from normal flow if it exists; user can use manual save button.
+ const status=$('r80status');if(status)status.textContent='Sistema ativo · salvamento silencioso';
+}
+function switchTab(id){const p=window.rpg88Pages;if(!p)return;current=id;Object.entries(p).forEach(([k,e])=>e.classList.toggle('active',k===id));document.querySelectorAll('.rpg88-tab').forEach((b,i)=>b.classList.toggle('active',['home','character','world','systems'][i]===id));if(id==='world')p.world.classList.add('open-legacy');if(id==='systems')p.systems.classList.add('open-legacy');window.scrollTo({top:0,behavior:'smooth'});setTimeout(()=>{try{if(typeof update==='function')update()}catch(e){}},20)}
+window.RPG88={switchTab};
+// Silent/throttled saving: gameplay calls save(), but disk/localStorage is updated at most once every 6s.
+let lastSave=0,pending=false;
+function silentSave(){if(!window.g)return;const now=Date.now();if(now-lastSave>=6000){lastSave=now;pending=false;try{localStorage.setItem('abismoUltra4',JSON.stringify(window.g));localStorage.setItem('abismoUltra3',JSON.stringify(window.g))}catch(e){}}else if(!pending){pending=true;setTimeout(()=>{pending=false;if(window.g){lastSave=Date.now();try{localStorage.setItem('abismoUltra4',JSON.stringify(window.g));localStorage.setItem('abismoUltra3',JSON.stringify(window.g))}catch(e){}}},6000-(now-lastSave))}}
+// Preserve the original save function for loading/game logic, but suppress repeated visual save spam.
+setTimeout(()=>{if(typeof window.save==='function'&&!window.__rpg88Save){window.__rpg88Save=window.save;window.save=function(){silentSave()};}},0);
+// Build after all legacy scripts have had time to create their panels.
+setTimeout(()=>{make();relocate()},300);
+setInterval(()=>{try{make();relocate()}catch(e){}},2200);
+})();
+</script>
+</body>
 </html>
 <style id="rpg80">
 #rpg80{background:linear-gradient(135deg,#070b14,#111a2e);border:1px solid #3b4b73;border-radius:18px;padding:14px;margin:12px 0;box-shadow:0 8px 30px #0006}
